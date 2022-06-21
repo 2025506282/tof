@@ -17,6 +17,7 @@ module.exports = {
     withDefaults: "readonly",
     process: true,
     module: true,
+    require: true, //  解决require
   },
   parserOptions: {
     ecmaVersion: "latest",
@@ -25,6 +26,6 @@ module.exports = {
   },
   plugins: ["vue", "@typescript-eslint", "import", "node", "promise"],
   rules: {
-    "@typescript-eslint/no-var-requires": 0, // 解决require报错的问题
+    "@typescript-eslint/no-var-requires": 0, // 解决require
   },
 }

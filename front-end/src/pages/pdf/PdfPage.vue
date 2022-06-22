@@ -9,9 +9,10 @@
 
     <a-upload-dragger
       v-model:fileList="fileList"
+      accpet=".pdf"
       name="file"
       :multiple="true"
-      action="https://www.mocky.io/v2/5cc8019d300000980a055e76"
+      action="http://localhost:3000/v1/Pdf"
       @change="handleChange"
     >
       <p class="ant-upload-drag-icon">
@@ -68,6 +69,7 @@ export default defineComponent({
 .custom-upload
   text-align: left
   border: none
+  padding-top: 10px
   .content
     padding-left: 10px
     h2

@@ -12,7 +12,7 @@
       accpet=".pdf"
       name="file"
       :multiple="true"
-      action="http://localhost:3000/v1/Pdf"
+      action="http://localhost:3000/pdf/uploadFile"
       @change="handleChange"
     >
       <p class="ant-upload-drag-icon">

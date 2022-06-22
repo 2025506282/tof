@@ -1,5 +1,12 @@
 <template>
   <div class="custom-upload">
+    <div class="content">
+      <h2>
+        PDF转换成Word (.docx, .doc)<img src="@/assets/images/logo/word.svg" />
+      </h2>
+      <p>PDF转换成Word (.docx, .doc)</p>
+    </div>
+
     <a-upload-dragger
       v-model:fileList="fileList"
       name="file"
@@ -10,7 +17,7 @@
       <p class="ant-upload-drag-icon">
         <inbox-outlined></inbox-outlined>
       </p>
-      <a-button class="ant-upload-text">选择文件</a-button>
+      <a-button class="ant-upload-text" type="primary">选择文件</a-button>
       <p class="ant-upload-hint">或者把文件拖拽到此区域</p>
     </a-upload-dragger>
   </div>
@@ -57,3 +64,13 @@ export default defineComponent({
   },
 })
 </script>
+<style lang="sass" scoped>
+.custom-upload
+  text-align: left
+  border: none
+  .content
+    padding-left: 10px
+    h2
+      img
+        margin-left: 10px
+</style>

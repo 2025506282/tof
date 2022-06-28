@@ -9,9 +9,10 @@
 
     <a-upload-dragger
       v-model:fileList="fileList"
-      accpet=".pdf"
+      accpet=".doc"
       name="file"
       :multiple="true"
+      :before-upload="beforeUpload"
       action="http://localhost:3000/pdf/uploadFile"
       @change="handleChange"
     >
@@ -26,20 +27,21 @@
 
 <script lang="ts">
 import { InboxOutlined } from "@ant-design/icons-vue"
-import { message } from "ant-design-vue"
+import { message, Upload } from "ant-design-vue"
 import { defineComponent, ref } from "vue"
 
-interface FileItem {
+interface CustomFileItem {
   uid: string
   name?: string
   status?: string
   response?: string
   url?: string
+  type?: string
 }
 
 interface FileInfo {
-  file: FileItem
-  fileList: FileItem[]
+  file: CustomFileItem
+  fileList: CustomFileItem[]
 }
 
 export default defineComponent({
@@ -47,6 +49,13 @@ export default defineComponent({
     InboxOutlined,
   },
   setup() {
+    const beforeUpload = (file: CustomFileItem) => {
+      const isPdf = file.type === "application/pdf"
+      if (!isPdf) {
+        message.error(`${file.name} 必须是pdf`)
+      }
+      return isPdf || Upload.LIST_IGNORE
+    }
     const handleChange = (info: FileInfo) => {
       const status = info.file.status
       if (status !== "uploading") {
@@ -60,6 +69,7 @@ export default defineComponent({
     }
     return {
       handleChange,
+      beforeUpload,
       fileList: ref([]),
     }
   },

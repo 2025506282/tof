@@ -14,6 +14,12 @@ const routes: Array<RouteRecordRaw> = [
       import(/* webpackChunkName: "about" */ "../pages/pdf/PdfPage.vue"),
   },
   {
+    path: "/cesium",
+    name: "cesium",
+    component: () =>
+      import(/* webpackChunkName: "about" */ "../pages/cesium/CesiumPage.vue"),
+  },
+  {
     path: "/about",
     name: "about",
     // route level code-splitting

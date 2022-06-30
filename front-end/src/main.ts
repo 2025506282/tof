@@ -4,5 +4,7 @@ import App from "./App.vue"
 import "ant-design-vue/dist/antd.css"
 import router from "./router"
 import "@/styles/index.scss"
-
-createApp(App).use(Antd).use(router).mount("#app")
+XE.ready().then(function startup() {
+    createApp(App).use(Antd).use(router).mount("#app")
+});
+// createApp(App).use(Antd).use(router).mount("#app")

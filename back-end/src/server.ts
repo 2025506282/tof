@@ -8,8 +8,9 @@ import bodyParser from "body-parser";
 import { ValidateError } from "tsoa";
 import swaggerUi from "swagger-ui-express";
 import { RegisterRoutes } from "./routes";
-import { HashTable } from "./hash";
+import path from 'path';
 import cors from "cors";
+
 export const app = express();
 app.use(cors());
 // Use body parser to read sent json payloads
@@ -19,7 +20,8 @@ app.use(
   })
 );
 app.use(bodyParser.json());
-
+console.log('__dirname-------', __dirname);
+app.use('/static',express.static(path.join(__dirname,'public')));
 RegisterRoutes(app);
 app.use(function errorHandler(
   err: unknown,

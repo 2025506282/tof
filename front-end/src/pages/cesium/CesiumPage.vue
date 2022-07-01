@@ -2,12 +2,11 @@
   <div style="width: 100%; height: 100%">
     <div
       id="cesiumContainer"
-      ref="cesium"
       style="width: 100%; height: 100%"
     ></div>
-    <div style="position: absolute; left: 18px; top: 18px">
+    <!-- <div style="position: absolute; left: 18px; top: 18px"> -->
       <!-- <button>{{ message }}</button> -->
-    </div>
+    <!-- </div> -->
   </div>
 </template>
 <script lang="ts">
@@ -16,11 +15,14 @@ export default defineComponent({
   setup() {
     // mounted
     onMounted(() => {
+      // XbsjEarthUI.create('cesiumContainer').
+      //   console.log(XbsjEarthUI)
       init()
     })
     const init = () => {
+      debugger
       const cesiumContainer = document.getElementById("cesiumContainer")
-      const earth = new XE.Earth(cesiumContainer)
+      var earth = new XE.Earth(cesiumContainer)
       earth.sceneTree.root = {
         children: [
           {
@@ -35,21 +37,6 @@ export default defineComponent({
                 type: "createTileMapServiceImageryProvider",
               },
             },
-          },
-          {
-            czmObject: {
-              xbsjType: "CameraVideo",
-              name: "视频融合",
-              videoUrl: "//192.168.1.184:8080/test.mp4",
-              position: [
-                1.9017043698837766, 0.5972379094016695, 446.2499351617626,
-              ],
-              rotation: [
-                0.07413323656963833, -0.933639537288121, 0.0003900191769634631,
-              ],
-              far: 50,
-            },
-            enabled: true,
           },
         ],
       }

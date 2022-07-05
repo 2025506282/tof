@@ -3,8 +3,6 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "serve": "vue-cli-service serve",
-    "build": "vue-cli-service build",
     "serve:dev": "cross-env NODE_ENV=development dotenv -e .env.dev.serve vue-cli-service serve",
     "build:dev": "cross-env NODE_ENV=production  dotenv -e .env.dev.build vue-cli-service build",
     "serve:prod": "cross-env NODE_ENV=development dotenv -e .env.prod.serve vue-cli-service serve",
@@ -12,11 +10,14 @@
     "lint": "vue-cli-service lint"
   },
   "dependencies": {
+    "@types/cesium": "^1.70.0",
     "@types/node": "^18.0.0",
     "ant-design-vue": "^2.2.8",
+    "axios-mapper": "^0.5.9",
     "copy-webpack-plugin": "^11.0.0",
     "core-js": "^3.8.3",
     "cross-env": "^7.0.3",
+    "dotenv-cli": "^5.1.0",
     "earthsdk": "^1.7.13",
     "pdftohtml": "^0.2.0",
     "vue": "^3.2.13",

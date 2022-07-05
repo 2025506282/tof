@@ -18,9 +18,11 @@
     "express": "^4.17.3",
     "fs-extra": "^10.1.0",
     "multer": "^1.4.5-lts.1",
+    "pdf-officegen": "^2.0.4",
     "pdf2html": "^2.6.7",
     "swagger-ui-express": "^4.4.0",
-    "tsoa": "^3.14.1"
+    "tsoa": "^3.14.1",
+    "unoconv": "^0.1.2"
   },
   "devDependencies": {
     "@types/body-parser": "^1.19.2",

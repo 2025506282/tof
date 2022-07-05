@@ -12,13 +12,19 @@ import {
 } from "tsoa";
 import { User } from "../models/user.model";
 import { UsersService, UserCreationParams } from "../services/user.service";
+import  unoconv from "unoconv"
+import { Powerpoint, Word } from 'pdf-officegen'
 
 @Route("pdf")
 export class PdfController extends Controller {
   @Post("uploadFile")
   public async createUser(@UploadedFile() file: any): Promise<boolean> {
+    const p = new Powerpoint([])
     // this.setStatus(200); // set return status 201
     // console.log(requestBody);
-    return true;
+    p.convertFromPdf(file.buffer, (err: any, result: any) => {
+      console.log('err', err, result)
+    })
+    return false;
   }
 }

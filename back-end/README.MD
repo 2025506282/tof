@@ -1,47 +1,16 @@
-# TSOA Project
-
-## Some changes to tsconfig.json
-```
-"rootDir": "./src",                /* Specify the root folder within your source files. */
-"baseUrl": "./src",                /* Specify the base directory to resolve non-relative module names. */
-"sourceMap": true,                 /* Create source map files for emitted JavaScript files. */
-"outDir": "./build",               /* Specify an output folder for all emitted files. */
-"experimentalDecorators": true,    /* Enable experimental support for TC39 stage 2 draft decorators. */
-```
-## Some changes to package.json
-```
-  "scripts": {
-      "routes": "tsoa spec-and-routes",
-      "build": "tsoa spec-and-routes && tsc --build .",
-      "debug": "node --inspect ./build/index.js",
-      "start": "node ./build/index.js",
-      "clean": "rm -rf ./build"
-  }
-```
-
-## Docker
-
-### Build
-docker build . -t <your username>/node-web-app
-
-### Run
-docker run -p 3000:3000 -d <your username>/node-web-app
-
-### Helpful
-# Get container ID
-$ docker ps
-
-# Print app output
-$ docker logs <container id>
-
-# Example
-Running on http://localhost:8080
-
-# Enter the container
-$ docker ps
-
-# Example
-ID            IMAGE                                COMMAND    ...   PORTS
-ecce33b30ebf  <your username>/node-web-app:latest  npm start  ...   3000->3000
-
-$ docker exec -it <container id> /bin/bash
+岗位职责:
+1. 负责公司软件产品的页面功能的开发和优化；
+2. 利用各种Web技术模拟开发产品原型；
+3. 参与用户体验Demo工具的优化设计及实现；
+4. 利用HTML5/CSS3/JavaScript等各种Web技术进行产品的界面开发；
+5. 配合后台开发人员实现产品界面和功能与后台的交互；
+6. 与产品团队和平面设计师合作；
+7. 开发灵活且结构良好的前端架构。
+任职资格:
+1. 精通 HTML5、CSS3、JavaScript 等前端页面技术，熟悉 vue 等JS框架；
+2. 熟练运用异步加载（REST API）机制，了解 JSON 数据结构；
+3. 能够使用Git进行代码的版本管理；
+4. 使用过webGL；
+5. 有团队精神；
+6. 良好的时间管理技巧；
+7. 良好的人际关系和沟通技巧；

@@ -13,7 +13,7 @@
       name="file"
       :multiple="true"
       :before-upload="beforeUpload"
-      action="http://localhost:3000/pdf/uploadFile"
+      :action="serviceUrl"
       @change="handleChange"
     >
       <p class="ant-upload-drag-icon">
@@ -43,7 +43,7 @@ interface FileInfo {
   file: CustomFileItem
   fileList: CustomFileItem[]
 }
-
+import networkConfig from '@/config/default/net.config'
 export default defineComponent({
   components: {
     InboxOutlined,
@@ -71,6 +71,7 @@ export default defineComponent({
       handleChange,
       beforeUpload,
       fileList: ref([]),
+      serviceUrl: networkConfig.host+ "/pdf/uploadFile"
     }
   },
 })

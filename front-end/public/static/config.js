@@ -4,9 +4,10 @@ const origin = `${location.protocol}//${location.host}/static`
 window.appGlobalConfig = {
   isOpenCache: false,
   isOpenDB: true,
+  serverUrl: origin,
   // 数据文件地址
   mapServerUrl:
-    origin + "/%E6%96%B0%E5%8C%BA%E6%95%B0%E6%8D%AE%E5%BA%95%E6%9D%BF/",
+    origin + "/data/",
   onLine: navigator.onLine,
   // onLine: false,
   offLineService: {

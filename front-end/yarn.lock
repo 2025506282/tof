@@ -6238,6 +6238,11 @@ vue-loader@^17.0.0:
     hash-sum "^2.0.0"
     loader-utils "^2.0.0"
 
+vue-matrix-digit-rain@^1.0.1:
+  version "1.0.1"
+  resolved "https://registry.npmmirror.com/vue-matrix-digit-rain/-/vue-matrix-digit-rain-1.0.1.tgz#c9a0211cf23d2be51e4b7fc00e10306fa678e8d5"
+  integrity sha512-TDeoSXEaBMXZOZxXAbgPUzUX8SDaofakBs4X3XBemVxFuKoaUUsxrozZIaFWIiEJkV+BJxWFOoqLjCmnZFdcoA==
+
 vue-router@^4.0.3:
   version "4.0.16"
   resolved "https://registry.npmmirror.com/vue-router/-/vue-router-4.0.16.tgz#9477beeeef36e80e04d041a1738801a55e6e862e"

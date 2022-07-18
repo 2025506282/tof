@@ -1,3 +1,11 @@
+/*
+ * @Author: sunji 2025506282@qq.com
+ * @Date: 2022-06-30 09:11:59
+ * @LastEditors: sunji 2025506282@qq.com
+ * @LastEditTime: 2022-07-18 15:45:20
+ * @FilePath: \front-end\src\router\index.ts
+ * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
+ */
 import { createRouter, createWebHistory, RouteRecordRaw } from "vue-router"
 import HomeView from "../views/HomeView.vue"
 
@@ -18,6 +26,12 @@ const routes: Array<RouteRecordRaw> = [
     name: "cesium",
     component: () =>
       import(/* webpackChunkName: "about" */ "../pages/cesium/CesiumPage.vue"),
+  },
+  {
+    path: "/animate-word",
+    name: "word",
+    component: () =>
+      import(/* webpackChunkName: "about" */ "../pages/animate/WordPage.vue"),
   },
   {
     path: "/about",

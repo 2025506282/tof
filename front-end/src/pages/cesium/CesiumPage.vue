@@ -8,7 +8,6 @@
   </div>
 </template>
 <script lang="ts">
-import { add } from "lodash"
 import { defineComponent, onMounted } from "vue"
 export default defineComponent({
   setup() {
@@ -78,46 +77,76 @@ export default defineComponent({
           tileset.boundingSphere,
           new Cesium.HeadingPitchRange(0, -0.5, 0),
         )
+        addVideo(viewer, "video", tileList)
       })
       // viewer.flyTo(result)
     }
     const addVideo = (viewer: any, id: string, tile: any) => {
       console.log("tile:", tile)
-      const result = viewer.entities.add({
-        name: "123",
-        position: Cesium.Cartesian3.fromDegrees(114, 30, 300000.0),
-        box: {
-          dimensions: new Cesium.Cartesian3(200.0, 200.0, 200.0),
-          material: Cesium.Color.GREEN.withAlpha(0.5),
-          outline: true,
-          outlineColor: Cesium.Color.RED,
-        },
-      })
+      // const result = viewer.entities.add({
+      //   name: "123",
+      //   position: Cesium.Cartesian3.fromDegrees(
+      //     116.39147871632713,
+      //     39.90358811794074,
+      //     67.78227092367942,
+      //   ),
+      //   box: {
+      //     dimensions: new Cesium.Cartesian3(2, 2, 2),
+      //     material: Cesium.Color.GREEN.withAlpha(0.5),
+      //     outline: true,
+      //     outlineColor: Cesium.Color.RED,
+      //   },
+      // })
       // viewer.flyTo(result)
-      // const videoElement: any = document.getElementById(id)
       // 创建实体对象
       // 获取视频元素
       // 创建实体对象
-      // const rectangle = viewer.entities.add({
-      //   rectangle: {
-      //     coordinates: Cesium.Rectangle.fromDegrees(116, 40, -100, 100),
-      //     material: videoElement,
-      //   },
-      //   // 或创建多边形
-      //   // polygon: {
-      //   //    hierarchy: new PolygonHierarchy(positions),
-      //   //    material: videoElement
-      //   // },
-      // })
-      // // 锁定实体对象（这句可有可无）
-      // viewer.trackedEntity = rectangle
-      // new Cesium.VideoSynchronizer({
-      //   clock: viewer.clock,
-      //   element: videoElement,
-      // })
-      // viewer.clock.shouldAnimate = true
-      // videoElement.style.display = "none"
-      // viewer.flyTo(rectangle)
+      var areaCoor = [
+        116.39144639099534, 39.90357730345744, 56.94198443901108,
+        116.39189871196555, 39.90357730345744, 56.94198443901108,
+        116.39147023871958, 39.90357730345744, 22.37457551632845,
+        116.39190553045852, 39.90357730345744, 22.37457551632845,
+        // 116.39147871632713, 39.90358811794074, 1, 116.39247871632713,
+        // 39.90358811794074, 1, 116.3907871632713, 39.90258811794074, 1,
+        // 116.3927871632913, 39.90358811794074, 1,
+      ]
+      const getVideoMaterial = () => {
+        const videoElement: any = document.getElementById(id)
+        new Cesium.VideoSynchronizer({
+          clock: viewer.clock,
+          element: videoElement,
+        })
+        viewer.clock.shouldAnimate = true
+        videoElement.style.display = "none"
+        return videoElement
+      }
+      const entity = viewer.entities.add({
+        polygon: {
+          hierarchy: new Cesium.PolygonHierarchy(
+            Cesium.Cartesian3.fromDegreesArrayHeights(areaCoor),
+          ),
+          perPositionHeight: true,
+          extrudedHeight: 1,
+          // extrudedHeight: new Cesium.CallbackProperty(() => {
+          //   //此处用属性回调函数，直接设置extrudedHeight会导致闪烁。
+          //   waterHeight += 0.1
+          //   console.log("-----------waterHeight---------", waterHeight)
+          //   if (waterHeight > targetHeight) {
+          //     waterHeight = targetHeight //给个最大值
+          //     this.enabled = false
+          //   }
+          //   return waterHeight
+          // }, false),
+          material: getVideoMaterial(),
+          // material: new Cesium.ImageMaterialProperty({
+          //   image: getVideoMaterial(),
+          //   // image: `${origin}/water.jpg`,
+          //   repeat: Cesium.Cartesian2(1.0, 1.0), // 不重复
+          //   transparent: true, // 启用png透明
+          //   color: Cesium.Color.WHITE.withAlpha(0.5),
+          // }),
+        },
+      })
     }
     const init = () => {
       const cesiumContainer = document.getElementById("cesiumContainer")
@@ -151,6 +180,22 @@ export default defineComponent({
       }
       const viewer = earth.czm.viewer
       addTiles(viewer, "/tileset.json")
+      var handler = new Cesium.ScreenSpaceEventHandler(viewer.scene.canvas)
+      handler.setInputAction((movement: any) => {
+        let pickObj = viewer.scene.pick(movement.position)
+
+        var cartesian = viewer.scene.pickPosition(movement.position)
+
+        if (Cesium.defined(cartesian)) {
+          var cartographic = Cesium.Cartographic.fromCartesian(cartesian) //根据笛卡尔坐标获取到弧度
+          var lng = Cesium.Math.toDegrees(cartographic.longitude) //根据弧度获取到经度
+          var lat = Cesium.Math.toDegrees(cartographic.latitude) //根据弧度获取到纬度
+          var height = cartographic.height //模型高度
+          console.log("--earthPosition--", lng, lat, height)
+          // annotate(cartesian, lng, lat, height)
+        }
+        console.log(movement, pickObj)
+      }, Cesium.ScreenSpaceEventType.LEFT_CLICK)
       // addVideo(viewer, "video")
     }
 
@@ -160,5 +205,3 @@ export default defineComponent({
   },
 })
 </script>
-
-<style lang="sass" scoped></style>

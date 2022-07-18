@@ -22,6 +22,7 @@
     "pdftohtml": "^0.2.0",
     "vue": "^3.2.13",
     "vue-class-component": "^8.0.0-0",
+    "vue-matrix-digit-rain": "^1.0.1",
     "vue-router": "^4.0.3"
   },
   "devDependencies": {

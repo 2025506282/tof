@@ -2,7 +2,7 @@
  * @Author: sunji 2025506282@qq.com
  * @Date: 2022-07-18 15:25:16
  * @LastEditors: sunji 2025506282@qq.com
- * @LastEditTime: 2022-07-18 16:51:05
+ * @LastEditTime: 2022-07-20 10:09:53
  * @FilePath: \front-end\src\pages\animate\WordPage.vue
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
 -->
@@ -29,7 +29,7 @@ export default defineComponent({
   },
   data(): IData {
     return {
-      str: "大家好，我是阿吉，这是我减肥的第三周",
+      str: "大家好，我是阿吉，这是我减肥的第三周，接下来让我们看看具体的数据分析吧",
       i: 0,
       timer: null,
       str2: "123",
@@ -75,7 +75,7 @@ export default defineComponent({
     color: #a9d09e;
     top: 50%;
     font-size: 48px;
-    width: 500px;
+    width: 600px;
     left: 50%;
     transform: translate(-50%, -50%);
     text-indent: 40px;

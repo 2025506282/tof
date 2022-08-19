@@ -2,7 +2,7 @@
  * @Author: sunji 2025506282@qq.com
  * @Date: 2022-06-21 16:41:05
  * @LastEditors: sunji 2025506282@qq.com
- * @LastEditTime: 2022-07-27 09:55:38
+ * @LastEditTime: 2022-08-18 10:47:12
  * @FilePath: \front-end\src\shims-vue.d.ts
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  */
@@ -14,6 +14,8 @@ declare module "*.vue" {
 }
 declare module "vue-matrix-digit-rain"
 declare module "vue-ue-sdk"
+declare module "vue-cesium"
+declare module "vue-cesium/lang/zh-hans"
 // declare module "three"
 declare const window: any
 declare const XE: any

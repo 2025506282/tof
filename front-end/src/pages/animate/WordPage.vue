@@ -2,16 +2,14 @@
  * @Author: sunji 2025506282@qq.com
  * @Date: 2022-07-18 15:25:16
  * @LastEditors: sunji 2025506282@qq.com
- * @LastEditTime: 2022-07-20 10:09:53
+ * @LastEditTime: 2022-08-08 14:23:21
  * @FilePath: \front-end\src\pages\animate\WordPage.vue
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
 -->
 <template>
   <div class="box">
     <VueMatrixRaindrop></VueMatrixRaindrop>
-    <p>
-      {{ str2 }}
-    </p>
+    <p><span>小倩：</span><span v-html="str2"></span></p>
   </div>
 </template>
 <script lang="ts">
@@ -29,7 +27,7 @@ export default defineComponent({
   },
   data(): IData {
     return {
-      str: "大家好，我是阿吉，这是我减肥的第三周，接下来让我们看看具体的数据分析吧",
+      str: "主人，这是你减肥的第三周，是否还要坚持，如果坚持请选择<a>yes</a>,不坚持请选择<a>no</a>",
       i: 0,
       timer: null,
       str2: "123",

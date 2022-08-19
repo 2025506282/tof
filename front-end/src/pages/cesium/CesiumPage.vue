@@ -1,10 +1,13 @@
 <template>
-  <div style="width: 100%; height: 100%">
+  <!-- <div style="width: 100%; height: 100%">
     <div id="cesiumContainer" style="width: 100%; height: 100%"></div>
     <video id="video" muted autoplay loop crossorigin="anonymous" controls>
       <source src="@/assets/test.mp4" type="video/mp4" />
       Your browser does not support the <code>video</code> element.
     </video>
+  </div> -->
+  <div class="viewer">
+    <vc-viewer></vc-viewer>
   </div>
 </template>
 <script lang="ts">
@@ -16,7 +19,7 @@ export default defineComponent({
     onMounted(() => {
       // XbsjEarthUI.create('cesiumContainer').
       //   console.log(XbsjEarthUI)
-      init()
+      // init()
     })
     const addTiles = (viewer: any, url: string) => {
       // 计算偏移量
@@ -205,3 +208,9 @@ export default defineComponent({
   },
 })
 </script>
+<style scoped>
+.viewer {
+  width: 100%;
+  height: 400px;
+}
+</style>

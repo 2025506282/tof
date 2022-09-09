@@ -2,7 +2,7 @@
  * @Author: sunji 2025506282@qq.com
  * @Date: 2022-08-19 14:30:34
  * @LastEditors: sunji 2025506282@qq.com
- * @LastEditTime: 2022-08-19 15:09:21
+ * @LastEditTime: 2022-08-29 10:31:00
  * @FilePath: \front-end\src\pages\healthy\components\trend.vue
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
 -->
@@ -23,87 +23,26 @@ export default defineComponent({
   setup() {
 
     onMounted(() => {
-      function randomData(): DataItem {
-        now = new Date(+now + oneDay);
-        value = value + Math.random() * 21 - 10;
-        return {
-          name: now.toString(),
-          value: [
-            [now.getFullYear(), now.getMonth() + 1, now.getDate()].join('/'),
-            Math.round(value)
-          ]
-        };
-      }
       var chartDom = document.getElementById("trend")
       var myChart = echarts.init(chartDom as HTMLElement, "dark")
       var option;
 
-      let data: DataItem[] = [];
-      let now = new Date(1997, 9, 3);
-      let oneDay = 24 * 3600 * 1000;
-      let value = Math.random() * 1000;
-      for (var i = 0; i < 1000; i++) {
-        data.push(randomData());
-      }
       option = {
-        backgroundColor: 'transparent',
-        title: {
-          text: '身体指标一览'
-        },
-        tooltip: {
-          trigger: 'axis',
-          formatter: function (params: any) {
-            params = params[0];
-            var date = new Date(params.name);
-            return (
-              date.getDate() +
-              '/' +
-              (date.getMonth() + 1) +
-              '/' +
-              date.getFullYear() +
-              ' : ' +
-              params.value[1]
-            );
-          },
-          axisPointer: {
-            animation: false
-          }
-        },
         xAxis: {
-          type: 'time',
-          splitLine: {
-            show: false
-          }
+          type: 'category',
+          data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
         },
         yAxis: {
-          type: 'value',
-          boundaryGap: [0, '100%'],
-          splitLine: {
-            show: false
-          }
+          type: 'value'
         },
         series: [
           {
-            name: 'Fake Data',
+            data: [820, 932, 901, 934, 1290, 1330, 1320],
             type: 'line',
-            showSymbol: false,
-            data: data
+            smooth: true
           }
         ]
       };
-      setInterval(function () {
-        for (var i = 0; i < 5; i++) {
-          data.shift();
-          data.push(randomData());
-        }
-        myChart.setOption({
-          series: [
-            {
-              data: data
-            }
-          ]
-        });
-      }, 1000);
 
       option && myChart.setOption(option)
     })

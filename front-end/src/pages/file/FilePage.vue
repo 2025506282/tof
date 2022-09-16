@@ -2,7 +2,7 @@
  * @Author: sunji 2025506282@qq.com
  * @Date: 2022-08-19 14:10:43
  * @LastEditors: sunji 2025506282@qq.com
- * @LastEditTime: 2022-09-09 13:51:04
+ * @LastEditTime: 2022-09-16 11:18:07
  * @FilePath: \front-end\src\pages\healthy\HealthyPage.vue
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
 -->
@@ -42,12 +42,13 @@ interface FileInfo {
 }
 import networkConfig from "@/config/default/net.config"
 import { splitFile } from "./utils";
-import { IFile, uploadFile } from "@/apis";
+import { IFile, mergeFile, uploadFile } from "@/apis";
 export default defineComponent({
     components: {
         UploadOutlined,
     },
     setup() {
+        const UPLOAD_SIZE = 10 * 1024 * 1024
         // const uploadChunks = async (chunksData) => {
         //     const formDataList = chunksData.map(({ chunk, hash }) => {
         //         const formData = new FormData()
@@ -60,21 +61,32 @@ export default defineComponent({
         //     })
         // }
         const customUpload = (req: any) => {
-            const { file, name } = req;
-            const chunkList = splitFile(file);
-            console.log('chunkList:', chunkList, name)
+            const { file } = req;
+            const { name } = file;
+            const suffix = name.split('.')[1];
+            const fileName = name.split('.')[0];
+            const chunkList = splitFile(file, UPLOAD_SIZE);
+            console.log('chunkList:', chunkList, fileName)
             let uploadedChunkIndexList: number[] = [];
             const chunksData = chunkList.map(({ chunk }, index) => {
                 return {
                     chunk,
-                    hash: name + `_${index}`,
+                    hash: fileName + `_${index}`,
+                    suffix,
                     progress: 0
                 }
             }).filter((item) => {
                 const arr = item.hash.split('_')
                 return uploadedChunkIndexList.indexOf(parseInt(arr[arr.length - 1])) === -1;
             })
-            return chunksData;
+            const requestList = chunksData.map((ele) => {
+                return uploadFile(ele)
+            })
+            Promise.all(requestList).then((res) => {
+                setTimeout(() => {
+                    mergeFile(fileName, suffix, UPLOAD_SIZE);
+                }, 500)
+            });
         }
 
         const handleChange = (info: any) => {
@@ -125,7 +137,4 @@ export default defineComponent({
 }
 </style>
 
-function splitFile(file: any) {
-  throw new Error("Function not implemented.");
-}
   

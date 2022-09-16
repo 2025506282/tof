@@ -2,7 +2,7 @@
  * @Author: sunji 2025506282@qq.com
  * @Date: 2022-06-22 16:16:29
  * @LastEditors: sunji 2025506282@qq.com
- * @LastEditTime: 2022-09-07 16:01:57
+ * @LastEditTime: 2022-09-16 15:26:56
  * @FilePath: \back-end\src\controllers\pdf.controller.ts
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  */
@@ -10,6 +10,7 @@
 import {
   Body,
   Controller,
+  FormField,
   Get,
   Path,
   Post,
@@ -17,71 +18,46 @@ import {
   Route,
   SuccessResponse,
   UploadedFile,
+  Request,
 } from "tsoa";
 import { writeFile } from "node:fs";
 import { IFile } from "../models";
 import path from "path";
-import fse from "fs-extra";
+import express from "express";
+
+import { Inject, Singleton } from "typescript-ioc";
+// import pLimit from "p-limit";
+import { FileService } from "../services/file.service";
 const UPLOAD_FILES_DIR = path.resolve(__dirname, "./filelist");
-const pipeStream = (path: string, writeStream: string) =>
-  new Promise<void>((resolve) => {
-    const readStream = fse.createReadStream(path);
-    readStream.on("end", () => {
-      fse.unlinkSync(path);
-      resolve();
-    });
-    readStream.pipe(writeStream);
-  });
-
-const mergeFileChunk = async (
-  filePath: string,
-  fileHash: string,
-  size: number
-) => {
-  const chunksDir = path.resolve(UPLOAD_FILES_DIR, fileHash);
-  const chunkPaths = await fse.readdir(chunksDir);
-  chunkPaths.sort(
-    (a: string, b: string) => Number(a.split("-")[1]) - Number(b.split("-")[1])
-  );
-  console.log("指定位置创建可写流", filePath);
-  await Promise.all(
-    chunkPaths.map((chunkPath: string, index: number) =>
-      pipeStream(
-        path.resolve(chunksDir, chunkPath),
-        // 指定位置创建可写流
-        fse.createWriteStream(filePath, {
-          start: index * size,
-          end: (index + 1) * size,
-        })
-      )
-    )
-  );
-  // 合并后删除保存切片的目录
-  fse.rmdirSync(chunksDir);
-};
-
+// const limit = pLimit(20);
 @Route("ue")
 export class UEController extends Controller {
+  // @Post("upload")
+  // public async uploadFile(
+  //   @FormField() hash: string,
+  //   @UploadedFile() file: Express.Multer.File
+  // ): Promise<boolean> {
+  //   const chunksDir = path.resolve(UPLOAD_FILES_DIR, hash.split("_")[0]);
+  //   console.log("chunksDir file::", chunksDir, file);
+  //   if (!fse.existsSync(chunksDir)) {
+  //     await fse.mkdirs(chunksDir);
+  //   }
+  //   await fse.move(file.path, chunksDir + "/" + hash);
+  //   return true;
+  // }
+  @Inject private fileService: FileService;
+
   @Post("upload")
-  public async createUe(@UploadedFile() file: any): Promise<boolean> {
-    console.log("fil234e:", file, writeFile);
-    writeFile("test2.zip", file.buffer, (err) => {
-      if (err) {
-        console.log("err:", err);
-      }
-      console.log("The file has been saved!");
-    });
-    return false;
+  public async uploadFile(@Request() req: express.Request): Promise<boolean> {
+    // const uploadPromise = limit(() => this.fileService.uploadFile(req));
+    // const result = await Promise.all(uploadPromise);
+    // return true;
+    this.fileService.uploadFile(req);
+    return true;
   }
   @Post("merge")
-  public async merge(form: IFile): Promise<boolean> {
-    console.log("fil234e:", file, writeFile);
-    writeFile("test2.zip", file.buffer, (err) => {
-      if (err) {
-        console.log("err:", err);
-      }
-      console.log("The file has been saved!");
-    });
-    return false;
+  public async mergeFileChunk(@Body() requestBody: IFile): Promise<boolean> {
+    const res = await this.fileService.createFile(requestBody);
+    return res;
   }
 }

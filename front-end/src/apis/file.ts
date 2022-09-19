@@ -3,7 +3,7 @@
  * @Autor: scy😊
  * @Date: 2021-01-12 11:31:47
  * @LastEditors: sunji 2025506282@qq.com
- * @LastEditTime: 2022-09-16 11:05:42
+ * @LastEditTime: 2022-09-19 15:13:14
  */
 import { post, get } from "@/utils/request"
 import { RootObject } from "@/model/rootObject"
@@ -40,7 +40,6 @@ export const uploadFile = (form: IFile) => {
   formData.append("file", form.chunk)
   formData.append("hash", form.hash)
   formData.append("suffix", form.suffix)
-  console.log("form---:", formData)
   return post<void>(url, formData, { "Content-Type": "multipart/form-data" })
 }
 

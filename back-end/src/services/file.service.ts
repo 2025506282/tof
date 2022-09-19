@@ -2,7 +2,7 @@
  * @Author: sunji 2025506282@qq.com
  * @Date: 2022-09-16 13:34:34
  * @LastEditors: sunji 2025506282@qq.com
- * @LastEditTime: 2022-09-16 13:42:40
+ * @LastEditTime: 2022-09-19 15:25:42
  * @FilePath: \back-end\src\services\file.service.ts
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  */
@@ -15,7 +15,7 @@ import { Request } from "tsoa";
 import express from "express";
 const pipeStream = (path: string, writeStream: any) =>
   new Promise<void>((resolve) => {
-    console.log("pipeStream:", path, writeStream);
+    // console.log("pipeStream:", path, writeStream);
     const readStream = fse.createReadStream(path);
     readStream.on("end", () => {
       fse.unlinkSync(path);
@@ -50,7 +50,7 @@ export class FileService {
         )
       );
       fse.rmdirSync(chunksDir);
-      return false;
+      return true;
     } catch (err) {
       console.log("err:", err);
       return false;
@@ -79,6 +79,8 @@ export class FileService {
           await fse.move(chunk.path, chunksDir + "/" + hash, {
             overwrite: true,
           });
+        } else {
+          return;
         }
       }
     );

@@ -4970,6 +4970,13 @@ p-limit@^2.2.0:
   dependencies:
     p-try "^2.0.0"
 
+p-limit@^4.0.0:
+  version "4.0.0"
+  resolved "https://registry.npmmirror.com/p-limit/-/p-limit-4.0.0.tgz#914af6544ed32bfa54670b061cafcbd04984b644"
+  integrity sha512-5b0R4txpzjPWVw/cXXUResoD4hb6U/x9BH08L7nw+GN1sezDzPdxeRvpc9c433fZhBan/wusjbCsqwqm4EIBIQ==
+  dependencies:
+    yocto-queue "^1.0.0"
+
 p-locate@^4.1.0:
   version "4.1.0"
   resolved "https://registry.npmmirror.com/p-locate/-/p-locate-4.1.0.tgz#a3428bb7088b3a60292f66919278b7c297ad4f07"
@@ -6537,6 +6544,11 @@ vue-ue-sdk@^1.1.5:
   resolved "https://registry.npmmirror.com/vue-ue-sdk/-/vue-ue-sdk-1.11.1.tgz#737f2a1e186ab33fffd3569b8b2a19602acef02b"
   integrity sha512-CTVVatdoXl7eQg2yugXMw2nmZldMp6rjC5UKugP/6VLRG1G59FAczhL5Qqo8PldaBfoFm6c/VsWbk5Hgbliw9Q==
 
+vue3-ue-sdk@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.npmmirror.com/vue3-ue-sdk/-/vue3-ue-sdk-1.0.0.tgz#f296dc0037ddbb3717c781b0fa895d172dabf122"
+  integrity sha512-vvDjKdIqD7588vyMOLAM2x4+VoHapbMRv5QDxZJ6yXvepQEjVxMr92qgAGSvGx3f6PRVtxPRjI2PYH5nCc5t0g==
+
 vue@^3.2.13:
   version "3.2.37"
   resolved "https://registry.npmmirror.com/vue/-/vue-3.2.37.tgz#da220ccb618d78579d25b06c7c21498ca4e5452e"
@@ -6847,6 +6859,11 @@ yargs@^16.0.0:
     string-width "^4.2.0"
     y18n "^5.0.5"
     yargs-parser "^20.2.2"
+
+yocto-queue@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.npmmirror.com/yocto-queue/-/yocto-queue-1.0.0.tgz#7f816433fb2cbc511ec8bf7d263c3b58a1a3c251"
+  integrity sha512-9bnSc/HEW2uRy67wc+T8UwauLuPJVn28jb+GtJY16iiKWyvmYJRXVT4UamsAEGQfPohgr2q4Tq0sQbQlxTfi1g==
 
 yorkie@^2.0.0:
   version "2.0.0"

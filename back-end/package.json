@@ -20,7 +20,7 @@
     "koa": "^2.13.4",
     "multer": "^1.4.5-lts.1",
     "multiparty": "^4.2.3",
-    "p-limit": "^4.0.0",
+    "p-limit": "^3.1.0",
     "pdf-officegen": "^2.0.4",
     "pdf2html": "^2.6.7",
     "swagger-ui-express": "^4.4.0",

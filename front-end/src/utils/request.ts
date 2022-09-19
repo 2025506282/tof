@@ -1,6 +1,15 @@
+/*
+ * @Author: sunji 2025506282@qq.com
+ * @Date: 2022-09-13 11:24:07
+ * @LastEditors: sunji 2025506282@qq.com
+ * @LastEditTime: 2022-09-19 15:47:53
+ * @FilePath: \front-end\src\utils\request.ts
+ * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
+ */
 import axios from "axios"
 import networkConfig from "@/config/default/net.config"
 axios.defaults.headers["Content-Type"] = "application/json;charset=utf-8"
+
 // 创建axios实例
 const service = axios.create({
   // axios中请求配置有baseURL选项，表示请求URL公共部分

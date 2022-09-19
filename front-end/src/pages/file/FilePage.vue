@@ -2,7 +2,7 @@
  * @Author: sunji 2025506282@qq.com
  * @Date: 2022-08-19 14:10:43
  * @LastEditors: sunji 2025506282@qq.com
- * @LastEditTime: 2022-09-16 11:18:07
+ * @LastEditTime: 2022-09-19 15:13:09
  * @FilePath: \front-end\src\pages\healthy\HealthyPage.vue
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
 -->
@@ -43,6 +43,7 @@ interface FileInfo {
 import networkConfig from "@/config/default/net.config"
 import { splitFile } from "./utils";
 import { IFile, mergeFile, uploadFile } from "@/apis";
+import pLimit from 'p-limit';
 export default defineComponent({
     components: {
         UploadOutlined,
@@ -60,13 +61,13 @@ export default defineComponent({
         //         return uploadFile(item);
         //     })
         // }
+        const limit = pLimit(10)
         const customUpload = (req: any) => {
             const { file } = req;
             const { name } = file;
             const suffix = name.split('.')[1];
             const fileName = name.split('.')[0];
             const chunkList = splitFile(file, UPLOAD_SIZE);
-            console.log('chunkList:', chunkList, fileName)
             let uploadedChunkIndexList: number[] = [];
             const chunksData = chunkList.map(({ chunk }, index) => {
                 return {
@@ -80,13 +81,15 @@ export default defineComponent({
                 return uploadedChunkIndexList.indexOf(parseInt(arr[arr.length - 1])) === -1;
             })
             const requestList = chunksData.map((ele) => {
-                return uploadFile(ele)
+                return limit(() => uploadFile(ele))
             })
             Promise.all(requestList).then((res) => {
                 setTimeout(() => {
                     mergeFile(fileName, suffix, UPLOAD_SIZE);
                 }, 500)
-            });
+            }).catch((err) => {
+                console.log('error:', err)
+            })
         }
 
         const handleChange = (info: any) => {

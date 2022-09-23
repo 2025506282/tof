@@ -2,34 +2,17 @@
  * @Author: sunji 2025506282@qq.com
  * @Date: 2022-06-22 16:16:29
  * @LastEditors: sunji 2025506282@qq.com
- * @LastEditTime: 2022-09-19 15:21:11
+ * @LastEditTime: 2022-09-20 15:54:06
  * @FilePath: \back-end\src\controllers\pdf.controller.ts
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  */
 // src/users/usersController.ts
-import {
-  Body,
-  Controller,
-  FormField,
-  Get,
-  Path,
-  Post,
-  Query,
-  Route,
-  SuccessResponse,
-  UploadedFile,
-  Request,
-} from "tsoa";
-import { writeFile } from "node:fs";
+import { Body, Controller, Post, Route, Request } from "tsoa";
 import { IFile } from "../models";
-import path from "path";
 import express from "express";
 
-import { Inject, Singleton } from "typescript-ioc";
-import pLimit from "p-limit";
+import { Inject } from "typescript-ioc";
 import { FileService } from "../services/file.service";
-const UPLOAD_FILES_DIR = path.resolve(__dirname, "./filelist");
-const limit = pLimit(20);
 @Route("ue")
 export class UEController extends Controller {
   // @Post("upload")

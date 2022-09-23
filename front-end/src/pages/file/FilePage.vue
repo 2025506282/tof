@@ -2,7 +2,7 @@
  * @Author: sunji 2025506282@qq.com
  * @Date: 2022-08-19 14:10:43
  * @LastEditors: sunji 2025506282@qq.com
- * @LastEditTime: 2022-09-19 15:13:09
+ * @LastEditTime: 2022-09-20 15:33:34
  * @FilePath: \front-end\src\pages\healthy\HealthyPage.vue
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
 -->
@@ -72,12 +72,12 @@ export default defineComponent({
             const chunksData = chunkList.map(({ chunk }, index) => {
                 return {
                     chunk,
-                    hash: fileName + `_${index}`,
+                    hash: fileName + `___$${index}`,
                     suffix,
                     progress: 0
                 }
             }).filter((item) => {
-                const arr = item.hash.split('_')
+                const arr = item.hash.split('___$')
                 return uploadedChunkIndexList.indexOf(parseInt(arr[arr.length - 1])) === -1;
             })
             const requestList = chunksData.map((ele) => {

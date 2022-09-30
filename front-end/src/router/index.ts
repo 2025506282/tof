@@ -2,7 +2,7 @@
  * @Author: sunji 2025506282@qq.com
  * @Date: 2022-06-30 09:11:59
  * @LastEditors: sunji 2025506282@qq.com
- * @LastEditTime: 2022-09-19 10:49:00
+ * @LastEditTime: 2022-09-30 10:53:54
  * @FilePath: \front-end\src\router\index.ts
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  */
@@ -16,57 +16,54 @@ const routes: Array<RouteRecordRaw> = [
     component: HomeView,
   },
   {
+    path: "/home",
+    name: "home",
+    component: () => import("../pages/home/HomePage.vue"),
+  },
+  {
     path: "/file",
     name: "file",
-    component: () =>
-      import(/* webpackChunkName: "about" */ "../pages/file/FilePage.vue"),
+    component: () => import("../pages/file/FilePage.vue"),
   },
   {
     path: "/pdf",
     name: "pdf",
-    component: () =>
-      import(/* webpackChunkName: "about" */ "../pages/pdf/PdfPage.vue"),
+    component: () => import("../pages/pdf/PdfPage.vue"),
   },
   {
     path: "/ue",
     name: "ue",
-    component: () =>
-      import(/* webpackChunkName: "about" */ "../pages/ue/UEPage.vue"),
+    component: () => import("../pages/ue/UEPage.vue"),
   },
   {
     path: "/cesium",
     name: "cesium",
-    component: () =>
-      import(/* webpackChunkName: "about" */ "../pages/cesium/CesiumPage.vue"),
+    component: () => import("../pages/cesium/CesiumPage.vue"),
   },
   {
     path: "/three",
     name: "three",
-    component: () =>
-      import(/* webpackChunkName: "about" */ "../pages/three/TestPage.vue"),
+    component: () => import("../pages/three/TestPage.vue"),
   },
   {
     path: "/animate-word",
     name: "word",
-    component: () =>
-      import(/* webpackChunkName: "about" */ "../pages/animate/WordPage.vue"),
+    component: () => import("../pages/animate/WordPage.vue"),
   },
   {
     path: "/healthy",
     name: "healthy",
-    component: () =>
-      import(
-        /* webpackChunkName: "about" */ "../pages/healthy/HealthyPage.vue"
-      ),
+    component: () => import("../pages/healthy/HealthyPage.vue"),
+  },
+  {
+    path: "/excel",
+    name: "excel",
+    component: () => import("../pages/excel/ExcelPage.vue"),
   },
   {
     path: "/about",
     name: "about",
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () =>
-      import(/* webpackChunkName: "about" */ "../views/AboutView.vue"),
+    component: () => import("../views/AboutView.vue"),
   },
 ]
 

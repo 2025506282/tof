@@ -1,5 +1,5 @@
-import { saveAs } from 'file-saver'
-import XLSX, { WorkBook, WorkSheet } from 'xlsx'
+import { saveAs } from "file-saver"
+import XLSX, { readFile, WorkBook, WorkSheet } from "xlsx"
 
 interface CellInterface {
   v: Date | number | boolean | string
@@ -14,16 +14,16 @@ class Workbook implements WorkBook {
 
 const generateArray = (table: HTMLElement) => {
   const out = []
-  const rows = table.querySelectorAll('tr')
+  const rows = table.querySelectorAll("tr")
   const ranges = []
   for (let R = 0; R < rows.length; ++R) {
     const outRow = []
     const row = rows[R]
-    const columns = row.querySelectorAll('td')
+    const columns = row.querySelectorAll("td")
     for (let C = 0; C < columns.length; ++C) {
       const cell = columns[C]
-      const colspanStr = cell.getAttribute('colspan')
-      const rowspanStr = cell.getAttribute('rowspan')
+      const colspanStr = cell.getAttribute("colspan")
+      const rowspanStr = cell.getAttribute("rowspan")
       let colspan
       let rowspan
       if (colspanStr) {
@@ -34,8 +34,13 @@ const generateArray = (table: HTMLElement) => {
       }
       const cellValue = cell.innerText
       // Skip ranges
-      ranges.forEach(function(range) {
-        if (R >= range.s.r && R <= range.e.r && outRow.length >= range.s.c && outRow.length <= range.e.c) {
+      ranges.forEach(function (range) {
+        if (
+          R >= range.s.r &&
+          R <= range.e.r &&
+          outRow.length >= range.s.c &&
+          outRow.length <= range.e.c
+        ) {
           for (let i = 0; i <= range.e.c - range.s.c; ++i) outRow.push(null)
         }
       })
@@ -46,16 +51,16 @@ const generateArray = (table: HTMLElement) => {
         ranges.push({
           s: {
             r: R,
-            c: outRow.length
+            c: outRow.length,
           },
           e: {
             r: R + rowspan - 1,
-            c: outRow.length + colspan - 1
-          }
+            c: outRow.length + colspan - 1,
+          },
         })
       }
       // Handle Value
-      outRow.push(cellValue !== '' ? cellValue : null)
+      outRow.push(cellValue !== "" ? cellValue : null)
       // Handle Colspan
       if (colspan) {
         for (let k = 0; k < colspan - 1; ++k) {
@@ -77,12 +82,12 @@ const sheetFromDataArray = (data: any) => {
   const range = {
     s: {
       c: 10000000,
-      r: 10000000
+      r: 10000000,
     },
     e: {
       c: 0,
-      r: 0
-    }
+      r: 0,
+    },
   }
   for (let R = 0; R !== data.length; ++R) {
     for (let C = 0; C !== data[R].length; ++C) {
@@ -92,26 +97,26 @@ const sheetFromDataArray = (data: any) => {
       if (range.e.c < C) range.e.c = C
       const cell: CellInterface = {
         v: data[R][C],
-        t: '',
-        z: ''
+        t: "",
+        z: "",
       }
       if (cell.v == null) continue
       const cellRef = XLSX.utils.encode_cell({
         c: C,
-        r: R
+        r: R,
       })
-      if (typeof cell.v === 'number') cell.t = 'n'
-      else if (typeof cell.v === 'boolean') cell.t = 'b'
+      if (typeof cell.v === "number") cell.t = "n"
+      else if (typeof cell.v === "boolean") cell.t = "b"
       else if (cell.v instanceof Date) {
-        cell.t = 'n'
+        cell.t = "n"
         cell.z = XLSX.SSF.get_table()[14]
         cell.v = datenum(cell.v)
-      } else cell.t = 's'
+      } else cell.t = "s"
       ws[cellRef] = cell
     }
   }
   if (range.s.c < 10000000) {
-    ws['!ref'] = XLSX.utils.encode_range(range)
+    ws["!ref"] = XLSX.utils.encode_range(range)
   }
   return ws
 }
@@ -120,7 +125,7 @@ const s2ab = (s: string) => {
   const buf = new ArrayBuffer(s.length)
   const view = new Uint8Array(buf)
   for (let i = 0; i !== s.length; ++i) {
-    view[i] = s.charCodeAt(i) & 0xFF
+    view[i] = s.charCodeAt(i) & 0xff
   }
   return buf
 }
@@ -133,70 +138,83 @@ export const exportTable2Excel = (id: string) => {
 
     /* original data */
     const data = oo[0]
-    const wsName = 'SheetJS'
+    const wsName = "SheetJS"
 
     const wb = new Workbook()
     const ws = sheetFromDataArray(data)
 
     /* add ranges to worksheet */
     // ws['!cols'] = ['apple', 'banan']
-    ws['!merges'] = ranges
+    ws["!merges"] = ranges
 
     /* add worksheet to workbook */
     wb.SheetNames.push(wsName)
     wb.Sheets[wsName] = ws
 
     const wbout = XLSX.write(wb, {
-      bookType: 'xlsx',
+      bookType: "xlsx",
       bookSST: false,
-      type: 'binary'
+      type: "binary",
     })
 
-    saveAs(new Blob([s2ab(wbout)], {
-      type: 'application/octet-stream'
-    }), 'test.xlsx')
+    saveAs(
+      new Blob([s2ab(wbout)], {
+        type: "application/octet-stream",
+      }),
+      "test.xlsx",
+    )
   }
 }
 
-export const exportJson2Excel = (header: string[], data: any, filename = 'excel-list', multiHeader: string[][] = [], merges: any[] = [], autoWidth = true, bookType = 'xlsx') => {
+export const exportJson2Excel = (
+  header: string[],
+  data: any,
+  filename = "excel-list",
+  multiHeader: string[][] = [],
+  merges: any[] = [],
+  autoWidth = true,
+  bookType = "xlsx",
+) => {
   data = [...data]
   data.unshift(header)
   for (let i = multiHeader.length - 1; i > -1; i--) {
     data.unshift(multiHeader[i])
   }
 
-  const wsName = 'SheetJS'
+  const wsName = "SheetJS"
   const wb = new Workbook()
   const ws = sheetFromDataArray(data)
 
   if (merges.length > 0) {
-    if (!ws['!merges']) {
-      ws['!merges'] = []
+    if (!ws["!merges"]) {
+      ws["!merges"] = []
     }
-    merges.forEach(item => {
-      ws['!merges'].push(XLSX.utils.decode_range(item))
+    merges.forEach((item) => {
+      ws["!merges"].push(XLSX.utils.decode_range(item))
     })
   }
 
   if (autoWidth) {
     // 设置worksheet每列的最大宽度
-    const colWidth = data.map((row: any) => row.map((val: any) => {
-      // 先判断是否为 null/undefined
-      if (val == null) {
-        return {
-          wch: 10
+    const colWidth = data.map((row: any) =>
+      row.map((val: any) => {
+        // 先判断是否为 null/undefined
+        if (val == null) {
+          return {
+            wch: 10,
+          }
+          // 再判断是否为中文
+        } else if (val.toString().charCodeAt(0) > 255) {
+          return {
+            wch: val.toString().length * 2,
+          }
+        } else {
+          return {
+            wch: val.toString().length,
+          }
         }
-      // 再判断是否为中文
-      } else if (val.toString().charCodeAt(0) > 255) {
-        return {
-          wch: val.toString().length * 2
-        }
-      } else {
-        return {
-          wch: val.toString().length
-        }
-      }
-    }))
+      }),
+    )
     // 以第一行为初始值
     const result = colWidth[0]
     for (let i = 1; i < colWidth.length; i++) {
@@ -206,7 +224,7 @@ export const exportJson2Excel = (header: string[], data: any, filename = 'excel-
         }
       }
     }
-    ws['!cols'] = result
+    ws["!cols"] = result
   }
 
   // Add worksheet to workbook
@@ -216,10 +234,17 @@ export const exportJson2Excel = (header: string[], data: any, filename = 'excel-
   const wbout = XLSX.write(wb, {
     bookType: bookType as any,
     bookSST: false,
-    type: 'binary'
+    type: "binary",
   })
 
-  saveAs(new Blob([s2ab(wbout)], {
-    type: 'application/octet-stream'
-  }), `${filename}.${bookType}`)
+  saveAs(
+    new Blob([s2ab(wbout)], {
+      type: "application/octet-stream",
+    }),
+    `${filename}.${bookType}`,
+  )
+}
+
+export const readExcelFile = (url: string) => {
+  return readFile(url)
 }

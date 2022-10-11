@@ -2,12 +2,12 @@
  * @Author: sunji 2025506282@qq.com
  * @Date: 2022-08-19 14:30:34
  * @LastEditors: sunji 2025506282@qq.com
- * @LastEditTime: 2022-09-30 16:37:06
+ * @LastEditTime: 2022-10-11 14:20:21
  * @FilePath: \front-end\src\pages\healthy\components\trend.vue
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
 -->
 <template>
-  <div class="card">
+  <div class="card" v-for="(article, index) in articleList" :key="index">
     <div class="card-left">
       <div class="card-top">
         <span>{{ article.nickName }}</span>
@@ -22,6 +22,10 @@
         <p>{{ article.content }}</p>
       </div>
       <div class="card-bottom">
+        <div>
+          <money-collect-outlined style="font-size: 16px" />
+          <span class="num">{{ article?.moneyNumber || 0 }}</span>
+        </div>
         <div>
           <eye-outlined style="font-size: 16px" />
           <span class="num">{{ article.watchNum }}</span>
@@ -45,22 +49,24 @@
 <script lang="ts">
 import { defineComponent, PropType } from "vue"
 import { IArticle } from "./articleCard.interface"
-import { MOCK_ARTICLE } from "./articleCard.const"
+import { MOCK_ARTICLE_LIST } from "./articleCard.const"
 import {
   MessageOutlined,
   EyeOutlined,
   HeartOutlined,
+  MoneyCollectOutlined,
 } from "@ant-design/icons-vue"
 export default defineComponent({
   components: {
     MessageOutlined,
     EyeOutlined,
     HeartOutlined,
+    MoneyCollectOutlined,
   },
   props: {
-    article: {
-      type: Object as PropType<IArticle>,
-      default: () => MOCK_ARTICLE,
+    articleList: {
+      type: Object as PropType<IArticle[]>,
+      default: () => MOCK_ARTICLE_LIST,
     },
   },
   //   setup(props: { article: IArticle }) {
@@ -73,7 +79,7 @@ export default defineComponent({
   //   },
 })
 </script>
-<style lang="scss" scope>
+<style lang="scss" scoped>
 .card {
   display: flex;
   cursor: pointer;

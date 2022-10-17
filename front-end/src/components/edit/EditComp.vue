@@ -2,7 +2,7 @@
  * @Author: sunji 2025506282@qq.com
  * @Date: 2022-09-30 16:41:31
  * @LastEditors: sunji 2025506282@qq.com
- * @LastEditTime: 2022-09-30 17:22:32
+ * @LastEditTime: 2022-10-11 17:22:40
  * @FilePath: \front-end\src\components\edit\EditComp.vue
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
 -->
@@ -42,15 +42,14 @@
           'export',
           'emoticons',
           'Image',
-          'Link',
           'media',
           'preview',
           'save',
         ],
         toolbar:
           'undo redo | casechange blocks | bold italic backcolor | \
-            alignleft aligncenter alignright alignjustify | \
-            bullist numlst checklist outdent indent | removeformat | code |  export |  emoticons | table | Image | link | openlink | media  | fullscreen | preview | cancel | save',
+            alignleft aligncenter alignright  | \
+            bullist numlst checklist    | code |  export |  emoticons | table | Image  | media  | preview  | fullscreen',
       }"
       initial-value="请开始你的表演"
     />
@@ -69,6 +68,9 @@ export default {
 </script>
 <style>
 .tox-notifications-container {
+  display: none !important;
+}
+.tox-statusbar {
   display: none !important;
 }
 </style>

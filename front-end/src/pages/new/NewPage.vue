@@ -2,7 +2,7 @@
  * @Author: sunji 2025506282@qq.com
  * @Date: 2022-08-19 14:10:43
  * @LastEditors: sunji 2025506282@qq.com
- * @LastEditTime: 2022-10-11 16:48:47
+ * @LastEditTime: 2022-10-20 14:04:40
  * @FilePath: \front-end\src\pages\healthy\HealthyPage.vue
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
 -->
@@ -19,30 +19,51 @@
         <ul>
           <li><p>文章将自动保存至草稿箱</p></li>
           <li><a-button>草稿箱</a-button></li>
-          <li><a-button type="primary">发布</a-button></li>
+          <li>
+            <a-button type="primary" @click="handlePublish">发布</a-button>
+          </li>
           <li><user-nav-bar-comp /></li>
         </ul>
       </div>
     </header>
     <main>
-      <edit-comp />
+      <edit-comp ref="refEditComp" />
     </main>
   </div>
 </template>
 
 <script lang="ts">
-import { defineComponent, ref } from "vue"
+import { defineComponent, onMounted, ref } from "vue"
 
 export default defineComponent({
   components: {},
   setup() {
-    const title = ref("")
+    const refEditComp = ref(null)
+    const handlePublish = () => {
+      if (refEditComp.value) {
+        console.log(this, refEditComp.value)
+      }
+    }
+    onMounted(() => {
+      console.log("refEditComp")
+    })
     return {
-      title,
+      title: "",
+      handlePublish,
+      refEditComp,
     }
   },
 })
 </script>
+<!-- 
+<script setup>
+import { defineComponent, ref } from "vue"
+const refEditComp = ref(null)
+
+function handlePublish() {
+  console.log(refEditComp.value) // Hello World
+}
+</script> -->
 <style lang="scss" scoped>
 .healthy-box {
   width: 100%;

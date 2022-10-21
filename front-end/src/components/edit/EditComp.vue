@@ -2,7 +2,7 @@
  * @Author: sunji 2025506282@qq.com
  * @Date: 2022-09-30 16:41:31
  * @LastEditors: sunji 2025506282@qq.com
- * @LastEditTime: 2022-10-20 15:11:37
+ * @LastEditTime: 2022-10-21 15:06:02
  * @FilePath: \front-end\src\components\edit\EditComp.vue
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
 -->
@@ -18,10 +18,9 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, defineExpose, ref } from "vue"
-import tinymce from "tinymce/tinymce"
+import { defineComponent, defineExpose, onMounted, ref } from "vue"
 import Editor from "@tinymce/tinymce-vue"
-import "tinymce/plugins/image"
+// import "tinymce/plugins/image"
 // import "tinymce/plugins/image" // 插入上传图片插件
 // import "tinymce/plugins/media" // 插入视频插件
 // import "tinymce/plugins/wordcount" // 字数统计插件
@@ -32,8 +31,11 @@ export default defineComponent({
     editor: Editor,
   },
   setup() {
+    onMounted(() => {
+      // tinymce.init()
+    })
     const handleClcikEdit = () => {
-      //
+      //``
       console.log("123")
     }
     return {
@@ -46,40 +48,42 @@ export default defineComponent({
         language_url: "/tinymce/langs/zh-Hans.js", //引入语言包文件
         language: "zh-Hans", //语言类型
         plugins: [
-          "a11ychecker",
-          "advlist",
-          "advcode",
-          "advtable",
-          "autolink",
-          "checklist",
-          "export",
-          "lists",
-          "link",
           "image",
-          "charmap",
-          "preview",
-          "anchor",
-          "searchreplace",
-          "visualblocks",
-          "powerpaste",
-          "fullscreen",
-          "formatpainter",
-          "insertdatetime",
-          "media",
-          "table",
-          "help",
-          "wordcount",
-          "export",
-          "emoticons",
-          "Image",
           "media",
           "preview",
           "save",
+          "imagetools",
+          "a11ychecker",
+          // "advlist",
+          // "advcode",
+          // "advtable",
+          // "autolink",
+          // "checklist",
+          // "export",
+          // "lists",
+          // "link",
+          // "image",
+          // "charmap",
+          // "preview",
+          // "anchor",
+          // "searchreplace",
+          // "visualblocks",
+          // "powerpaste",
+          // "fullscreen",
+          // "formatpainter",
+          // "insertdatetime",
+          // "media",
+          // "table",
+          // "help",
+          // "wordcount",
+          // "export",
+          // "emoticons",
         ],
         toolbar:
-          "undo redo | casechange blocks | bold italic backcolor | \
-            alignleft aligncenter alignright  | \
-            bullist numlst checklist    | code |  export |  emoticons | table | Image  | media  | preview  | fullscreen",
+          // "undo redo | casechange blocks | bold italic backcolor | \
+          //   alignleft aligncenter alignright  | \
+          //   bullist numlst checklist    | code |  export |  emoticons | table | Image  | media  | preview  | fullscreen",
+          "image  | imagetools | media  | preview  | fullscreen",
       },
     }
   },

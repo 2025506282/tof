@@ -2,45 +2,50 @@
  * @Author: sunji 2025506282@qq.com
  * @Date: 2022-06-30 09:11:59
  * @LastEditors: sunji 2025506282@qq.com
- * @LastEditTime: 2022-08-18 10:38:06
+ * @LastEditTime: 2022-10-24 16:39:06
  * @FilePath: \front-end\public\index.html
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
 -->
 <!DOCTYPE html>
 <html lang="">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+    <link rel="icon" href="<%= BASE_URL %>basketball.svg" type="image/svg" />
+    <script src="/static/config.js"></script>
+    <script
+      src="https://cdn.tiny.cloud/1/no-api-key/tinymce/5/tinymce.min.js"
+      referrerpolicy="origin"
+    ></script>
 
-<head>
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width,initial-scale=1.0">
-  <link rel="icon" href="<%= BASE_URL %>basketball.svg" type="image/svg">
-  <script src="/static/config.js"></script>
-
-  <!-- <script src="/static/XbsjCesium/Cesium.js"></script>
+    <!-- <script src="/static/XbsjCesium/Cesium.js"></script>
   <script src="/static/XbsjEarth/XbsjEarth.js"></script>
   <script src="/static/XbsjBoxPickAction.js"></script> -->
-  <!-- <script src="./js/earthsdk/XbsjCesium/Cesium.js"></script> -->
-  <!-- <script src="./js/earthsdk/XbsjEarth/XbsjEarth.js"></script> -->
-  <!-- <script src="./static/XbsjEarthUI/xbsj.js"></script> -->
-  <title>TOF</title>
-  <style>
-    html,
-    body {
-      width: 100%;
-      height: 100%;
-      margin: 0px;
-      padding: 0px;
-    }
-  </style>
-</head>
+    <!-- <script src="./js/earthsdk/XbsjCesium/Cesium.js"></script> -->
+    <!-- <script src="./js/earthsdk/XbsjEarth/XbsjEarth.js"></script> -->
+    <!-- <script src="./static/XbsjEarthUI/xbsj.js"></script> -->
+    <title>TOF</title>
+    <style>
+      html,
+      body {
+        width: 100%;
+        height: 100%;
+        margin: 0px;
+        padding: 0px;
+      }
+    </style>
+  </head>
 
-<body>
-  <noscript>
-    <strong>We're sorry but <%= htmlWebpackPlugin.options.title %> doesn't work properly without JavaScript enabled.
-        Please enable it to continue.</strong>
-  </noscript>
-  <div id="app"></div>
-  <!-- built files will be auto injected -->
-</body>
-
+  <body>
+    <noscript>
+      <strong
+        >We're sorry but <%= htmlWebpackPlugin.options.title %> doesn't work
+        properly without JavaScript enabled. Please enable it to
+        continue.</strong
+      >
+    </noscript>
+    <div id="app"></div>
+    <!-- built files will be auto injected -->
+  </body>
 </html>

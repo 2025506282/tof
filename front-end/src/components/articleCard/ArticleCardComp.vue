@@ -2,12 +2,12 @@
  * @Author: sunji 2025506282@qq.com
  * @Date: 2022-08-19 14:30:34
  * @LastEditors: sunji 2025506282@qq.com
- * @LastEditTime: 2022-10-11 14:20:21
+ * @LastEditTime: 2022-10-25 14:45:11
  * @FilePath: \front-end\src\pages\healthy\components\trend.vue
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
 -->
 <template>
-  <div class="card" v-for="(article, index) in articleList" :key="index">
+  <div class="custom-card" v-for="(article, index) in articleList" :key="index">
     <div class="card-left">
       <div class="card-top">
         <span>{{ article.nickName }}</span>
@@ -80,7 +80,8 @@ export default defineComponent({
 })
 </script>
 <style lang="scss" scoped>
-.card {
+.custom-card {
+  width: 100%;
   display: flex;
   cursor: pointer;
   position: relative;
@@ -89,6 +90,7 @@ export default defineComponent({
   display: flex;
   align-items: center;
   text-align: left;
+  border-top: none;
   border-bottom: 1px solid #e5e6eb;
   .card-left {
     flex: 1;

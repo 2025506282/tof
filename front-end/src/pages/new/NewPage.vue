@@ -2,7 +2,7 @@
  * @Author: sunji 2025506282@qq.com
  * @Date: 2022-08-19 14:10:43
  * @LastEditors: sunji 2025506282@qq.com
- * @LastEditTime: 2022-10-24 17:19:18
+ * @LastEditTime: 2022-10-26 10:08:01
  * @FilePath: \front-end\src\pages\healthy\HealthyPage.vue
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
 -->
@@ -20,7 +20,26 @@
           <li><p>文章将自动保存至草稿箱</p></li>
           <li><a-button>草稿箱</a-button></li>
           <li>
-            <a-button type="primary" @click="handlePublish">发布</a-button>
+            <a-dropdown>
+              <a-button type="primary">发布</a-button>
+              <template #overlay>
+                <a-menu>
+                  <a-menu-item key="1">
+                    <UserOutlined />
+                    1st menu item
+                  </a-menu-item>
+                  <a-menu-item key="2">
+                    <UserOutlined />
+                    2nd menu item
+                  </a-menu-item>
+                  <a-menu-item key="3">
+                    <UserOutlined />
+                    3rd item
+                  </a-menu-item>
+                </a-menu>
+              </template>
+            </a-dropdown>
+            <!-- <a-button type="primary" @click="handlePublish">发布</a-button> -->
           </li>
           <li><user-nav-bar-comp /></li>
         </ul>
@@ -38,10 +57,10 @@ import { defineComponent, onMounted, ref } from "vue"
 export default defineComponent({
   components: {},
   setup() {
-    const refEditComp = ref(null)
+    const refEditComp = ref(null) as any
     const handlePublish = () => {
       if (refEditComp.value) {
-        console.log(this, refEditComp.value)
+        console.log(this, refEditComp.value.content)
       }
     }
     onMounted(() => {

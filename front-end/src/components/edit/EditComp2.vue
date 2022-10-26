@@ -2,7 +2,7 @@
  * @Author: sunji 2025506282@qq.com
  * @Date: 2022-09-30 16:41:31
  * @LastEditors: sunji 2025506282@qq.com
- * @LastEditTime: 2022-10-24 17:20:21
+ * @LastEditTime: 2022-10-25 11:11:46
  * @FilePath: \front-end\src\components\edit\EditComp.vue
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
 -->
@@ -56,36 +56,34 @@ export default defineComponent({
           "save",
           "imagetools",
           "a11ychecker",
-          // "advlist",
-          // "advcode",
-          // "advtable",
-          // "autolink",
-          // "checklist",
-          // "export",
-          // "lists",
-          // "link",
-          // "image",
-          // "charmap",
-          // "preview",
-          // "anchor",
-          // "searchreplace",
-          // "visualblocks",
-          // "powerpaste",
-          // "fullscreen",
-          // "formatpainter",
-          // "insertdatetime",
-          // "media",
-          // "table",
-          // "help",
-          // "wordcount",
-          // "export",
-          // "emoticons",
+          "advlist",
+          "advcode",
+          "advtable",
+          "autolink",
+          "checklist",
+          "export",
+          "lists",
+          "link",
+          "image",
+          "charmap",
+          "preview",
+          "anchor",
+          "searchreplace",
+          "visualblocks",
+          "powerpaste",
+          "fullscreen",
+          "formatpainter",
+          "insertdatetime",
+          "media",
+          "table",
+          "help",
+          "wordcount",
+          "export",
+          "emoticons",
         ],
         toolbar:
-          // "undo redo | casechange blocks | bold italic backcolor | \
-          //   alignleft aligncenter alignright  | \
-          //   bullist numlst checklist    | code |  export |  emoticons | table | Image  | media  | preview  | fullscreen",
-          "image  | imagetools | media  | preview  | fullscreen",
+          "undo redo | casechange blocks | bold italic backcolor |  alignleft aligncenter alignright  |  bullist numlst checklist    | code |  export |  emoticons | table | Image  | media  | preview  | fullscreen",
+        // "image  | imagetools | media  | preview  | fullscreen",
         file_picker_types: "image",
         /* and here's our custom image picker*/
         file_picker_callback: (cb: any, value: any, meta: any) => {

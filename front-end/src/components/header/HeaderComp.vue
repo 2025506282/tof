@@ -2,7 +2,7 @@
  * @Author: sunji 2025506282@qq.com
  * @Date: 2022-08-19 14:30:34
  * @LastEditors: sunji 2025506282@qq.com
- * @LastEditTime: 2022-10-11 15:30:07
+ * @LastEditTime: 2022-10-25 15:06:47
  * @FilePath: \front-end\src\pages\healthy\components\trend.vue
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
 -->
@@ -37,9 +37,9 @@
               创作者中心
               <template #overlay>
                 <a-menu>
-                  <a-menu-item key="1">写文章</a-menu-item>
-                  <a-menu-item key="2">发视频</a-menu-item>
-                  <a-menu-item key="3">草稿箱</a-menu-item>
+                  <a-menu-item :key="item.value" v-for="item in creatorList">
+                    <router-link :to="item.value">{{ item.label }}</router-link>
+                  </a-menu-item>
                 </a-menu>
               </template>
               <template #icon><DownOutlined /></template>
@@ -65,7 +65,7 @@
 
 <script lang="ts">
 import { defineComponent, PropType } from "vue"
-import { NAV_LIST } from "./header.const"
+import { CREATOR_LIST, NAV_LIST } from "./header.const"
 import { IITem } from "./header.interface"
 import { DownOutlined, BellOutlined } from "@ant-design/icons-vue"
 
@@ -86,6 +86,7 @@ export default defineComponent({
     // }
     return {
       keyWord: "",
+      creatorList: CREATOR_LIST,
     }
   },
 })

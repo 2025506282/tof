@@ -2,13 +2,13 @@
  * @Author: sunji 2025506282@qq.com
  * @Date: 2022-08-19 14:30:34
  * @LastEditors: sunji 2025506282@qq.com
- * @LastEditTime: 2022-10-27 15:24:27
+ * @LastEditTime: 2022-10-28 10:45:14
  * @FilePath: \front-end\src\pages\healthy\components\trend.vue
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
 -->
 <template>
   <div class="replenish-box">
-    <h3>更新文章</h3>
+    <!-- <h3>更新文章</h3> -->
     <div>
       <a-form
         :model="formState"
@@ -127,27 +127,31 @@ export default defineComponent({
 </script>
 <style lang="scss">
 .replenish-box {
-  width: 560px;
+  width: 530px;
   white-space: nowrap;
   color: #909090;
-  background-color: #fff;
-  border: 1px solid #ddd;
+  // background-color: #fff;
+  // border: 1px solid #ddd;
   border-radius: 2px;
-  -webkit-box-shadow: 0 1px 2px #f1f1f1;
-  box-shadow: 0 1px 2px #f1f1f1;
+  // -webkit-box-shadow: 0 1px 2px #f1f1f1;
+  // box-shadow: 0 1px 2px #f1f1f1;
   cursor: default;
-  h3 {
-    padding: 24px 20px 16px 20px;
-    font-weight: 500;
-    font-size: 18px;
-    line-height: 24px;
-    color: #1d2129;
-    border-bottom: 1px solid #e5e6eb;
-    margin-bottom: 30px;
+  .ant-radio-group {
+    white-space: pre-wrap;
   }
+
   .ant-radio-group {
     label {
       margin-right: 10px;
+      margin-bottom: 10px;
+      width: 88px;
+      height: 28px;
+      padding: 0;
+      line-height: 28px;
+      text-align: center;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
     }
   }
 }

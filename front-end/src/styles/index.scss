@@ -63,7 +63,9 @@ div:focus {
     }
   }
 }
-
+.ant-popover {
+  z-index: 1 !important;
+}
 aside {
   background: #eef1f6;
   color: #2c3e50;

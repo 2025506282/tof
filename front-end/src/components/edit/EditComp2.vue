@@ -2,7 +2,7 @@
  * @Author: sunji 2025506282@qq.com
  * @Date: 2022-09-30 16:41:31
  * @LastEditors: sunji 2025506282@qq.com
- * @LastEditTime: 2022-10-25 11:11:46
+ * @LastEditTime: 2022-11-02 10:09:05
  * @FilePath: \front-end\src\components\edit\EditComp.vue
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
 -->
@@ -37,18 +37,20 @@ export default defineComponent({
       // tinymce.init()
     })
     const handleClcikEdit = () => {
-      //``
       console.log("123")
     }
     return {
       content: "请开始你的表演",
       handleClcikEdit,
       init: {
-        height: 500,
+        // height: 500,
         menubar: false,
-        skin_url: "/tinymce/skins/ui/oxide", // skin路径
+        contextmenu: "",
+        // skin_url: "/tinymce/skins/ui/oxide", // skin路径
         language_url: "/tinymce/langs/zh-Hans.js", //引入语言包文件
         language: "zh-Hans", //语言类型
+        content_style:
+          "body { font-family:Helvetica,Arial,sans-serif; font-size:16px }",
         plugins: [
           "image",
           "media",
@@ -82,8 +84,7 @@ export default defineComponent({
           "emoticons",
         ],
         toolbar:
-          "undo redo | casechange blocks | bold italic backcolor |  alignleft aligncenter alignright  |  bullist numlst checklist    | code |  export |  emoticons | table | Image  | media  | preview  | fullscreen",
-        // "image  | imagetools | media  | preview  | fullscreen",
+          "undo redo |  blocks | bold italic backcolor |  alignleft aligncenter alignright  |  bullist numlst checklist    | code |  export |  emoticons | table | Image  | media  | preview  | fullscreen",
         file_picker_types: "image",
         /* and here's our custom image picker*/
         file_picker_callback: (cb: any, value: any, meta: any) => {

@@ -2,71 +2,83 @@
  * @Author: sunji 2025506282@qq.com
  * @Date: 2022-09-30 16:41:31
  * @LastEditors: sunji 2025506282@qq.com
- * @LastEditTime: 2022-10-25 14:46:17
+ * @LastEditTime: 2022-11-02 09:58:35
  * @FilePath: \front-end\src\components\edit\EditComp.vue
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
 -->
 <template>
-  <textarea id="file-picker"></textarea>
+  <textarea id="full-featured">
+  <p><img style="display: block; margin-left: auto; margin-right: auto;" title="Tiny Logo" src="https://www.tiny.cloud/docs/images/logos/android-chrome-256x256.png" alt="TinyMCE Logo" width="128" height="128"></p>
+  <h2 style="text-align: center;">Welcome to the TinyMCE Cloud demo!</h2>
+  <h5 style="text-align: center;">Note, this includes some "enterprise/premium" features.<br>Visit the <a href="https://www.tiny.cloud/pricing">pricing page</a> to learn more about our premium plugins.</h5>
+  <p>Please try out the features provided in this full featured example.</p>
+
+  <h2>Got questions or need help?</h2>
+  <ul>
+    <li>Our <a class="mceNonEditable" href="https://www.tiny.cloud/docs/tinymce/6/">documentation</a> is a great resource for learning how to configure TinyMCE.</li>
+    <li>Have a specific question? Try the <a href="https://stackoverflow.com/questions/tagged/tinymce" target="_blank" rel="noopener"><code>tinymce</code> tag at Stack Overflow</a>.</li>
+    <li>We also offer enterprise grade support as part of <a href="https://www.tiny.cloud/pricing">TinyMCE premium subscriptions</a>.</li>
+  </ul>
+
+  <h2>A simple table to play with</h2>
+  <table style="border-collapse: collapse; width: 100%;" border="1">
+    <thead>
+      <tr>
+        <th>Product</th>
+        <th>Cost</th>
+        <th>Really?</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>TinyMCE Cloud</td>
+        <td>Get started for free</td>
+        <td>YES!</td>
+      </tr>
+      <tr>
+        <td>Plupload</td>
+        <td>Free</td>
+        <td>YES!</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h2>Found a bug?</h2>
+  <p>If you think you have found a bug please create an issue on the <a href="https://github.com/tinymce/tinymce/issues">GitHub repo</a> to report it to the developers.</p>
+
+  <h2>Finally ...</h2>
+  <p>Don't forget to check out our other product <a href="http://www.plupload.com" target="_blank">Plupload</a>, your ultimate upload solution featuring HTML5 upload support.</p>
+  <p>Thanks for supporting TinyMCE! We hope it helps you and your users create great content.<br>All the best from the TinyMCE team.</p>
+</textarea
+  >
 </template>
 
-<script lang="ts">
+<script>
 import { defineComponent, defineExpose, onMounted, ref } from "vue"
 // import tinymce from "tinymce"
 // import Editor from "@tinymce/tinymce-vue"
-// import "tinymce/plugins/image"
-// import "tinymce/plugins/image" // 插入上传图片插件
-// import "tinymce/plugins/media" // 插入视频插件
-// import "tinymce/plugins/wordcount" // 字数统计插件
+import "tinymce/plugins/image" // 插入上传图片插件
+import "tinymce/plugins/media" // 插入视频插件
+import "tinymce/plugins/wordcount" // 字数统计插件
 
 export default defineComponent({
   name: "editComp",
   components: {},
   mounted() {
+    const useDarkMode = window.matchMedia(
+      "(prefers-color-scheme: dark)",
+    ).matches
+    const isSmallScreen = window.matchMedia("(max-width: 1023.5px)").matches
+
     tinymce.init({
-      selector: "textarea#file-picker",
-      plugins: "image code",
-      toolbar: "undo redo | link image | code",
-      /* enable title field in the Image dialog*/
-      image_title: true,
-      /* enable automatic uploads of images represented by blob or data URIs*/
-      automatic_uploads: true,
-      /*
-    URL of our upload handler (for more details check: https://www.tiny.cloud/docs/configure/file-image-upload/#images_upload_url)
-    images_upload_url: 'postAcceptor.php',
-    here we add custom filepicker only to Image dialog
-  */
-      file_picker_types: "image",
-      /* and here's our custom image picker*/
-      file_picker_callback: (cb: any, value: any, meta: any) => {
-        const input = document.createElement("input")
-        input.setAttribute("type", "file")
-        input.setAttribute("accept", "image/*")
-
-        input.addEventListener("change", (e: any) => {
-          const file = e.target.files[0]
-
-          const reader = new FileReader() as any
-          reader.addEventListener("load", () => {
-            /*
-          Note: Now we need to register the blob in TinyMCEs image blob
-          registry. In the next release this part hopefully won't be
-          necessary, as we are looking to handle it internally.
-        */
-            const id = "blobid" + new Date().getTime()
-            const blobCache = tinymce.activeEditor.editorUpload.blobCache
-            const base64 = reader.result.split(",")[1]
-            const blobInfo = blobCache.create(id, file, base64)
-            blobCache.add(blobInfo)
-
-            /* call the callback and populate the Title field with the file name */
-            cb(blobInfo.blobUri(), { title: file.name })
-          })
-          reader.readAsDataURL(file)
-        })
-
-        input.click()
-      },
+      selector: "textarea#full-featured",
+      plugins:
+        "a11ychecker advcode table advlist lists image media anchor link autoresize",
+      toolbar:
+        "a11ycheck | blocks bold forecolor backcolor | bullist numlist | link image media anchor | table | code",
+      a11y_advanced_options: true,
+      a11ychecker_html_version: "html5",
+      a11ychecker_level: "aaa",
       content_style:
         "body { font-family:Helvetica,Arial,sans-serif; font-size:16px }",
     })
@@ -74,6 +86,11 @@ export default defineComponent({
 })
 </script>
 <style scoped>
+/* For other boilerplate styles, see: https://www.tiny.cloud/docs/tinymce/6/editor-content-css/ */
+/*
+* For rendering images inserted using the image plugin.
+* Includes image captions using the HTML5 figure element.
+*/
 textarea#mentions {
   height: 350px;
 }

@@ -2,64 +2,27 @@
  * @Author: sunji 2025506282@qq.com
  * @Date: 2022-08-19 14:10:43
  * @LastEditors: sunji 2025506282@qq.com
- * @LastEditTime: 2022-11-02 15:07:49
+ * @LastEditTime: 2022-11-01 09:55:37
  * @FilePath: \front-end\src\pages\healthy\HealthyPage.vue
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
 -->
 <template>
-  <div class="healthy-box">
-    <header>
-      <a-input
-        v-model:value="title"
-        placeholder="请输入文章标题"
-        :bordered="false"
-        maxlength="100"
-      />
-      <div class="operation-box">
-        <ul>
-          <li><p>文章将自动保存至草稿箱</p></li>
-          <li><a-button>草稿箱</a-button></li>
-          <li>
-            <a-dropdown trigger="click">
-              <a-popover trigger="click" placement="bottomRight">
-                <template #title>
-                  <h3
-                    style="
-                      height: 40px;
-                      line-height: 40px;
-                      margin: 0;
-                      display: flex;
-                      align-items: center;
-                    "
-                  >
-                    更新文章
-                  </h3>
-                </template>
-                <template #content>
-                  <replenish-comp></replenish-comp>
-                </template>
-                <a-button type="primary">发布</a-button>
-              </a-popover>
-            </a-dropdown>
-          </li>
-          <li><user-nav-bar-comp /></li>
-        </ul>
-      </div>
-    </header>
-    <main>
-      <!-- <edit-comp ref="refEditComp" /> -->
-      <edit-comp2 ref="refEditComp" />
-    </main>
+  <div class="article-detail-box">
+    <div>
+      <ul>
+        <li><like-filled /></li>
+        <li><message-filled /></li>
+        <li><star-filled /></li>
+        <li><star-filled /></li>
+      </ul>
+    </div>
+    <div v-html="html"></div>
   </div>
 </template>
 
 <script lang="ts">
 import { defineComponent, onMounted, ref } from "vue"
-import ReplenishComp from "./components/ReplenishComp.vue"
 export default defineComponent({
-  components: {
-    "replenish-comp": ReplenishComp,
-  },
   setup() {
     const refEditComp = ref(null) as any
     // 用户点击发布
@@ -68,12 +31,12 @@ export default defineComponent({
         console.log(this, refEditComp.value.content)
       }
     }
-    const title = ref("")
     onMounted(() => {
       console.log("refEditComp")
     })
     return {
-      title,
+      title: "",
+      html: "",
       handlePublish,
       refEditComp,
     }

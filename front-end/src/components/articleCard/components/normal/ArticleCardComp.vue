@@ -2,14 +2,14 @@
  * @Author: sunji 2025506282@qq.com
  * @Date: 2022-08-19 14:30:34
  * @LastEditors: sunji 2025506282@qq.com
- * @LastEditTime: 2022-11-03 15:25:12
+ * @LastEditTime: 2022-11-03 14:51:51
  * @FilePath: \front-end\src\pages\healthy\components\trend.vue
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
 -->
 <template>
   <div class="custom-card" v-for="(article, index) in articleList" :key="index">
     <div class="card-left">
-      <div class="card-top" v-if="isNormal">
+      <div class="card-top">
         <span>{{ article.nickName }}</span>
         <span>{{ article.publishTime }}</span>
         <!-- <span>{{ article.tags.join(" * ") }}</span> -->
@@ -44,24 +44,15 @@
       <img :src="article.imageUrl" />
     </div>
     <div class="card-right-operation" v-else>
-      <a-dropdown type="primary">
-        <EllipsisOutlined style="font-size: 22px" />
-        <template #overlay>
-          <a-menu>
-            <a-menu-item> 编辑 </a-menu-item>
-            <a-menu-item> 删除 </a-menu-item>
-          </a-menu>
-        </template>
-        <template #icon><DownOutlined /></template>
-      </a-dropdown>
+      <EllipsisOutlined style="font-size: 22px" />
     </div>
   </div>
 </template>
 
 <script lang="ts">
 import { computed, defineComponent, PropType, ref } from "vue"
-import { IArticle } from "./articleCard.interface"
-import { MOCK_ARTICLE_LIST } from "./articleCard.const"
+import { IArticle } from "../../articleCard.interface"
+import { MOCK_ARTICLE_LIST } from "../../articleCard.const"
 import {
   MessageOutlined,
   EyeOutlined,
@@ -80,7 +71,7 @@ export default defineComponent({
   props: {
     mode: {
       type: String,
-      default: () => "normal1",
+      default: () => "normal",
     },
     articleList: {
       type: Object as PropType<IArticle[]>,
@@ -215,17 +206,6 @@ export default defineComponent({
       width: 120px;
       height: 80px;
       margin-left: 24px;
-    }
-  }
-  .card-right-operation {
-    margin-left: 30px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    &:hover {
-      background: #e5e6eb;
-      border-radius: 2px;
-      color: #1c78f0;
     }
   }
 }

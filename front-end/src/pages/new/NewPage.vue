@@ -2,7 +2,7 @@
  * @Author: sunji 2025506282@qq.com
  * @Date: 2022-08-19 14:10:43
  * @LastEditors: sunji 2025506282@qq.com
- * @LastEditTime: 2022-11-02 15:07:49
+ * @LastEditTime: 2022-11-03 09:13:52
  * @FilePath: \front-end\src\pages\healthy\HealthyPage.vue
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
 -->
@@ -18,7 +18,9 @@
       <div class="operation-box">
         <ul>
           <li><p>文章将自动保存至草稿箱</p></li>
-          <li><a-button>草稿箱</a-button></li>
+          <li>
+            <a-button><router-link to="/draft">草稿箱</router-link></a-button>
+          </li>
           <li>
             <a-dropdown trigger="click">
               <a-popover trigger="click" placement="bottomRight">

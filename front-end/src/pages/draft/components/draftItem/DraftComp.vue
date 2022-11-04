@@ -2,22 +2,28 @@
  * @Author: sunji 2025506282@qq.com
  * @Date: 2022-08-19 14:30:34
  * @LastEditors: sunji 2025506282@qq.com
- * @LastEditTime: 2022-11-03 09:56:41
+ * @LastEditTime: 2022-11-03 17:06:16
  * @FilePath: \front-end\src\pages\healthy\components\trend.vue
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
 -->
 <template>
   <div class="draft-item">
-    <h3><a href="">无标题</a></h3>
+    <h3>
+      <a href="">{{ draft.title }}</a>
+    </h3>
     <div>
-      <span class="time">2022 年 10 月 20 日 15:03</span>
+      <span class="time">{{ draft.time }}</span>
 
       <a-dropdown>
         <EllipsisOutlined style="font-size: 22px" />
         <template #overlay>
           <a-menu>
-            <a-menu-item> 编辑 </a-menu-item>
-            <a-menu-item> 删除 </a-menu-item>
+            <a-menu-item @click="$emit('handleClickEdit', draft)">
+              编辑
+            </a-menu-item>
+            <a-menu-item @click="$emit('handleClickDelete', draft)">
+              删除
+            </a-menu-item>
           </a-menu>
         </template>
       </a-dropdown>
@@ -28,37 +34,17 @@
 <script lang="ts">
 import { EllipsisOutlined } from "@ant-design/icons-vue"
 import { defineComponent, PropType } from "vue"
-import { DEFAULT_VALUE, Time, Tab, TIME_LIST } from "./draftItem.const"
-import { IITem } from "./draftItem.interface"
+import { MOCK_LIST } from "./draftItem.const"
+import { IDraft } from "./draftItem.interface"
 export default defineComponent({
   components: {
     EllipsisOutlined,
   },
   props: {
-    tabList: {
-      type: Object as PropType<IITem[]>,
-      default: () => DEFAULT_VALUE,
+    draft: {
+      type: Object as PropType<IDraft>,
+      default: () => MOCK_LIST[0],
     },
-  },
-  computed: {
-    isHot: function (): boolean {
-      return this.currentTab === Tab.Hot
-    },
-  },
-  methods: {
-    handleChange: function (value: string) {
-      console.log("value:", value)
-    },
-    handleClickTab: function (item: IITem) {
-      this.currentTab = item.value as Tab
-    },
-  },
-  data() {
-    return {
-      currentTab: Tab.Recommend,
-      time: Time.Three,
-      timeList: TIME_LIST,
-    }
   },
 })
 </script>

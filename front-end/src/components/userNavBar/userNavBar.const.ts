@@ -4,7 +4,7 @@ import { IMenu } from "./userNavBar.interface"
  * @Author: sunji 2025506282@qq.com
  * @Date: 2022-09-30 16:01:19
  * @LastEditors: sunji 2025506282@qq.com
- * @LastEditTime: 2022-11-03 09:49:32
+ * @LastEditTime: 2022-11-04 11:14:47
  * @FilePath: \front-end\src\components\tabBar\tabBar.const.ts
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  */
@@ -20,19 +20,19 @@ export const DEFAULT_VALUE: IMenu[] = [
   },
   {
     label: "我的主页",
-    value: "3",
+    value: "/creator",
   },
   {
     label: "我喜欢的",
-    value: "4",
+    value: "/creator",
   },
   {
     label: "我的收藏集",
-    value: "5",
+    value: "/creator",
   },
   {
     label: "标签管理 ",
-    value: "6",
+    value: "/creator",
     isSplit: true,
   },
   {

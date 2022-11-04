@@ -2,13 +2,14 @@
  * @Author: sunji 2025506282@qq.com
  * @Date: 2022-07-18 15:25:16
  * @LastEditors: sunji 2025506282@qq.com
- * @LastEditTime: 2022-11-03 13:38:23
+ * @LastEditTime: 2022-11-04 10:47:45
  * @FilePath: \front-end\src\pages\animate\WordPage.vue
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
 -->
 <template>
+  <header-comp></header-comp>
   <div class="creator-box" @scroll="onScroll">
-    <menu-comp></menu-comp>
+    <nav-comp></nav-comp>
     <div class="content">
       <router-view></router-view>
     </div>
@@ -17,7 +18,7 @@
 <script lang="ts">
 import { IArticle, MOCK_ARTICLE_LIST } from "@/components"
 import { defineComponent } from "vue"
-import MenuComp from "./components/MenuComp.vue"
+import NavComp from "./components/nav/NavComp.vue"
 // import * as THREE from "three"
 interface IData {
   articleList: IArticle[]
@@ -29,7 +30,7 @@ export default defineComponent({
     }
   },
   components: {
-    "menu-comp": MenuComp,
+    "nav-comp": NavComp,
   },
   methods: {
     onScroll(event: any) {
@@ -53,14 +54,13 @@ export default defineComponent({
 <style lang="scss" scoped>
 .creator-box {
   background-color: #f4f5f5;
-  height: 100%;
-
-  overflow-y: scroll;
+  width: 1200px;
+  margin: 20px auto;
+  padding-bottom: 30px;
   .content {
-    width: 960px;
-    margin: 10px auto 0;
+    flex: 1;
     background-color: #fff;
-    padding: 0 12px;
+    margin-left: 260px;
     h5 {
       font-weight: 700;
       color: #007fff;

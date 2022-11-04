@@ -2,7 +2,7 @@
  * @Author: sunji 2025506282@qq.com
  * @Date: 2022-08-19 14:30:34
  * @LastEditors: sunji 2025506282@qq.com
- * @LastEditTime: 2022-11-03 15:27:34
+ * @LastEditTime: 2022-11-04 16:57:19
  * @FilePath: \front-end\src\pages\healthy\components\trend.vue
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
 -->
@@ -10,7 +10,7 @@
   <header>
     <div>
       <nav class="nav">
-        <a class="logo-box" href="./home">
+        <a class="logo-box" href="/home">
           <img src="@/assets/images/logo/basketball.svg" />
           <span>TOF</span>
         </a>
@@ -34,7 +34,7 @@
           </li>
           <li>
             <a-dropdown-button type="primary">
-              <router-link to="creator">创作者中心</router-link>
+              <router-link to="/creator">创作者中心</router-link>
               <template #overlay>
                 <a-menu>
                   <a-menu-item :key="item.value" v-for="item in creatorList">
@@ -93,10 +93,16 @@ export default defineComponent({
 </script>
 <style lang="scss" scoped>
 header {
+  position: fixed;
+  top: 0;
+  width: 100%;
   padding: 0;
   margin: 0 auto;
+  z-index: 100;
+  overflow-y: auto;
   border-bottom: 1px solid #f1f1f1;
   background: #fff;
+  position: sticky;
   & > div {
     padding: 0;
     display: flex;

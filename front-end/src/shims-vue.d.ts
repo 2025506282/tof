@@ -19,6 +19,7 @@ declare module "vue-cesium"
 declare module "vue-cesium/lang/zh-hans"
 declare module "self"
 declare module "fs-extra"
+declare module "file-saver"
 declare module "tinymce/tinymce"
 // declare module "three"
 declare const window: any

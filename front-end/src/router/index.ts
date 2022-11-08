@@ -2,7 +2,7 @@
  * @Author: sunji 2025506282@qq.com
  * @Date: 2022-06-30 09:11:59
  * @LastEditors: sunji 2025506282@qq.com
- * @LastEditTime: 2022-11-04 11:26:01
+ * @LastEditTime: 2022-11-08 09:37:26
  * @FilePath: \front-end\src\router\index.ts
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  */
@@ -13,6 +13,33 @@ const routes: Array<RouteRecordRaw> = [
     path: "",
     name: "home",
     component: () => import("../pages/home/HomePage.vue"),
+  },
+  {
+    path: "/setting",
+    name: "setting",
+
+    component: () => import("../pages/setting/SettingPage.vue"),
+    children: [
+      {
+        path: "",
+        redirect: "/setting/profile",
+      },
+      {
+        path: "profile",
+        name: "profile",
+        component: () => import("../pages/setting/profile/ProfilePage.vue"),
+      },
+      {
+        path: "account",
+        name: "account",
+        component: () => import("../pages/setting/account/AccountPage.vue"),
+      },
+      {
+        path: "message",
+        name: "message",
+        component: () => import("../pages/setting/message/MessagePage.vue"),
+      },
+    ],
   },
   {
     path: "/creator",
@@ -33,6 +60,11 @@ const routes: Array<RouteRecordRaw> = [
         path: "analyse",
         name: "analyse",
         component: () => import("../pages/creator/analyse/AnalysePage.vue"),
+      },
+      {
+        path: "comment",
+        name: "comment",
+        component: () => import("../pages/creator/comment/CommentPage.vue"),
       },
     ],
   },

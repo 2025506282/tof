@@ -4,7 +4,7 @@ import { IMenu } from "./userNavBar.interface"
  * @Author: sunji 2025506282@qq.com
  * @Date: 2022-09-30 16:01:19
  * @LastEditors: sunji 2025506282@qq.com
- * @LastEditTime: 2022-11-04 11:14:47
+ * @LastEditTime: 2022-11-08 09:31:09
  * @FilePath: \front-end\src\components\tabBar\tabBar.const.ts
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  */
@@ -36,29 +36,29 @@ export const DEFAULT_VALUE: IMenu[] = [
     isSplit: true,
   },
   {
-    label: "设置 ",
-    value: "7",
+    label: "设置",
+    value: "/setting",
   },
-  {
-    label: "关于 ",
-    value: "8",
-    children: [
-      {
-        label: "下载应用",
-        value: "8-1",
-      },
-      {
-        label: "加入我们",
-        value: "8-2",
-      },
-      {
-        label: "翻译计划",
-        value: "8-3",
-      },
-      {
-        label: "合作伙伴 ",
-        value: "8-4",
-      },
-    ],
-  },
+  // {
+  //   label: "关于 ",
+  //   value: "/setting",
+  //   children: [
+  //     {
+  //       label: "下载应用",
+  //       value: "8-1",
+  //     },
+  //     {
+  //       label: "加入我们",
+  //       value: "8-2",
+  //     },
+  //     {
+  //       label: "翻译计划",
+  //       value: "8-3",
+  //     },
+  //     {
+  //       label: "合作伙伴 ",
+  //       value: "8-4",
+  //     },
+  //   ],
+  // },
 ]

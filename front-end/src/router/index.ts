@@ -2,7 +2,7 @@
  * @Author: sunji 2025506282@qq.com
  * @Date: 2022-06-30 09:11:59
  * @LastEditors: sunji 2025506282@qq.com
- * @LastEditTime: 2022-11-08 09:37:26
+ * @LastEditTime: 2022-11-08 11:22:13
  * @FilePath: \front-end\src\router\index.ts
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  */
@@ -11,8 +11,9 @@ import { createRouter, createWebHistory, RouteRecordRaw } from "vue-router"
 const routes: Array<RouteRecordRaw> = [
   {
     path: "",
-    name: "home",
-    component: () => import("../pages/home/HomePage.vue"),
+    name: "home2",
+    redirect: "/home",
+    // component: () => import("../pages/home/HomePage.vue"),
   },
   {
     path: "/setting",

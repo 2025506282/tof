@@ -2,7 +2,7 @@
  * @Author: sunji 2025506282@qq.com
  * @Date: 2022-06-22 16:16:29
  * @LastEditors: sunji 2025506282@qq.com
- * @LastEditTime: 2022-11-02 14:28:06
+ * @LastEditTime: 2022-11-10 17:12:08
  * @FilePath: \back-end\src\controllers\pdf.controller.ts
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  */
@@ -28,19 +28,17 @@ export class ImageController extends Controller {
   //   await fse.move(file.path, chunksDir + "/" + hash);
   //   return true;
   // }
-  @Inject private image: ImageService;
+  @Inject private imageService: ImageService;
 
   @Post("upload")
-  public async uploadFile(@Request() req: express.Request): Promise<boolean> {
+  public async uploadImage(@Request() req: express.Request): Promise<any> {
     // const uploadPromise = limit(() => this.fileService.uploadFile(req));
-    const result = await this.image.uploadFile(req);
-    return true;
+    const result = await this.imageService.uploadImage(req);
+    return {
+      code: 200,
+      data: result,
+    };
     // this.fileService.uploadFile(req);
     // return true;
-  }
-  @Post("merge")
-  public async mergeFileChunk(@Body() requestBody: IFile): Promise<boolean> {
-    const res = await this.image.createFile(requestBody);
-    return res;
   }
 }

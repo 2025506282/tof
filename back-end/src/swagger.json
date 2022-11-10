@@ -125,50 +125,19 @@
 		},
 		"/image/upload": {
 			"post": {
-				"operationId": "UploadFile",
+				"operationId": "UploadImage",
 				"responses": {
 					"200": {
 						"description": "Ok",
 						"content": {
 							"application/json": {
-								"schema": {
-									"type": "boolean"
-								}
+								"schema": {}
 							}
 						}
 					}
 				},
 				"security": [],
 				"parameters": []
-			}
-		},
-		"/image/merge": {
-			"post": {
-				"operationId": "MergeFileChunk",
-				"responses": {
-					"200": {
-						"description": "Ok",
-						"content": {
-							"application/json": {
-								"schema": {
-									"type": "boolean"
-								}
-							}
-						}
-					}
-				},
-				"security": [],
-				"parameters": [],
-				"requestBody": {
-					"required": true,
-					"content": {
-						"application/json": {
-							"schema": {
-								"$ref": "#/components/schemas/IFile"
-							}
-						}
-					}
-				}
 			}
 		},
 		"/pdf/uploadFile": {

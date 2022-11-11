@@ -2,7 +2,7 @@
  * @Author: sunji 2025506282@qq.com
  * @Date: 2022-11-11 13:34:11
  * @LastEditors: sunji 2025506282@qq.com
- * @LastEditTime: 2022-11-11 13:44:28
+ * @LastEditTime: 2022-11-11 15:06:51
  * @FilePath: \back-end\src\controllers\article.controller.ts
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  */
@@ -31,9 +31,7 @@ import { ArticleService } from "../services/article.service";
 @Route("articles")
 export class ArticleController extends Controller {
   @Post()
-  public async creatArticle(
-    @Body() requestBody: IArticle
-  ): Promise<IRes<boolean>> {
+  public async creatArticle(@Body() requestBody: IArticle): Promise<void> {
     return new ArticleService().create(requestBody);
   }
 }

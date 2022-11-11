@@ -2,7 +2,7 @@
  * @Author: sunji 2025506282@qq.com
  * @Date: 2022-08-19 14:10:43
  * @LastEditors: sunji 2025506282@qq.com
- * @LastEditTime: 2022-11-03 09:13:52
+ * @LastEditTime: 2022-11-11 13:31:57
  * @FilePath: \front-end\src\pages\healthy\HealthyPage.vue
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
 -->
@@ -22,27 +22,32 @@
             <a-button><router-link to="/draft">草稿箱</router-link></a-button>
           </li>
           <li>
-            <a-dropdown trigger="click">
-              <a-popover trigger="click" placement="bottomRight">
-                <template #title>
-                  <h3
-                    style="
-                      height: 40px;
-                      line-height: 40px;
-                      margin: 0;
-                      display: flex;
-                      align-items: center;
-                    "
-                  >
-                    更新文章
-                  </h3>
-                </template>
-                <template #content>
-                  <replenish-comp></replenish-comp>
-                </template>
-                <a-button type="primary">发布</a-button>
-              </a-popover>
-            </a-dropdown>
+            <a-popover
+              v-model:visible="isShowReplenish"
+              trigger="click"
+              placement="bottomLeft"
+            >
+              <template #title>
+                <h3
+                  style="
+                    height: 40px;
+                    line-height: 40px;
+                    margin: 0;
+                    display: flex;
+                    align-items: center;
+                  "
+                >
+                  更新文章
+                </h3>
+              </template>
+              <template #content>
+                <replenish-comp
+                  @handleConfirm="handleClickPublish"
+                  @handleCancel="handleClickCancel"
+                ></replenish-comp>
+              </template>
+              <a-button type="primary" arrow-point-at-center>发布</a-button>
+            </a-popover>
           </li>
           <li><user-nav-bar-comp /></li>
         </ul>
@@ -56,27 +61,48 @@
 </template>
 
 <script lang="ts">
+import { createArticleAPI } from "@/apis"
+import { message } from "ant-design-vue"
 import { defineComponent, onMounted, ref } from "vue"
+import { IForm } from "./components"
 import ReplenishComp from "./components/ReplenishComp.vue"
 export default defineComponent({
   components: {
     "replenish-comp": ReplenishComp,
   },
   setup() {
-    const refEditComp = ref(null) as any
-    // 用户点击发布
-    const handlePublish = () => {
-      if (refEditComp.value) {
-        console.log(this, refEditComp.value.content)
-      }
-    }
     const title = ref("")
+    const isShowReplenish = ref<boolean>(false)
+    const refEditComp = ref(null) as any
+    const handleClickPublish = (form: IForm) => {
+      if (!title.value) {
+        message.error("请填写文章标题")
+        return
+      }
+      if (!refEditComp.value.content) {
+        message.error("请填写文章内容")
+        return
+      }
+      isShowReplenish.value = true
+      console.log("this", form, refEditComp.value.content)
+      createArticleAPI({
+        ...form,
+        title: title.value,
+        content: refEditComp.value.content,
+      })
+    }
+    const handleClickCancel = () => {
+      isShowReplenish.value = false
+    }
+
     onMounted(() => {
       console.log("refEditComp")
     })
     return {
+      isShowReplenish,
       title,
-      handlePublish,
+      handleClickCancel,
+      handleClickPublish,
       refEditComp,
     }
   },

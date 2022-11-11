@@ -2,7 +2,7 @@
  * @Author: sunji 2025506282@qq.com
  * @Date: 2022-08-19 14:30:34
  * @LastEditors: sunji 2025506282@qq.com
- * @LastEditTime: 2022-11-10 17:06:58
+ * @LastEditTime: 2022-11-11 13:21:07
  * @FilePath: \front-end\src\pages\healthy\components\trend.vue
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
 -->
@@ -110,8 +110,6 @@
 <script lang="ts">
 import { defineComponent, reactive, ref } from "vue"
 import { PlusOutlined, LoadingOutlined } from "@ant-design/icons-vue"
-
-import * as echarts from "echarts/core"
 import { IForm } from "./replenish.interface"
 import { TAG_LIST, TYPE_LIST } from "./replenish.const"
 import { getBase64, getBase64Result } from "@/utils"
@@ -123,7 +121,7 @@ import networkConfig from "@/config/default/net.config"
 export default defineComponent({
   components: { LoadingOutlined, PlusOutlined },
   // props: ["replenish"],
-  setup() {
+  setup(props, { emit }) {
     const fileList = ref([])
     const loading = ref<boolean>(false)
     const imageUrl = ref<string>("")
@@ -131,13 +129,19 @@ export default defineComponent({
     const previewImage = ref("")
     const previewTitle = ref("")
     const previewVisible = ref(false)
+    const formState = reactive<IForm>({
+      type: "",
+      tags: [],
+      cover: "",
+      abstract: "",
+    })
     const handleCancel = () => {
       previewVisible.value = false
       previewTitle.value = ""
     }
     const resetForm = () => {
-      console.log("123", formRef, formRef.value)
       formRef.value?.resetFields()
+      emit("handleCancel")
     }
     const handlePreview = async (file: any) => {
       if (!file.url && !file.preview) {
@@ -155,6 +159,7 @@ export default defineComponent({
       }
       if (info.file.status === "done") {
         console.log("info:", info)
+        formState.cover = info.file.response?.data
         // Get this url from response in real world.
         getBase64(info.file.originFileObj as Blob, (base64Url: string) => {
           imageUrl.value = base64Url
@@ -178,14 +183,9 @@ export default defineComponent({
       }
       return isJpgOrPng && isLt2M
     }
-    const formState = reactive<IForm>({
-      type: "",
-      tags: [],
-      cover: "",
-      abstract: "",
-    })
-    const handleFinish = (values: any) => {
-      console.log("Success:", values)
+
+    const handleFinish = () => {
+      emit("handleConfirm", formState)
     }
 
     const handleFinishFailed = (errorInfo: any) => {
@@ -245,3 +245,5 @@ export default defineComponent({
   }
 }
 </style>
+
+function $emit(arg0: string) { throw new Error("Function not implemented.") }

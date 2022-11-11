@@ -3,7 +3,7 @@
  * @Autor: scy😊
  * @Date: 2021-01-12 11:31:47
  * @LastEditors: sunji 2025506282@qq.com
- * @LastEditTime: 2022-09-19 15:13:14
+ * @LastEditTime: 2022-11-11 13:25:10
  */
 import { post, get } from "@/utils/request"
 import { RootObject } from "@/model/rootObject"
@@ -12,23 +12,6 @@ import { ArticleModel } from "@/model/articleModel"
 import { ArticleList } from "@/model/articleList"
 import { Form } from "ant-design-vue"
 
-export const defaultArticleModel: ArticleModel = {
-  id: 0,
-  status: "draft",
-  title: "",
-  fullContent: "",
-  abstractContent: "",
-  sourceURL: "",
-  imageURL: "",
-  timestamp: 0,
-  platforms: ["a-platform"],
-  disableComment: false,
-  importance: 0,
-  author: "",
-  reviewer: "",
-  type: "",
-  pageviews: 0,
-}
 export interface IFile {
   chunk: string
   hash: string

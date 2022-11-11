@@ -3,13 +3,14 @@
  * @Autor: scy😊
  * @Date: 2021-01-12 11:31:47
  * @LastEditors: sunji 2025506282@qq.com
- * @LastEditTime: 2022-09-05 13:16:48
+ * @LastEditTime: 2022-11-11 13:35:39
  */
-import { https } from "@/utils/https"
+import { https, post } from "@/utils/https"
 import { RootObject } from "@/model/rootObject"
 import { ContentType, Method } from "axios-mapper"
 import { ArticleModel } from "@/model/articleModel"
 import { ArticleList } from "@/model/articleList"
+import { IArticle } from "./article.model"
 
 export const defaultArticleModel: ArticleModel = {
   id: 0,
@@ -47,16 +48,11 @@ export const getArticle = (params: any) => {
   )
 }
 
-export const createArticle = (data: any) => {
-  return https().request<RootObject<ArticleModel>>(
-    "article/createArticle",
-    Method.POST,
-    data,
-    ContentType.json,
-  )
+export const createArticleAPI = (data: IArticle) => {
+  return post<RootObject<ArticleModel>>("article/createArticle", data)
 }
 
-export const updateArticle = (params: any) => {
+export const updateArticle = (params: IArticle) => {
   return https().request<RootObject<ArticleModel>>(
     "article/updateArticle",
     Method.POST,

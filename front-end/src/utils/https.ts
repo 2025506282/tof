@@ -3,7 +3,7 @@
  * @Author: ZY
  * @Date: 2020-12-28 14:45:32
  * @LastEditors: sunji 2025506282@qq.com
- * @LastEditTime: 2022-09-13 11:24:19
+ * @LastEditTime: 2022-11-15 17:20:47
  */
 
 // import { useStore } from '@/store'
@@ -14,9 +14,10 @@ import { RootObject } from "@/model/rootObject"
 export const https = () => {
   const config: HttpClientConfig = {
     baseURL: networkConfig.host,
-    // headers: {
-    //   token: hasToken ? useStore().state.user.token : ''
-    // }
+    headers: {
+      contentType: ContentType.json,
+      //   token: hasToken ? useStore().state.user.token : ''
+    },
   }
   return new HttpClient(config)
 }

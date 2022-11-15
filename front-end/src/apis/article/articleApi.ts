@@ -3,7 +3,7 @@
  * @Autor: scy😊
  * @Date: 2021-01-12 11:31:47
  * @LastEditors: sunji 2025506282@qq.com
- * @LastEditTime: 2022-11-11 13:35:39
+ * @LastEditTime: 2022-11-15 17:22:20
  */
 import { https, post } from "@/utils/https"
 import { RootObject } from "@/model/rootObject"
@@ -49,7 +49,7 @@ export const getArticle = (params: any) => {
 }
 
 export const createArticleAPI = (data: IArticle) => {
-  return post<RootObject<ArticleModel>>("article/createArticle", data)
+  return post<RootObject<ArticleModel>>("articles/upload", data)
 }
 
 export const updateArticle = (params: IArticle) => {

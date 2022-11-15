@@ -92,6 +92,9 @@
 					}
 				]
 			},
+			"IGolbalResponse_string_": {
+				"$ref": "#/components/schemas/IRes_string_"
+			},
 			"User": {
 				"properties": {
 					"id": {
@@ -222,7 +225,9 @@
 						"description": "Ok",
 						"content": {
 							"application/json": {
-								"schema": {}
+								"schema": {
+									"$ref": "#/components/schemas/IGolbalResponse_string_"
+								}
 							}
 						}
 					}

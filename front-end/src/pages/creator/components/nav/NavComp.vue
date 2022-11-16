@@ -7,7 +7,7 @@
       </li>
       <li>
         <a-button type="primary"
-          ><router-link to="/new">写文章</router-link></a-button
+          ><router-link to="/article/new">写文章</router-link></a-button
         >
       </li>
     </ul>

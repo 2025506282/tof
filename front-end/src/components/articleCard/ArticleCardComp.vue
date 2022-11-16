@@ -2,16 +2,21 @@
  * @Author: sunji 2025506282@qq.com
  * @Date: 2022-08-19 14:30:34
  * @LastEditors: sunji 2025506282@qq.com
- * @LastEditTime: 2022-11-04 10:56:04
+ * @LastEditTime: 2022-11-16 15:08:21
  * @FilePath: \front-end\src\pages\healthy\components\trend.vue
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
 -->
 <template>
-  <div class="custom-card" v-for="(article, index) in articleList" :key="index">
+  <div
+    class="custom-card"
+    v-for="(article, index) in articleList"
+    :key="index"
+    @click="$emit('handleClickArticle', article)"
+  >
     <div class="card-left">
       <div class="card-top" v-if="isNormal">
         <span>{{ article.nickName }}</span>
-        <span>{{ article.publishTime }}</span>
+        <span>{{ article.publishTimeStr }}</span>
         <!-- <span>{{ article.tags.join(" * ") }}</span> -->
         <span v-for="(item, index) in article.tags" :key="item"
           ><i v-if="index > 0">.</i>{{ item }}</span
@@ -19,7 +24,7 @@
       </div>
       <div class="card-content">
         <h3>{{ article.title }}</h3>
-        <p>{{ article.content }}</p>
+        <p v-html="article.content"></p>
       </div>
       <div class="card-bottom">
         <div title="收益">
@@ -40,8 +45,8 @@
         </div>
       </div>
     </div>
-    <div class="card-right" v-if="article.imageUrl && isNormal">
-      <img :src="article.imageUrl" />
+    <div class="card-right" v-if="article.cover && isNormal">
+      <img :src="article.cover" />
     </div>
     <div class="card-right-operation" v-else>
       <a-dropdown type="primary">

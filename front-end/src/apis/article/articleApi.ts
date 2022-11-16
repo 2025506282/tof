@@ -3,82 +3,30 @@
  * @Autor: scy😊
  * @Date: 2021-01-12 11:31:47
  * @LastEditors: sunji 2025506282@qq.com
- * @LastEditTime: 2022-11-15 17:22:20
+ * @LastEditTime: 2022-11-16 15:44:38
  */
-import { https, post } from "@/utils/https"
+import { get, https, post } from "@/utils/https"
 import { RootObject } from "@/model/rootObject"
 import { ContentType, Method } from "axios-mapper"
 import { ArticleModel } from "@/model/articleModel"
 import { ArticleList } from "@/model/articleList"
-import { IArticle } from "./article.model"
+import { IArticle, IArticleDTO, IArticleSearchForm } from "./article.model"
+import { articleListSerialize } from "./article.serizlise"
 
-export const defaultArticleModel: ArticleModel = {
-  id: 0,
-  status: "draft",
-  title: "",
-  fullContent: "",
-  abstractContent: "",
-  sourceURL: "",
-  imageURL: "",
-  timestamp: 0,
-  platforms: ["a-platform"],
-  disableComment: false,
-  importance: 0,
-  author: "",
-  reviewer: "",
-  type: "",
-  pageviews: 0,
+export const getArticleListAPI = async (
+  params: IArticleSearchForm,
+): Promise<IArticle[]> => {
+  const { data } = await get<RootObject<IArticleDTO[]>>("articles/list", params)
+  return articleListSerialize(data)
 }
-
-export const getArticles = (params: any) => {
-  return https().request<RootObject<ArticleList<ArticleModel>>>(
-    "article/articles",
-    Method.POST,
+export const createArticleAPI = async (params: IArticle) => {
+  const { data } = await post<RootObject<ArticleModel>>(
+    "articles/upload",
     params,
-    ContentType.json,
   )
+  return data
 }
-
-export const getArticle = (params: any) => {
-  return https().request<RootObject<ArticleModel>>(
-    "article/articleInfo",
-    Method.GET,
-    params,
-    ContentType.form,
-  )
-}
-
-export const createArticleAPI = (data: IArticle) => {
-  return post<RootObject<ArticleModel>>("articles/upload", data)
-}
-
-export const updateArticle = (params: IArticle) => {
-  return https().request<RootObject<ArticleModel>>(
-    "article/updateArticle",
-    Method.POST,
-    params,
-    ContentType.json,
-  )
-}
-
-export const deleteArticle = (id: number) => {
-  return https().request<RootObject<ArticleModel>>(
-    `articles/${id}`,
-    Method.POST,
-    undefined,
-    ContentType.json,
-  )
-}
-
-export interface Pageviews {
-  pageviews: any
-}
-
-export const getPageviews = (params: any) => {
-  return https().request<RootObject<Pageviews>>(
-    "pageviews",
-    Method.GET,
-    params,
-    ContentType.json,
-  )
+export const getArticleAPI = async (id: string): Promise<IArticle> => {
+  const { data } = await get<RootObject<IArticleDTO>>(`articles/${id}`)
+  return data
 }

@@ -92,6 +92,76 @@
 					}
 				]
 			},
+			"IRes_IArticle-Array_": {
+				"properties": {
+					"code": {
+						"type": "number",
+						"format": "double"
+					},
+					"msg": {
+						"type": "string"
+					},
+					"data": {
+						"items": {
+							"$ref": "#/components/schemas/IArticle"
+						},
+						"type": "array"
+					}
+				},
+				"required": [
+					"code",
+					"msg",
+					"data"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"IGolbalResponse_IArticle-Array_": {
+				"anyOf": [
+					{
+						"$ref": "#/components/schemas/IRes_IArticle-Array_"
+					},
+					{
+						"$ref": "#/components/schemas/IRes_string_"
+					}
+				]
+			},
+			"IRes_IArticle-or-null_": {
+				"properties": {
+					"code": {
+						"type": "number",
+						"format": "double"
+					},
+					"msg": {
+						"type": "string"
+					},
+					"data": {
+						"allOf": [
+							{
+								"$ref": "#/components/schemas/IArticle"
+							}
+						],
+						"nullable": true
+					}
+				},
+				"required": [
+					"code",
+					"msg",
+					"data"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"IGolbalResponse_IArticle-or-null_": {
+				"anyOf": [
+					{
+						"$ref": "#/components/schemas/IRes_IArticle-or-null_"
+					},
+					{
+						"$ref": "#/components/schemas/IRes_string_"
+					}
+				]
+			},
 			"IGolbalResponse_string_": {
 				"$ref": "#/components/schemas/IRes_string_"
 			},
@@ -196,6 +266,80 @@
 						}
 					}
 				}
+			}
+		},
+		"/articles/list": {
+			"get": {
+				"operationId": "GetList",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/IGolbalResponse_IArticle-Array_"
+								}
+							}
+						}
+					}
+				},
+				"security": [],
+				"parameters": [
+					{
+						"in": "query",
+						"name": "keyWord",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "query",
+						"name": "pageSize",
+						"required": true,
+						"schema": {
+							"format": "double",
+							"type": "number"
+						}
+					},
+					{
+						"in": "query",
+						"name": "pageIndex",
+						"required": true,
+						"schema": {
+							"format": "double",
+							"type": "number"
+						}
+					}
+				]
+			}
+		},
+		"/articles/{id}": {
+			"get": {
+				"operationId": "GetArticle",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/IGolbalResponse_IArticle-or-null_"
+								}
+							}
+						}
+					}
+				},
+				"security": [],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "id",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				]
 			}
 		},
 		"/excel/people": {

@@ -2,7 +2,7 @@
  * @Author: sunji 2025506282@qq.com
  * @Date: 2022-08-19 14:10:43
  * @LastEditors: sunji 2025506282@qq.com
- * @LastEditTime: 2022-11-11 13:31:57
+ * @LastEditTime: 2022-11-16 15:02:06
  * @FilePath: \front-end\src\pages\healthy\HealthyPage.vue
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
 -->
@@ -64,6 +64,7 @@
 import { createArticleAPI } from "@/apis"
 import { message } from "ant-design-vue"
 import { defineComponent, onMounted, ref } from "vue"
+import { useRouter } from "vue-router"
 import { IForm } from "./components"
 import ReplenishComp from "./components/ReplenishComp.vue"
 export default defineComponent({
@@ -74,7 +75,8 @@ export default defineComponent({
     const title = ref("")
     const isShowReplenish = ref<boolean>(false)
     const refEditComp = ref(null) as any
-    const handleClickPublish = (form: IForm) => {
+    const router = useRouter()
+    const handleClickPublish = async (form: IForm) => {
       if (!title.value) {
         message.error("请填写文章标题")
         return
@@ -84,12 +86,17 @@ export default defineComponent({
         return
       }
       isShowReplenish.value = true
-      console.log("this", form, refEditComp.value.content)
-      createArticleAPI({
-        ...form,
-        title: title.value,
-        content: refEditComp.value.content,
-      })
+      try {
+        await createArticleAPI({
+          ...form,
+          title: title.value,
+          content: refEditComp.value.content,
+        })
+        message.success("发布成功")
+        router.push("/")
+      } catch (err) {
+        //
+      }
     }
     const handleClickCancel = () => {
       isShowReplenish.value = false

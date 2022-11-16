@@ -2,7 +2,7 @@
  * @Author: sunji 2025506282@qq.com
  * @Date: 2022-11-02 13:30:41
  * @LastEditors: sunji 2025506282@qq.com
- * @LastEditTime: 2022-11-15 15:35:12
+ * @LastEditTime: 2022-11-16 15:49:32
  * @FilePath: \back-end\src\services\article.service.ts
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  */
@@ -15,19 +15,27 @@
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  */
 // src/users/usersService.ts
-import { IArticle } from "../models";
+import { IArticle, Article, IForm } from "../models";
 
 // A post request should not contain an id.
 
 export class ArticleService {
   public async create(article: IArticle): Promise<IArticle> {
-    // const newArticle = new Article(article);
-    // const result = await newArticle.save();
+    const newArticle = new Article(article);
+    const result = await newArticle.save();
     return article;
+    // return Article.create(article);
   }
-  // public create(article: IArticle): void {
-  //   const newArticle = new Article(article);
-  //   const result = await newArticle.save();
-  //   return result;
-  // }
+  public async getList(form: IForm): Promise<IArticle[]> {
+    const { keyWord = "", pageIndex = 1, pageSize = 20 } = form;
+    console.log("---------------result---------------:", form);
+    const reg = new RegExp(keyWord, "i");
+    return Article.find();
+    // .skip(pageIndex * pageSize)
+    // .limit(pageSize);
+    // return Article.create(article);
+  }
+  public async get(id: string): Promise<IArticle | null> {
+    return Article.findById(id);
+  }
 }

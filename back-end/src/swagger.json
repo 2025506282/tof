@@ -314,7 +314,7 @@
 				]
 			}
 		},
-		"/articles/{id}": {
+		"/articles/{articleId}": {
 			"get": {
 				"operationId": "GetArticle",
 				"responses": {
@@ -333,7 +333,7 @@
 				"parameters": [
 					{
 						"in": "path",
-						"name": "id",
+						"name": "articleId",
 						"required": true,
 						"schema": {
 							"type": "string"

@@ -19,6 +19,8 @@ const models: TsoaRoute.Models = {
     "IArticle": {
         "dataType": "refObject",
         "properties": {
+            "_id": {"dataType":"string","required":true},
+            "publishTime": {"dataType":"double"},
             "title": {"dataType":"string","required":true},
             "type": {"dataType":"string","required":true},
             "tags": {"dataType":"array","array":{"dataType":"string"},"required":true},
@@ -140,6 +142,31 @@ export function RegisterRoutes(app: express.Router) {
 
 
               const promise = controller.creatArticle.apply(controller, validatedArgs as any);
+              promiseHandler(controller, promise, response, undefined, next);
+            } catch (err) {
+                return next(err);
+            }
+        });
+        // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+        app.post('/articles/update',
+            ...(fetchMiddlewares<RequestHandler>(ArticleController)),
+            ...(fetchMiddlewares<RequestHandler>(ArticleController.prototype.updateArticle)),
+
+            function ArticleController_updateArticle(request: any, response: any, next: any) {
+            const args = {
+                    requestBody: {"in":"body","name":"requestBody","required":true,"ref":"IArticle"},
+            };
+
+            // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+
+            let validatedArgs: any[] = [];
+            try {
+                validatedArgs = getValidatedArgs(args, request, response);
+
+                const controller = new ArticleController();
+
+
+              const promise = controller.updateArticle.apply(controller, validatedArgs as any);
               promiseHandler(controller, promise, response, undefined, next);
             } catch (err) {
                 return next(err);

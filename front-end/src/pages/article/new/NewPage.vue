@@ -2,69 +2,72 @@
  * @Author: sunji 2025506282@qq.com
  * @Date: 2022-08-19 14:10:43
  * @LastEditors: sunji 2025506282@qq.com
- * @LastEditTime: 2022-11-16 15:02:06
+ * @LastEditTime: 2022-11-18 17:00:19
  * @FilePath: \front-end\src\pages\healthy\HealthyPage.vue
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
 -->
 <template>
-  <div class="healthy-box">
-    <header>
-      <a-input
-        v-model:value="title"
-        placeholder="请输入文章标题"
-        :bordered="false"
-        maxlength="100"
-      />
-      <div class="operation-box">
-        <ul>
-          <li><p>文章将自动保存至草稿箱</p></li>
-          <li>
-            <a-button><router-link to="/draft">草稿箱</router-link></a-button>
-          </li>
-          <li>
-            <a-popover
-              v-model:visible="isShowReplenish"
-              trigger="click"
-              placement="bottomLeft"
-            >
-              <template #title>
-                <h3
-                  style="
-                    height: 40px;
-                    line-height: 40px;
-                    margin: 0;
-                    display: flex;
-                    align-items: center;
-                  "
-                >
-                  更新文章
-                </h3>
-              </template>
-              <template #content>
-                <replenish-comp
-                  @handleConfirm="handleClickPublish"
-                  @handleCancel="handleClickCancel"
-                ></replenish-comp>
-              </template>
-              <a-button type="primary" arrow-point-at-center>发布</a-button>
-            </a-popover>
-          </li>
-          <li><user-nav-bar-comp /></li>
-        </ul>
-      </div>
-    </header>
-    <main>
-      <!-- <edit-comp ref="refEditComp" /> -->
-      <edit-comp2 ref="refEditComp" />
-    </main>
-  </div>
+  <a-spin tip="Loading..." :spinning="loading">
+    <div class="new-box">
+      <header>
+        <a-input
+          v-model:value="article.title"
+          placeholder="请输入文章标题"
+          :bordered="false"
+          maxlength="100"
+        />
+        <div class="operation-box">
+          <ul>
+            <li><p>文章将自动保存至草稿箱</p></li>
+            <li>
+              <a-button><router-link to="/draft">草稿箱</router-link></a-button>
+            </li>
+            <li>
+              <a-popover
+                v-model:visible="isShowReplenish"
+                trigger="click"
+                placement="bottomLeft"
+              >
+                <template #title>
+                  <h3
+                    style="
+                      height: 40px;
+                      line-height: 40px;
+                      margin: 0;
+                      display: flex;
+                      align-items: center;
+                    "
+                  >
+                    更新文章
+                  </h3>
+                </template>
+                <template #content>
+                  <replenish-comp
+                    @handleConfirm="handleClickPublish"
+                    @handleCancel="handleClickCancel"
+                    :article="article"
+                  ></replenish-comp>
+                </template>
+                <a-button type="primary" arrow-point-at-center>发布</a-button>
+              </a-popover>
+            </li>
+            <li><user-nav-bar-comp /></li>
+          </ul>
+        </div>
+      </header>
+      <main>
+        <!-- <edit-comp ref="refEditComp" /> -->
+        <edit-comp2 ref="refEditComp" />
+      </main>
+    </div>
+  </a-spin>
 </template>
 
 <script lang="ts">
-import { createArticleAPI } from "@/apis"
+import { getArticleAPI, IArticle, updateArticleAPI } from "@/apis"
 import { message } from "ant-design-vue"
 import { defineComponent, onMounted, ref } from "vue"
-import { useRouter } from "vue-router"
+import { useRoute, useRouter } from "vue-router"
 import { IForm } from "./components"
 import ReplenishComp from "./components/ReplenishComp.vue"
 export default defineComponent({
@@ -72,12 +75,21 @@ export default defineComponent({
     "replenish-comp": ReplenishComp,
   },
   setup() {
-    const title = ref("")
     const isShowReplenish = ref<boolean>(false)
     const refEditComp = ref(null) as any
     const router = useRouter()
+    const route = useRoute()
+    const loading = ref(true)
+    const article = ref<IArticle>({
+      title: "",
+      type: "",
+      tags: [], // 文章标签
+      abstract: "", // 文章摘要
+      content: "", // 内容
+    })
+
     const handleClickPublish = async (form: IForm) => {
-      if (!title.value) {
+      if (!article.value.title) {
         message.error("请填写文章标题")
         return
       }
@@ -87,13 +99,13 @@ export default defineComponent({
       }
       isShowReplenish.value = true
       try {
-        await createArticleAPI({
+        await updateArticleAPI({
+          ...article?.value,
           ...form,
-          title: title.value,
           content: refEditComp.value.content,
         })
         message.success("发布成功")
-        router.push("/")
+        router.push("/home")
       } catch (err) {
         //
       }
@@ -102,12 +114,26 @@ export default defineComponent({
       isShowReplenish.value = false
     }
 
+    const getArticle = async (id: string) => {
+      try {
+        loading.value = true
+        article.value = await getArticleAPI(id)
+        refEditComp.value.content = article.value.content
+        loading.value = false
+      } catch (err) {
+        //
+      }
+    }
     onMounted(() => {
-      console.log("refEditComp")
+      const id = route.params.id as string
+      if (id && id !== "0") {
+        getArticle(id)
+      }
     })
     return {
       isShowReplenish,
-      title,
+      loading,
+      article,
       handleClickCancel,
       handleClickPublish,
       refEditComp,
@@ -115,19 +141,13 @@ export default defineComponent({
   },
 })
 </script>
-<!-- 
-<script setup>
-import { defineComponent, ref } from "vue"
-const refEditComp = ref(null)
 
-function handlePublish() {
-  console.log(refEditComp.value) // Hello World
-}
-</script> -->
 <style lang="scss" scoped>
-.healthy-box {
+.new-box {
   width: 100%;
-  height: 100%;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
 
   header {
     width: 100%;
@@ -160,6 +180,9 @@ function handlePublish() {
         margin: 0;
       }
     }
+  }
+  main {
+    flex: 1;
   }
 }
 </style>

@@ -2,7 +2,7 @@
  * @Author: sunji 2025506282@qq.com
  * @Date: 2022-08-19 14:30:34
  * @LastEditors: sunji 2025506282@qq.com
- * @LastEditTime: 2022-11-11 13:21:07
+ * @LastEditTime: 2022-11-18 17:03:27
  * @FilePath: \front-end\src\pages\healthy\components\trend.vue
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
 -->
@@ -108,21 +108,21 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, reactive, ref } from "vue"
+import { computed, defineComponent, reactive, ref, watch } from "vue"
 import { PlusOutlined, LoadingOutlined } from "@ant-design/icons-vue"
 import { IForm } from "./replenish.interface"
 import { TAG_LIST, TYPE_LIST } from "./replenish.const"
 import { getBase64, getBase64Result } from "@/utils"
 import { FormInstance, message, UploadChangeParam } from "ant-design-vue"
 import networkConfig from "@/config/default/net.config"
+import { IArticle } from "@/apis"
 // defineProps({
 //   chartData: IChart
 // })
 export default defineComponent({
   components: { LoadingOutlined, PlusOutlined },
-  // props: ["replenish"],
+  props: ["article"],
   setup(props, { emit }) {
-    const fileList = ref([])
     const loading = ref<boolean>(false)
     const imageUrl = ref<string>("")
     const formRef = ref<FormInstance>()
@@ -130,11 +130,25 @@ export default defineComponent({
     const previewTitle = ref("")
     const previewVisible = ref(false)
     const formState = reactive<IForm>({
-      type: "",
-      tags: [],
-      cover: "",
-      abstract: "",
+      type: props.article.type,
+      tags: props.article.tags,
+      cover: props.article.cover,
+      abstract: props.article.abstract,
     })
+    const fileList = ref<any>(
+      props.article.cover
+        ? [
+            {
+              uid: "-1",
+              name: "xxx.png",
+              status: "done",
+              url: props.article.cover,
+              thumbUrl: props.article.cover,
+            },
+          ]
+        : [],
+    )
+
     const handleCancel = () => {
       previewVisible.value = false
       previewTitle.value = ""
@@ -185,6 +199,7 @@ export default defineComponent({
     }
 
     const handleFinish = () => {
+      console.log(fileList)
       emit("handleConfirm", formState)
     }
 
@@ -214,7 +229,7 @@ export default defineComponent({
   },
 })
 </script>
-<style lang="scss">
+<style lang="scss" scoped>
 .replenish-box {
   width: 530px;
   white-space: nowrap;

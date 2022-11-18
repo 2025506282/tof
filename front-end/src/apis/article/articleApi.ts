@@ -3,7 +3,7 @@
  * @Autor: scy😊
  * @Date: 2021-01-12 11:31:47
  * @LastEditors: sunji 2025506282@qq.com
- * @LastEditTime: 2022-11-16 15:44:38
+ * @LastEditTime: 2022-11-18 16:20:26
  */
 import { get, https, post } from "@/utils/https"
 import { RootObject } from "@/model/rootObject"
@@ -11,7 +11,8 @@ import { ContentType, Method } from "axios-mapper"
 import { ArticleModel } from "@/model/articleModel"
 import { ArticleList } from "@/model/articleList"
 import { IArticle, IArticleDTO, IArticleSearchForm } from "./article.model"
-import { articleListSerialize } from "./article.serizlise"
+import { articleListSerialize, articleSerialize } from "./article.serizlise"
+import { articleDeserialize } from "./article.deserizlise"
 
 export const getArticleListAPI = async (
   params: IArticleSearchForm,
@@ -26,7 +27,17 @@ export const createArticleAPI = async (params: IArticle) => {
   )
   return data
 }
+export const updateArticleAPI = async (params: IArticle) => {
+  if (params._id) {
+    const { data } = await post<RootObject<ArticleModel>>(
+      "articles/update",
+      articleDeserialize(params),
+    )
+    return data
+  }
+  return createArticleAPI(articleDeserialize(params))
+}
 export const getArticleAPI = async (id: string): Promise<IArticle> => {
   const { data } = await get<RootObject<IArticleDTO>>(`articles/${id}`)
-  return data
+  return articleSerialize(data)
 }

@@ -8,6 +8,13 @@
 		"schemas": {
 			"IArticle": {
 				"properties": {
+					"_id": {
+						"type": "string"
+					},
+					"publishTime": {
+						"type": "number",
+						"format": "double"
+					},
 					"title": {
 						"type": "string"
 					},
@@ -31,6 +38,7 @@
 					}
 				},
 				"required": [
+					"_id",
 					"title",
 					"type",
 					"tags",
@@ -242,6 +250,35 @@
 		"/articles/upload": {
 			"post": {
 				"operationId": "CreatArticle",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/IGolbalResponse_IArticle_"
+								}
+							}
+						}
+					}
+				},
+				"security": [],
+				"parameters": [],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/IArticle"
+							}
+						}
+					}
+				}
+			}
+		},
+		"/articles/update": {
+			"post": {
+				"operationId": "UpdateArticle",
 				"responses": {
 					"200": {
 						"description": "Ok",

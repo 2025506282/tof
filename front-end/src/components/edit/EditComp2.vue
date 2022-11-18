@@ -2,12 +2,12 @@
  * @Author: sunji 2025506282@qq.com
  * @Date: 2022-09-30 16:41:31
  * @LastEditors: sunji 2025506282@qq.com
- * @LastEditTime: 2022-11-02 10:09:05
+ * @LastEditTime: 2022-11-18 17:04:34
  * @FilePath: \front-end\src\components\edit\EditComp.vue
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
 -->
 <template>
-  <div id="app">
+  <div class="edit-box">
     <editor
       api-key="qagffr3pkuv17a8on1afax661irst1hbr4e6tbv888sz91jc"
       @onClick="handleClcikEdit"
@@ -29,28 +29,31 @@ import Editor from "@tinymce/tinymce-vue"
 
 export default defineComponent({
   name: "editComp",
+  props: ["articleContent"],
   components: {
     editor: Editor,
   },
-  setup() {
+  setup(props) {
     onMounted(() => {
       // tinymce.init()
     })
     const handleClcikEdit = () => {
       console.log("123")
     }
+    console.log("articleContent:", props, props.articleContent)
+    const content = ref(props.articleContent)
     return {
-      content: "请开始你的表演",
+      content,
       handleClcikEdit,
       init: {
-        // height: 500,
+        // height: "100%",
         menubar: false,
         contextmenu: "",
         // skin_url: "/tinymce/skins/ui/oxide", // skin路径
         language_url: "/tinymce/langs/zh-Hans.js", //引入语言包文件
         language: "zh-Hans", //语言类型
         content_style:
-          "body { font-family:Helvetica,Arial,sans-serif; font-size:16px }",
+          "body { font-family:Helvetica,Arial,sans-serif; font-size:16px; height: auto;min-height: 500px; }",
         plugins: [
           "image",
           "media",
@@ -103,13 +106,15 @@ export default defineComponent({
           necessary, as we are looking to handle it internally.
         */
               const id = "blobid" + new Date().getTime()
-              const blobCache = tinymce.activeEditor.editorUpload.blobCache
-              const base64 = reader.result.split(",")[1]
-              const blobInfo = blobCache.create(id, file, base64)
-              blobCache.add(blobInfo)
+              if (tinymce && tinymce.activeEditor) {
+                const blobCache = tinymce.activeEditor.editorUpload.blobCache
+                const base64 = reader.result.split(",")[1]
+                const blobInfo = blobCache.create(id, file, base64)
+                blobCache.add(blobInfo)
 
-              /* call the callback and populate the Title field with the file name */
-              cb(blobInfo.blobUri(), { title: file.name })
+                /* call the callback and populate the Title field with the file name */
+                cb(blobInfo.blobUri(), { title: file.name })
+              }
             })
             reader.readAsDataURL(file)
           })
@@ -121,7 +126,13 @@ export default defineComponent({
   },
 })
 </script>
-<style>
+<style lang="scss">
+.edit-box {
+  height: 100%;
+  .tox-tinymce {
+    height: 100% !important;
+  }
+}
 .tox-notifications-container {
   display: none !important;
 }

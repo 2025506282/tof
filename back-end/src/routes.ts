@@ -19,7 +19,7 @@ const models: TsoaRoute.Models = {
     "IArticle": {
         "dataType": "refObject",
         "properties": {
-            "_id": {"dataType":"string","required":true},
+            "_id": {"dataType":"string"},
             "publishTime": {"dataType":"double"},
             "title": {"dataType":"string","required":true},
             "type": {"dataType":"string","required":true},
@@ -182,6 +182,7 @@ export function RegisterRoutes(app: express.Router) {
                     keyWord: {"in":"query","name":"keyWord","required":true,"dataType":"string"},
                     pageSize: {"in":"query","name":"pageSize","required":true,"dataType":"double"},
                     pageIndex: {"in":"query","name":"pageIndex","required":true,"dataType":"double"},
+                    status: {"in":"query","name":"status","dataType":"double"},
             };
 
             // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa

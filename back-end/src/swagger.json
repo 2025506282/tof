@@ -38,7 +38,6 @@
 					}
 				},
 				"required": [
-					"_id",
 					"title",
 					"type",
 					"tags",
@@ -343,6 +342,15 @@
 						"in": "query",
 						"name": "pageIndex",
 						"required": true,
+						"schema": {
+							"format": "double",
+							"type": "number"
+						}
+					},
+					{
+						"in": "query",
+						"name": "status",
+						"required": false,
 						"schema": {
 							"format": "double",
 							"type": "number"

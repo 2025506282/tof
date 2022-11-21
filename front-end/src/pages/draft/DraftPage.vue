@@ -2,64 +2,82 @@
  * @Author: sunji 2025506282@qq.com
  * @Date: 2022-07-18 15:25:16
  * @LastEditors: sunji 2025506282@qq.com
- * @LastEditTime: 2022-11-03 17:08:27
+ * @LastEditTime: 2022-11-21 17:18:19
  * @FilePath: \front-end\src\pages\animate\WordPage.vue
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
 -->
 <template>
   <div class="home" @scroll="onScroll">
     <header-comp></header-comp>
-    <div class="content">
-      <h5>文章草稿（27）</h5>
-      <draft-item-comp
-        v-for="item in draftList"
-        :draft="item"
-        :key="item.id"
-        @handleClickEdit="handleClickEdit"
-        @handleClickDelete="handleClickDelete"
-      ></draft-item-comp>
-    </div>
+    <a-spin tip="Loading..." :spinning="loading">
+      <div class="content">
+        <h5>文章草稿（{{ articleList.length }}）</h5>
+        <draft-item-comp
+          v-for="item in articleList"
+          :draft="item"
+          :key="item.title"
+          @handleClickDetail="handleClickDetail"
+          @handleClickEdit="handleClickEdit"
+          @handleClickDelete="handleClickDelete"
+        ></draft-item-comp>
+      </div>
+    </a-spin>
   </div>
 </template>
 <script lang="ts">
-import { defineComponent } from "vue"
-import { MOCK_LIST } from "./components"
-import { IDraft } from "./components/draftItem/draftItem.interface"
+import { defineComponent, onMounted, ref } from "vue"
 import DraftItemComp from "./components/draftItem/DraftComp.vue"
+import { getArticleListAPI, IArticle } from "@/apis"
+import { useRouter } from "vue-router"
 // import * as THREE from "three"
-interface IData {
-  draftList: IDraft[]
-}
 export default defineComponent({
-  data(): IData {
-    return {
-      draftList: MOCK_LIST,
-    }
-  },
   components: {
     "draft-item-comp": DraftItemComp,
   },
-  methods: {
-    handleClickEdit(draft: IDraft) {
-      console.log("2342:", draft)
-    },
-    handleClickDelete(draft: IDraft) {
+  setup() {
+    const router = useRouter()
+    const form = ref({
+      pageSize: 20,
+      pageIndex: 1,
+      keyWord: "",
+      status: 0,
+    })
+    const loading = ref(true)
+    const articleList = ref<IArticle[]>([])
+    const handleClickEdit = (article: IArticle) => {
+      router.push(`/article/new/${article._id}`)
+    }
+    const handleClickDetail = (article: IArticle) => {
+      router.push(`/article/detail/${article._id}`)
+    }
+    const handleClickDelete = (draft: IArticle) => {
       console.log("234:", draft)
-    },
-    onScroll(event: any) {
-      // const { scrollTop, clientHeight, scrollHeight } = event.target
-      // // 当离底部还有200px，加载新的列表
-      // if (scrollTop + clientHeight + 200 > scrollHeight) {
-      //   this.articleList = [...this.articleList, ...MOCK_ARTICLE_LIST]
-      // }
-      // console.log("scrollTop:", scrollTop, clientHeight, scrollHeight)
-    },
-  },
-  mounted() {
-    //
-  },
-  destory() {
-    //
+    }
+    const getList = async () => {
+      try {
+        loading.value = true
+        articleList.value = await getArticleListAPI(form.value)
+        loading.value = false
+      } catch (err) {
+        //
+      }
+    }
+    onMounted(() => {
+      getList()
+    })
+    const onScroll = (event: any) => {
+      //
+    }
+    return {
+      form,
+      loading,
+      articleList,
+      handleClickDetail,
+      handleClickEdit,
+      handleClickDelete,
+      getList,
+      onScroll,
+    }
   },
 })
 </script>

@@ -2,17 +2,17 @@
  * @Author: sunji 2025506282@qq.com
  * @Date: 2022-08-19 14:30:34
  * @LastEditors: sunji 2025506282@qq.com
- * @LastEditTime: 2022-11-03 17:06:16
+ * @LastEditTime: 2022-11-21 16:31:24
  * @FilePath: \front-end\src\pages\healthy\components\trend.vue
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
 -->
 <template>
-  <div class="draft-item">
+  <div class="draft-item" @click="$emit('handleClickDetail', draft)">
     <h3>
-      <a href="">{{ draft.title }}</a>
+      <a href="">{{ draft?.title }}</a>
     </h3>
     <div>
-      <span class="time">{{ draft.time }}</span>
+      <span class="time">{{ draft?.publishTimeStr }}</span>
 
       <a-dropdown>
         <EllipsisOutlined style="font-size: 22px" />
@@ -32,18 +32,17 @@
 </template>
 
 <script lang="ts">
+import { IArticle } from "@/apis"
 import { EllipsisOutlined } from "@ant-design/icons-vue"
 import { defineComponent, PropType } from "vue"
-import { MOCK_LIST } from "./draftItem.const"
-import { IDraft } from "./draftItem.interface"
 export default defineComponent({
   components: {
     EllipsisOutlined,
   },
   props: {
     draft: {
-      type: Object as PropType<IDraft>,
-      default: () => MOCK_LIST[0],
+      type: Object as PropType<IArticle>,
+      // default: () => ,
     },
   },
 })

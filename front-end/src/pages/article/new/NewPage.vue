@@ -2,7 +2,7 @@
  * @Author: sunji 2025506282@qq.com
  * @Date: 2022-08-19 14:10:43
  * @LastEditors: sunji 2025506282@qq.com
- * @LastEditTime: 2022-11-18 17:00:19
+ * @LastEditTime: 2022-11-21 14:12:56
  * @FilePath: \front-end\src\pages\healthy\HealthyPage.vue
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
 -->
@@ -56,8 +56,10 @@
         </div>
       </header>
       <main>
-        <!-- <edit-comp ref="refEditComp" /> -->
         <edit-comp2 ref="refEditComp" />
+        <!-- <editor-comp
+          api-key="qagffr3pkuv17a8on1afax661irst1hbr4e6tbv888sz91jc"
+        /> -->
       </main>
     </div>
   </a-spin>
@@ -79,7 +81,7 @@ export default defineComponent({
     const refEditComp = ref(null) as any
     const router = useRouter()
     const route = useRoute()
-    const loading = ref(true)
+    const loading = ref<boolean>(false)
     const article = ref<IArticle>({
       title: "",
       type: "",

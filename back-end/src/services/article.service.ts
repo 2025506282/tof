@@ -2,7 +2,7 @@
  * @Author: sunji 2025506282@qq.com
  * @Date: 2022-11-02 13:30:41
  * @LastEditors: sunji 2025506282@qq.com
- * @LastEditTime: 2022-11-18 16:12:53
+ * @LastEditTime: 2022-11-21 17:16:03
  * @FilePath: \back-end\src\services\article.service.ts
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  */
@@ -16,6 +16,7 @@
  */
 // src/users/usersService.ts
 import { IArticle, Article, IForm } from "../models";
+import { rebuildParams } from "../utils";
 
 // A post request should not contain an id.
 
@@ -32,10 +33,14 @@ export class ArticleService {
     // return Article.create(article);
   }
   public async getList(form: IForm): Promise<IArticle[]> {
-    const { keyWord = "", pageIndex = 1, pageSize = 20 } = form;
+    const { keyWord = "", pageIndex = 1, pageSize = 20, status } = form;
     console.log("---------------result---------------:", form);
     const reg = new RegExp(keyWord, "i");
-    return Article.find()
+    return Article.find(
+      rebuildParams({
+        status: status,
+      })
+    )
       .sort({ publishTime: -1 })
       .skip((pageIndex - 1) * pageSize)
       .limit(pageSize) as unknown as Promise<IArticle[]>;

@@ -2,7 +2,7 @@
  * @Author: sunji 2025506282@qq.com
  * @Date: 2022-08-19 14:30:34
  * @LastEditors: sunji 2025506282@qq.com
- * @LastEditTime: 2022-11-16 15:08:21
+ * @LastEditTime: 2022-11-21 16:36:50
  * @FilePath: \front-end\src\pages\healthy\components\trend.vue
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
 -->
@@ -53,8 +53,8 @@
         <EllipsisOutlined style="font-size: 22px" />
         <template #overlay>
           <a-menu>
-            <a-menu-item> 编辑 </a-menu-item>
-            <a-menu-item> 删除 </a-menu-item>
+            <a-menu-item @click="handleClickEdit"> 编辑 </a-menu-item>
+            <a-menu-item @click="handleClickDelete"> 删除 </a-menu-item>
           </a-menu>
         </template>
         <template #icon><DownOutlined /></template>
@@ -122,6 +122,7 @@ export default defineComponent({
   }
   .card-left {
     flex: 1;
+    overflow: hidden;
     .card-top {
       font-size: 13px;
       line-height: 22px;

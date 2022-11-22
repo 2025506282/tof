@@ -2,7 +2,7 @@
  * @Author: sunji 2025506282@qq.com
  * @Date: 2022-11-11 13:40:53
  * @LastEditors: sunji 2025506282@qq.com
- * @LastEditTime: 2022-11-21 17:15:16
+ * @LastEditTime: 2022-11-22 10:15:13
  * @FilePath: \back-end\src\utils\gloab.ts
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  */
@@ -35,7 +35,7 @@ export function rebuildParams(obj: any) {
   let newObj: { [key: string]: any } = {};
   if (isPlainObject) {
     Object.keys(obj).forEach((key: string) => {
-      if (obj[key] || obj[key] === 0) {
+      if (obj[key] || obj[key] === 0 || obj[key] === false) {
         newObj[key] = obj[key];
       }
     });

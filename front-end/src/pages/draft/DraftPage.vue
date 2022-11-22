@@ -2,7 +2,7 @@
  * @Author: sunji 2025506282@qq.com
  * @Date: 2022-07-18 15:25:16
  * @LastEditors: sunji 2025506282@qq.com
- * @LastEditTime: 2022-11-21 17:18:19
+ * @LastEditTime: 2022-11-22 10:30:23
  * @FilePath: \front-end\src\pages\animate\WordPage.vue
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
 -->
@@ -12,14 +12,19 @@
     <a-spin tip="Loading..." :spinning="loading">
       <div class="content">
         <h5>文章草稿（{{ articleList.length }}）</h5>
-        <draft-item-comp
-          v-for="item in articleList"
-          :draft="item"
-          :key="item.title"
-          @handleClickDetail="handleClickDetail"
-          @handleClickEdit="handleClickEdit"
-          @handleClickDelete="handleClickDelete"
-        ></draft-item-comp>
+        <div v-if="articleList.length">
+          <draft-item-comp
+            v-for="item in articleList"
+            :draft="item"
+            :key="item.title"
+            @handleClickDetail="handleClickDetail"
+            @handleClickEdit="handleClickEdit"
+            @handleClickDelete="handleClickDelete"
+          ></draft-item-comp>
+        </div>
+        <div v-else>
+          <empty-comp />
+        </div>
       </div>
     </a-spin>
   </div>
@@ -27,12 +32,15 @@
 <script lang="ts">
 import { defineComponent, onMounted, ref } from "vue"
 import DraftItemComp from "./components/draftItem/DraftComp.vue"
-import { getArticleListAPI, IArticle } from "@/apis"
+import { deleteArticleAPI, getArticleListAPI, IArticle } from "@/apis"
 import { useRouter } from "vue-router"
+import EmptyComp from "@/components/empty/EmptyComp.vue"
+import { message } from "ant-design-vue"
 // import * as THREE from "three"
 export default defineComponent({
   components: {
     "draft-item-comp": DraftItemComp,
+    EmptyComp,
   },
   setup() {
     const router = useRouter()
@@ -50,13 +58,23 @@ export default defineComponent({
     const handleClickDetail = (article: IArticle) => {
       router.push(`/article/detail/${article._id}`)
     }
-    const handleClickDelete = (draft: IArticle) => {
-      console.log("234:", draft)
-    }
+
     const getList = async () => {
       try {
         loading.value = true
         articleList.value = await getArticleListAPI(form.value)
+        loading.value = false
+      } catch (err) {
+        //
+      }
+    }
+    const handleClickDelete = async (draft: IArticle) => {
+      console.log("234:", draft)
+      try {
+        loading.value = true
+        await deleteArticleAPI(draft._id as string)
+        message.success("删除成功")
+        getList()
         loading.value = false
       } catch (err) {
         //
@@ -93,6 +111,8 @@ export default defineComponent({
     margin: 10px auto 0;
     background-color: #fff;
     padding: 0 12px;
+    height: calc(100vh - 80px);
+    overflow: hidden;
     h5 {
       font-weight: 700;
       color: #007fff;

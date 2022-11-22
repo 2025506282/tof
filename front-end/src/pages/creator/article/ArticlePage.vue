@@ -2,13 +2,13 @@
  * @Author: sunji 2025506282@qq.com
  * @Date: 2022-07-18 15:25:16
  * @LastEditors: sunji 2025506282@qq.com
- * @LastEditTime: 2022-11-21 17:17:01
+ * @LastEditTime: 2022-11-22 10:53:42
  * @FilePath: \front-end\src\pages\animate\WordPage.vue
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
 -->
 <template>
   <a-spin tip="Loading..." :spinning="loading">
-    <div class="article-box">
+    <div class="article-box" v-if="articleList.length">
       <card-comp
         :articleList="articleList"
         mode="special"
@@ -17,13 +17,16 @@
         @handleClickDelete="handleClickDelete"
       ></card-comp>
     </div>
+    <empty-comp v-else></empty-comp>
   </a-spin>
 </template>
 <script lang="ts">
 interface IData {
   articleList: IArticle[]
 }
-import { getArticleListAPI, IArticle } from "@/apis"
+import { deleteArticleAPI, getArticleListAPI, IArticle } from "@/apis"
+import loading from "@/utils/loading"
+import { message } from "ant-design-vue"
 import { defineComponent, onMounted, ref } from "vue"
 import { useRouter } from "vue-router"
 // import * as THREE from "three"
@@ -38,8 +41,17 @@ export default defineComponent({
     })
     const loading = ref(true)
     const articleList = ref<IArticle[]>([])
-    const handleClickDelete = (article: IArticle) => {
-      //
+    const handleClickDelete = async (draft: IArticle) => {
+      console.log("234:", draft)
+      try {
+        loading.value = true
+        await deleteArticleAPI(draft._id as string)
+        message.success("删除成功")
+        getList()
+        loading.value = false
+      } catch (err) {
+        //
+      }
     }
     const handleClickDetail = (article: IArticle) => {
       router.push(`/article/detail/${article._id}`)
@@ -82,24 +94,8 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
-.creator-box {
+.article-box {
   background-color: #f4f5f5;
-  height: 100%;
-
-  overflow-y: scroll;
-  .content {
-    background-color: #fff;
-    padding: 0 12px;
-    overflow-y: scroll;
-    h5 {
-      font-weight: 700;
-      color: #007fff;
-      text-align: left;
-      padding: 12px 12px;
-      font-size: 16px;
-      line-height: 40px;
-      margin-bottom: 0;
-    }
-  }
+  min-height: 400px;
 }
 </style>

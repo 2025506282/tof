@@ -5,7 +5,7 @@
  * @LastEditors: sunji 2025506282@qq.com
  * @LastEditTime: 2022-11-18 16:20:26
  */
-import { get, https, post } from "@/utils/https"
+import { get, deleteA, post } from "@/utils/https"
 import { RootObject } from "@/model/rootObject"
 import { ContentType, Method } from "axios-mapper"
 import { ArticleModel } from "@/model/articleModel"
@@ -19,6 +19,10 @@ export const getArticleListAPI = async (
 ): Promise<IArticle[]> => {
   const { data } = await get<RootObject<IArticleDTO[]>>("articles/list", params)
   return articleListSerialize(data)
+}
+export const deleteArticleAPI = async (id: string) => {
+  const { data } = await deleteA<RootObject<ArticleModel>>(`articles/${id}`)
+  return data
 }
 export const createArticleAPI = async (params: IArticle) => {
   const { data } = await post<RootObject<ArticleModel>>(

@@ -169,6 +169,37 @@
 					}
 				]
 			},
+			"IRes_boolean_": {
+				"properties": {
+					"code": {
+						"type": "number",
+						"format": "double"
+					},
+					"msg": {
+						"type": "string"
+					},
+					"data": {
+						"type": "boolean"
+					}
+				},
+				"required": [
+					"code",
+					"msg",
+					"data"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"IGolbalResponse_boolean_": {
+				"anyOf": [
+					{
+						"$ref": "#/components/schemas/IRes_boolean_"
+					},
+					{
+						"$ref": "#/components/schemas/IRes_string_"
+					}
+				]
+			},
 			"IGolbalResponse_string_": {
 				"$ref": "#/components/schemas/IRes_string_"
 			},
@@ -369,6 +400,32 @@
 							"application/json": {
 								"schema": {
 									"$ref": "#/components/schemas/IGolbalResponse_IArticle-or-null_"
+								}
+							}
+						}
+					}
+				},
+				"security": [],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "articleId",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				]
+			},
+			"delete": {
+				"operationId": "DeleteArticle",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/IGolbalResponse_boolean_"
 								}
 							}
 						}

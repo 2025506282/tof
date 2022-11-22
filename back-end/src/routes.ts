@@ -86,6 +86,21 @@ const models: TsoaRoute.Models = {
         "type": {"dataType":"union","subSchemas":[{"ref":"IRes_IArticle-or-null_"},{"ref":"IRes_string_"}],"validators":{}},
     },
     // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+    "IRes_boolean_": {
+        "dataType": "refObject",
+        "properties": {
+            "code": {"dataType":"double","required":true},
+            "msg": {"dataType":"string","required":true},
+            "data": {"dataType":"boolean","required":true},
+        },
+        "additionalProperties": false,
+    },
+    // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+    "IGolbalResponse_boolean_": {
+        "dataType": "refAlias",
+        "type": {"dataType":"union","subSchemas":[{"ref":"IRes_boolean_"},{"ref":"IRes_string_"}],"validators":{}},
+    },
+    // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
     "IGolbalResponse_string_": {
         "dataType": "refAlias",
         "type": {"dataType":"union","subSchemas":[{"ref":"IRes_string_"},{"ref":"IRes_string_"}],"validators":{}},
@@ -220,6 +235,31 @@ export function RegisterRoutes(app: express.Router) {
 
 
               const promise = controller.getArticle.apply(controller, validatedArgs as any);
+              promiseHandler(controller, promise, response, undefined, next);
+            } catch (err) {
+                return next(err);
+            }
+        });
+        // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+        app.delete('/articles/:articleId',
+            ...(fetchMiddlewares<RequestHandler>(ArticleController)),
+            ...(fetchMiddlewares<RequestHandler>(ArticleController.prototype.deleteArticle)),
+
+            function ArticleController_deleteArticle(request: any, response: any, next: any) {
+            const args = {
+                    articleId: {"in":"path","name":"articleId","required":true,"dataType":"string"},
+            };
+
+            // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+
+            let validatedArgs: any[] = [];
+            try {
+                validatedArgs = getValidatedArgs(args, request, response);
+
+                const controller = new ArticleController();
+
+
+              const promise = controller.deleteArticle.apply(controller, validatedArgs as any);
               promiseHandler(controller, promise, response, undefined, next);
             } catch (err) {
                 return next(err);

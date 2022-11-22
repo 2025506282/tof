@@ -2,7 +2,7 @@
  * @Author: sunji 2025506282@qq.com
  * @Date: 2022-08-19 14:30:34
  * @LastEditors: sunji 2025506282@qq.com
- * @LastEditTime: 2022-11-21 16:36:50
+ * @LastEditTime: 2022-11-22 10:52:22
  * @FilePath: \front-end\src\pages\healthy\components\trend.vue
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
 -->
@@ -11,7 +11,7 @@
     class="custom-card"
     v-for="(article, index) in articleList"
     :key="index"
-    @click="$emit('handleClickArticle', article)"
+    @click.stop="$emit('handleClickArticle', article)"
   >
     <div class="card-left">
       <div class="card-top" v-if="isNormal">
@@ -50,11 +50,15 @@
     </div>
     <div class="card-right-operation" v-else>
       <a-dropdown type="primary">
-        <EllipsisOutlined style="font-size: 22px" />
+        <EllipsisOutlined style="font-size: 22px" @click.stop />
         <template #overlay>
           <a-menu>
-            <a-menu-item @click="handleClickEdit"> 编辑 </a-menu-item>
-            <a-menu-item @click="handleClickDelete"> 删除 </a-menu-item>
+            <a-menu-item @click.stop="$emit('handleClickEdit', article)">
+              编辑
+            </a-menu-item>
+            <a-menu-item @click.stop="$emit('handleClickDelete', article)">
+              删除
+            </a-menu-item>
           </a-menu>
         </template>
         <template #icon><DownOutlined /></template>

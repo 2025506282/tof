@@ -2,26 +2,26 @@
  * @Author: sunji 2025506282@qq.com
  * @Date: 2022-08-19 14:30:34
  * @LastEditors: sunji 2025506282@qq.com
- * @LastEditTime: 2022-11-21 16:31:24
+ * @LastEditTime: 2022-11-22 09:51:10
  * @FilePath: \front-end\src\pages\healthy\components\trend.vue
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
 -->
 <template>
-  <div class="draft-item" @click="$emit('handleClickDetail', draft)">
+  <div class="draft-item" @click.stop="$emit('handleClickDetail', draft)">
     <h3>
       <a href="">{{ draft?.title }}</a>
     </h3>
     <div>
-      <span class="time">{{ draft?.publishTimeStr }}</span>
+      <span class="time" @click.stop>{{ draft?.publishTimeStr }}</span>
 
       <a-dropdown>
-        <EllipsisOutlined style="font-size: 22px" />
+        <EllipsisOutlined style="font-size: 22px" @click.stop />
         <template #overlay>
           <a-menu>
-            <a-menu-item @click="$emit('handleClickEdit', draft)">
+            <a-menu-item @click.stop="$emit('handleClickEdit', draft)">
               编辑
             </a-menu-item>
-            <a-menu-item @click="$emit('handleClickDelete', draft)">
+            <a-menu-item @click.stop="$emit('handleClickDelete', draft)">
               删除
             </a-menu-item>
           </a-menu>

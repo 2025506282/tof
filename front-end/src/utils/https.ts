@@ -3,7 +3,7 @@
  * @Author: ZY
  * @Date: 2020-12-28 14:45:32
  * @LastEditors: sunji 2025506282@qq.com
- * @LastEditTime: 2022-11-16 13:45:42
+ * @LastEditTime: 2022-11-22 09:59:06
  */
 
 // import { useStore } from '@/store'
@@ -35,6 +35,14 @@ export function post<T>(url: string, data: any): Promise<T> {
     url,
     Method.POST,
     data,
+    ContentType.json,
+  ) as Promise<T>
+}
+export function deleteA<T>(url: string, params: any = {}): Promise<T> {
+  return https().request<T>(
+    url,
+    Method.DELETE,
+    params,
     ContentType.json,
   ) as Promise<T>
 }

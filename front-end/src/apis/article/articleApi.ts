@@ -3,7 +3,7 @@
  * @Autor: scy😊
  * @Date: 2021-01-12 11:31:47
  * @LastEditors: sunji 2025506282@qq.com
- * @LastEditTime: 2022-11-18 16:20:26
+ * @LastEditTime: 2022-11-23 15:00:11
  */
 import { get, deleteA, post } from "@/utils/https"
 import { RootObject } from "@/model/rootObject"
@@ -21,25 +21,23 @@ export const getArticleListAPI = async (
   return articleListSerialize(data)
 }
 export const deleteArticleAPI = async (id: string) => {
-  const { data } = await deleteA<RootObject<ArticleModel>>(`articles/${id}`)
+  const { data } = await deleteA<RootObject<IArticle>>(`articles/${id}`)
   return data
 }
 export const createArticleAPI = async (params: IArticle) => {
-  const { data } = await post<RootObject<ArticleModel>>(
-    "articles/upload",
-    params,
-  )
-  return data
+  const { data } = await post<RootObject<IArticle>>("articles/upload", params)
+  console.log("data:", data)
+  return articleSerialize(data)
 }
 export const updateArticleAPI = async (params: IArticle) => {
   if (params._id) {
-    const { data } = await post<RootObject<ArticleModel>>(
+    const { data } = await post<RootObject<IArticle>>(
       "articles/update",
       articleDeserialize(params),
     )
-    return data
+    return articleSerialize(data)
   }
-  return createArticleAPI(articleDeserialize(params))
+  return await createArticleAPI(articleDeserialize(params))
 }
 export const getArticleAPI = async (id: string): Promise<IArticle> => {
   const { data } = await get<RootObject<IArticleDTO>>(`articles/${id}`)

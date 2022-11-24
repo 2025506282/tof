@@ -2,12 +2,13 @@
  * @Author: sunji 2025506282@qq.com
  * @Date: 2022-11-11 13:27:47
  * @LastEditors: sunji 2025506282@qq.com
- * @LastEditTime: 2022-11-21 16:34:46
+ * @LastEditTime: 2022-11-23 14:57:07
  * @FilePath: \front-end\src\apis\article\article.interface.ts
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  */
 export interface IArticleDTO {
   _id?: string
+  status?: number // 文章的状态，已发布还是草稿
   type: string // 文章类型
   tags: string[] // 文章标签
   cover?: string // 文章封面
@@ -15,14 +16,16 @@ export interface IArticleDTO {
   title: string // 标题
   content: string // 内容
   publishTime?: number
+  collectNum?: number
+  commentNum?: number
+  watchNum?: number
+  likeNum?: number
 }
 
 export interface IArticle extends IArticleDTO {
   publishTimeStr?: string
   nickName?: string
-  likeNum?: number
-  commentNum?: number
-  watchNum?: number
+  isDraft?: boolean
 }
 
 export interface IArticleSearchForm {

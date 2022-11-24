@@ -11,6 +11,10 @@
 					"_id": {
 						"type": "string"
 					},
+					"status": {
+						"type": "number",
+						"format": "double"
+					},
 					"publishTime": {
 						"type": "number",
 						"format": "double"
@@ -35,15 +39,24 @@
 					},
 					"content": {
 						"type": "string"
+					},
+					"collectNum": {
+						"type": "number",
+						"format": "double"
+					},
+					"commentNum": {
+						"type": "number",
+						"format": "double"
+					},
+					"watchNum": {
+						"type": "number",
+						"format": "double"
+					},
+					"likeNum": {
+						"type": "number",
+						"format": "double"
 					}
 				},
-				"required": [
-					"title",
-					"type",
-					"tags",
-					"abstract",
-					"content"
-				],
 				"type": "object",
 				"additionalProperties": false
 			},

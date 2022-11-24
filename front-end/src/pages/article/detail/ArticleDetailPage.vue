@@ -2,7 +2,7 @@
  * @Author: sunji 2025506282@qq.com
  * @Date: 2022-08-19 14:10:43
  * @LastEditors: sunji 2025506282@qq.com
- * @LastEditTime: 2022-11-18 17:08:17
+ * @LastEditTime: 2022-11-24 10:41:36
  * @FilePath: \front-end\src\pages\healthy\HealthyPage.vue
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
 -->
@@ -10,9 +10,9 @@
   <header-comp></header-comp>
   <a-spin tip="Loading..." :spinning="loading">
     <div class="article-detail-box">
-      <div class="operation-box">
+      <div class="operation-box" v-if="!article?.isDraft">
         <ul>
-          <li title="点赞">
+          <li title="点赞" @click="handleClickLike">
             <like-filled />
             <div class="num-box" v-if="article?.likeNum">
               {{ article?.likeNum }}
@@ -24,7 +24,12 @@
               {{ article?.commentNum }}
             </div>
           </li>
-          <li title="收藏"><star-filled /></li>
+          <li title="收藏" @click="handleClickCollect">
+            <star-filled />
+            <div class="num-box" v-if="article?.collectNum">
+              {{ article?.collectNum }}
+            </div>
+          </li>
           <!-- <li><star-filled /></li> -->
         </ul>
       </div>
@@ -56,8 +61,8 @@
 <script lang="ts">
 import { LikeFilled, MessageFilled, StarFilled } from "@ant-design/icons-vue"
 
-import { getArticleAPI, IArticle } from "@/apis"
-import { defineComponent, onMounted, ref } from "vue"
+import { getArticleAPI, IArticle, updateArticleAPI } from "@/apis"
+import { defineComponent, onMounted, onUnmounted, ref } from "vue"
 import { useRoute } from "vue-router"
 export default defineComponent({
   components: {
@@ -76,6 +81,23 @@ export default defineComponent({
         console.log(this, refEditComp.value.content)
       }
     }
+    // 用户点击点赞
+    const handleClickLike = async () => {
+      const { likeNum = 0 } = article.value as IArticle
+      article.value = await updateArticleAPI({
+        ...(article.value as IArticle),
+        likeNum: likeNum + 1,
+      })
+    }
+    // 用户点击收藏
+    const handleClickCollect = async () => {
+      const { collectNum = 0 } = article.value as IArticle
+      article.value = await updateArticleAPI({
+        ...(article.value as IArticle),
+        collectNum: collectNum + 1,
+      })
+    }
+    // 获取文章详情
     const getArticle = async (id: string) => {
       try {
         loading.value = true
@@ -85,13 +107,29 @@ export default defineComponent({
         //
       }
     }
+    const updateArticle = async () => {
+      try {
+        const { watchNum = 0 } = article.value as IArticle
+        article.value = await updateArticleAPI({
+          ...(article.value as IArticle),
+          watchNum: watchNum + 1,
+        })
+      } catch (err) {
+        //
+      }
+    }
     onMounted(() => {
       const id = route.params.id as string
       getArticle(id)
     })
+    onUnmounted(() => {
+      updateArticle()
+    })
     return {
       loading,
       article,
+      handleClickLike,
+      handleClickCollect,
       handlePublish,
       refEditComp,
     }
@@ -197,6 +235,10 @@ function handlePublish() {
     margin-top: 20px;
     img {
       max-width: 100%;
+    }
+    .language-markup {
+      background: #f5f2f0;
+      padding: 20px 20px;
     }
   }
   .cover {

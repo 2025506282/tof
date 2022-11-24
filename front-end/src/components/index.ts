@@ -2,7 +2,7 @@
  * @Author: sunji 2025506282@qq.com
  * @Date: 2022-09-30 13:25:19
  * @LastEditors: sunji 2025506282@qq.com
- * @LastEditTime: 2022-11-22 10:28:41
+ * @LastEditTime: 2022-11-24 10:57:10
  * @FilePath: \front-end\src\components\index.ts
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  */
@@ -15,6 +15,7 @@ import TagComp from "./tag/TagComp.vue"
 import OperationComp from "./operation/OperationComp.vue"
 import CommentComp from "./comment/CommentComp.vue"
 import EmptyComp from "./empty/EmptyComp.vue"
+import LoginModalComp from "./loginModal/LoginModalComp.vue"
 // import EditorComp from "./edit/editor"
 export default {
   install(app: any) {
@@ -29,6 +30,7 @@ export default {
     app.component("operation-comp", OperationComp)
     app.component("comment-comp", CommentComp)
     app.component("empty-comp", EmptyComp)
+    app.component("login-modal-comp", LoginModalComp)
   },
 }
 export * from "./articleCard"

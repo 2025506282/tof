@@ -2,7 +2,7 @@
  * @Author: sunji 2025506282@qq.com
  * @Date: 2022-09-30 16:41:31
  * @LastEditors: sunji 2025506282@qq.com
- * @LastEditTime: 2022-11-21 13:19:51
+ * @LastEditTime: 2022-11-24 09:41:14
  * @FilePath: \front-end\src\components\edit\EditComp.vue
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
 -->
@@ -10,7 +10,6 @@
   <div class="edit-box">
     <editor
       api-key="qagffr3pkuv17a8on1afax661irst1hbr4e6tbv888sz91jc"
-      @onClick="handleClcikEdit"
       :init="init"
       v-model="content"
     />
@@ -40,11 +39,15 @@ export default defineComponent({
     const handleClcikEdit = () => {
       console.log("123")
     }
+    const handleChangeModel = () => {
+      console.log("handleChangeModel")
+    }
     console.log("articleContent:", props, props.articleContent)
     const content = ref(props.articleContent)
     return {
       content,
       handleClcikEdit,
+      handleChangeModel,
       init: {
         // height: "100%",
         menubar: false,
@@ -85,9 +88,10 @@ export default defineComponent({
           "wordcount",
           "export",
           "emoticons",
+          "codesample",
         ],
         toolbar:
-          "undo redo |  blocks | bold italic backcolor |  alignleft aligncenter alignright  |  bullist numlst checklist    | code |  export |  emoticons | table | Image  | media  | preview  | fullscreen",
+          "undo redo | codesample |  blocks | bold italic backcolor |  alignleft aligncenter alignright  |  bullist numlst checklist    |  export |  emoticons | table | Image  | media  | preview  | fullscreen",
         // file_picker_types: "image",
         // /* and here's our custom image picker*/
         // file_picker_callback: (cb: any, value: any, meta: any) => {

@@ -2,20 +2,26 @@
  * @Author: sunji 2025506282@qq.com
  * @Date: 2022-09-07 15:55:10
  * @LastEditors: sunji 2025506282@qq.com
- * @LastEditTime: 2022-11-22 10:05:14
+ * @LastEditTime: 2022-11-23 14:57:55
  * @FilePath: \back-end\src\models\file.model.ts
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  */
+import { fa } from "element-plus/es/locale";
 import { Document, model, Schema } from "mongoose";
 export interface IArticle {
   _id?: string;
+  status?: number;
   publishTime?: number;
-  title: string; // 文章标题
-  type: string; // 文章类型
-  tags: string[]; // 文章标签
+  title?: string; // 文章标题
+  type?: string; // 文章类型
+  tags?: string[]; // 文章标签
   cover?: string; // 文章封面
-  abstract: string; // 文章摘要
-  content: string; // 文章内容
+  abstract?: string; // 文章摘要
+  content?: string; // 文章内容
+  collectNum?: number;
+  commentNum?: number;
+  watchNum?: number;
+  likeNum?: number;
 }
 
 const articleSchema = new Schema({
@@ -43,17 +49,20 @@ const articleSchema = new Schema({
     type: Number,
     default: 0,
   },
+  collectNum: {
+    type: Number,
+    default: 0,
+  },
   moneyNumber: {
     type: Number,
     default: 0,
   },
   title: {
     type: String,
-    required: true,
+    default: "无标题",
   },
   type: {
     type: String,
-    required: true,
   },
   status: {
     type: Number,
@@ -61,18 +70,18 @@ const articleSchema = new Schema({
   },
   tags: {
     type: Array<String>,
-    required: true,
+    default: [],
   },
   cover: {
     type: String,
   },
   abstract: {
     type: String,
-    required: true,
+    default: "",
   },
   content: {
     type: String,
-    required: true,
+    default: "",
   },
 });
 

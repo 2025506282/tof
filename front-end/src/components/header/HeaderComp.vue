@@ -2,7 +2,7 @@
  * @Author: sunji 2025506282@qq.com
  * @Date: 2022-08-19 14:30:34
  * @LastEditors: sunji 2025506282@qq.com
- * @LastEditTime: 2022-11-18 13:32:59
+ * @LastEditTime: 2022-11-24 14:20:08
  * @FilePath: \front-end\src\pages\healthy\components\trend.vue
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
 -->
@@ -48,7 +48,13 @@
           <li>
             <bell-outlined class="tips" title="消息" />
           </li>
-          <li><user-nav-bar-comp></user-nav-bar-comp></li>
+          <!-- <li><user-nav-bar-comp></user-nav-bar-comp></li> -->
+          <li>
+            <div class="login-button">
+              <span>登录</span> <a-divider type="vertical"></a-divider>
+              <span>注册</span>
+            </div>
+          </li>
         </ul>
 
         <!-- <a-button type="primary">
@@ -173,6 +179,19 @@ header {
         &:hover {
           opacity: 0.9;
         }
+      }
+      .login-button {
+        background: rgba(30, 128, 255, 0.05);
+        border: 1px solid rgba(30, 128, 255, 0.3);
+        border-radius: 4px;
+        color: #007fff;
+        font-size: 14px;
+        font-weight: 400;
+        margin-right: 20px;
+        height: 30px;
+        line-height: 30px;
+        width: 100px;
+        overflow: hidden;
       }
     }
   }

@@ -1,16 +1,13 @@
 /* tslint:disable */
 /* eslint-disable */
 // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
-import { Controller, ValidationService, FieldErrors, ValidateError, TsoaRoute, HttpStatusCodeLiteral, TsoaResponse, fetchMiddlewares } from '@tsoa/runtime';
+import { Controller, ValidationService, FieldErrors, ValidateError, TsoaRoute, HttpStatusCodeLiteral, TsoaResponse } from '@tsoa/runtime';
 // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
 import { ArticleController } from './controllers/article.controller';
-// WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
-import { ExcelController } from './controllers/excel.controller';
 // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
 import { ImageController } from './controllers/image.controller';
 // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
 import { UsersController } from './controllers/user.controller';
-import type { RequestHandler } from 'express';
 import * as express from 'express';
 
 // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
@@ -144,8 +141,6 @@ export function RegisterRoutes(app: express.Router) {
     //      Please look into the "controllerPathGlobs" config option described in the readme: https://github.com/lukeautry/tsoa
     // ###########################################################################################################
         app.post('/articles/upload',
-            ...(fetchMiddlewares<RequestHandler>(ArticleController)),
-            ...(fetchMiddlewares<RequestHandler>(ArticleController.prototype.creatArticle)),
 
             function ArticleController_creatArticle(request: any, response: any, next: any) {
             const args = {
@@ -169,8 +164,6 @@ export function RegisterRoutes(app: express.Router) {
         });
         // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
         app.post('/articles/update',
-            ...(fetchMiddlewares<RequestHandler>(ArticleController)),
-            ...(fetchMiddlewares<RequestHandler>(ArticleController.prototype.updateArticle)),
 
             function ArticleController_updateArticle(request: any, response: any, next: any) {
             const args = {
@@ -194,8 +187,6 @@ export function RegisterRoutes(app: express.Router) {
         });
         // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
         app.get('/articles/list',
-            ...(fetchMiddlewares<RequestHandler>(ArticleController)),
-            ...(fetchMiddlewares<RequestHandler>(ArticleController.prototype.getList)),
 
             function ArticleController_getList(request: any, response: any, next: any) {
             const args = {
@@ -222,8 +213,6 @@ export function RegisterRoutes(app: express.Router) {
         });
         // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
         app.get('/articles/:articleId',
-            ...(fetchMiddlewares<RequestHandler>(ArticleController)),
-            ...(fetchMiddlewares<RequestHandler>(ArticleController.prototype.getArticle)),
 
             function ArticleController_getArticle(request: any, response: any, next: any) {
             const args = {
@@ -247,8 +236,6 @@ export function RegisterRoutes(app: express.Router) {
         });
         // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
         app.delete('/articles/:articleId',
-            ...(fetchMiddlewares<RequestHandler>(ArticleController)),
-            ...(fetchMiddlewares<RequestHandler>(ArticleController.prototype.deleteArticle)),
 
             function ArticleController_deleteArticle(request: any, response: any, next: any) {
             const args = {
@@ -271,33 +258,7 @@ export function RegisterRoutes(app: express.Router) {
             }
         });
         // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
-        app.get('/excel/people',
-            ...(fetchMiddlewares<RequestHandler>(ExcelController)),
-            ...(fetchMiddlewares<RequestHandler>(ExcelController.prototype.getPeople)),
-
-            function ExcelController_getPeople(request: any, response: any, next: any) {
-            const args = {
-            };
-
-            // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
-
-            let validatedArgs: any[] = [];
-            try {
-                validatedArgs = getValidatedArgs(args, request, response);
-
-                const controller = new ExcelController();
-
-
-              const promise = controller.getPeople.apply(controller, validatedArgs as any);
-              promiseHandler(controller, promise, response, undefined, next);
-            } catch (err) {
-                return next(err);
-            }
-        });
-        // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
         app.post('/image/upload',
-            ...(fetchMiddlewares<RequestHandler>(ImageController)),
-            ...(fetchMiddlewares<RequestHandler>(ImageController.prototype.uploadImage)),
 
             function ImageController_uploadImage(request: any, response: any, next: any) {
             const args = {
@@ -321,8 +282,6 @@ export function RegisterRoutes(app: express.Router) {
         });
         // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
         app.get('/users/:userId',
-            ...(fetchMiddlewares<RequestHandler>(UsersController)),
-            ...(fetchMiddlewares<RequestHandler>(UsersController.prototype.getUser)),
 
             function UsersController_getUser(request: any, response: any, next: any) {
             const args = {
@@ -347,8 +306,6 @@ export function RegisterRoutes(app: express.Router) {
         });
         // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
         app.post('/users',
-            ...(fetchMiddlewares<RequestHandler>(UsersController)),
-            ...(fetchMiddlewares<RequestHandler>(UsersController.prototype.createUser)),
 
             function UsersController_createUser(request: any, response: any, next: any) {
             const args = {
@@ -365,7 +322,7 @@ export function RegisterRoutes(app: express.Router) {
 
 
               const promise = controller.createUser.apply(controller, validatedArgs as any);
-              promiseHandler(controller, promise, response, 201, next);
+              promiseHandler(controller, promise, response, undefined, next);
             } catch (err) {
                 return next(err);
             }

@@ -457,25 +457,6 @@
 				]
 			}
 		},
-		"/excel/people": {
-			"get": {
-				"operationId": "GetPeople",
-				"responses": {
-					"200": {
-						"description": "Ok",
-						"content": {
-							"application/json": {
-								"schema": {
-									"type": "boolean"
-								}
-							}
-						}
-					}
-				},
-				"security": [],
-				"parameters": []
-			}
-		},
 		"/image/upload": {
 			"post": {
 				"operationId": "UploadImage",

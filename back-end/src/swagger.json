@@ -213,8 +213,34 @@
 					}
 				]
 			},
-			"IGolbalResponse_string_": {
-				"$ref": "#/components/schemas/IRes_string_"
+			"IRes_any_": {
+				"properties": {
+					"code": {
+						"type": "number",
+						"format": "double"
+					},
+					"msg": {
+						"type": "string"
+					},
+					"data": {}
+				},
+				"required": [
+					"code",
+					"msg",
+					"data"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"IGolbalResponse_any_": {
+				"anyOf": [
+					{
+						"$ref": "#/components/schemas/IRes_any_"
+					},
+					{
+						"$ref": "#/components/schemas/IRes_string_"
+					}
+				]
 			},
 			"IEmail": {
 				"properties": {
@@ -227,6 +253,9 @@
 				],
 				"type": "object",
 				"additionalProperties": false
+			},
+			"IGolbalResponse_string_": {
+				"$ref": "#/components/schemas/IRes_string_"
 			},
 			"User": {
 				"properties": {
@@ -478,7 +507,7 @@
 						"content": {
 							"application/json": {
 								"schema": {
-									"$ref": "#/components/schemas/IGolbalResponse_string_"
+									"$ref": "#/components/schemas/IGolbalResponse_any_"
 								}
 							}
 						}

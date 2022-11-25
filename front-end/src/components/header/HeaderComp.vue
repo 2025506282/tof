@@ -2,7 +2,7 @@
  * @Author: sunji 2025506282@qq.com
  * @Date: 2022-08-19 14:30:34
  * @LastEditors: sunji 2025506282@qq.com
- * @LastEditTime: 2022-11-24 14:20:08
+ * @LastEditTime: 2022-11-25 09:37:35
  * @FilePath: \front-end\src\pages\healthy\components\trend.vue
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
 -->
@@ -50,13 +50,13 @@
           </li>
           <!-- <li><user-nav-bar-comp></user-nav-bar-comp></li> -->
           <li>
-            <div class="login-button">
+            <div class="login-button" @click="handleClickLogin">
               <span>登录</span> <a-divider type="vertical"></a-divider>
               <span>注册</span>
             </div>
           </li>
         </ul>
-
+        <login-modal-comp ref="loginModal"></login-modal-comp>
         <!-- <a-button type="primary">
         创作者中心
         <template #icon>
@@ -70,7 +70,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, PropType } from "vue"
+import { defineComponent, PropType, ref } from "vue"
 import { CREATOR_LIST, NAV_LIST } from "./header.const"
 import { IITem } from "./header.interface"
 import { DownOutlined, BellOutlined } from "@ant-design/icons-vue"
@@ -90,8 +90,20 @@ export default defineComponent({
     // const handleClickMenu = (item: IITem): void => {
     //   this.$emit()
     // }
+    const loginModal = ref()
+    // const isShowLoginModal = ref(false)
+    const handleClickLogin = () => {
+      console.log("loginModal.value:", loginModal.value)
+      if (loginModal.value) {
+        loginModal.value.showModal()
+      }
+      console.log("loginModal:", loginModal)
+      // isShowLoginModal.value = true
+    }
     return {
       keyWord: "",
+      loginModal,
+      handleClickLogin,
       creatorList: CREATOR_LIST,
     }
   },

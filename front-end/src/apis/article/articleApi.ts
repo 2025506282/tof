@@ -3,13 +3,10 @@
  * @Autor: scy😊
  * @Date: 2021-01-12 11:31:47
  * @LastEditors: sunji 2025506282@qq.com
- * @LastEditTime: 2022-11-23 15:00:11
+ * @LastEditTime: 2022-11-25 09:42:35
  */
 import { get, deleteA, post } from "@/utils/https"
-import { RootObject } from "@/model/rootObject"
-import { ContentType, Method } from "axios-mapper"
-import { ArticleModel } from "@/model/articleModel"
-import { ArticleList } from "@/model/articleList"
+import { RootObject } from "@/apis/rootObject"
 import { IArticle, IArticleDTO, IArticleSearchForm } from "./article.model"
 import { articleListSerialize, articleSerialize } from "./article.serizlise"
 import { articleDeserialize } from "./article.deserizlise"

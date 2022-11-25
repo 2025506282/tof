@@ -3,10 +3,10 @@
  * @Autor: scy😊
  * @Date: 2021-01-12 11:31:47
  * @LastEditors: sunji 2025506282@qq.com
- * @LastEditTime: 2022-11-11 13:25:10
+ * @LastEditTime: 2022-11-25 09:43:26
  */
 import { post, get } from "@/utils/request"
-import { RootObject } from "@/model/rootObject"
+import { RootObject } from "@/apis/rootObject"
 import { ContentType, Method } from "axios-mapper"
 import { ArticleModel } from "@/model/articleModel"
 import { ArticleList } from "@/model/articleList"

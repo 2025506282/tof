@@ -2,7 +2,7 @@
  * @Author: sunji 2025506282@qq.com
  * @Date: 2022-06-22 16:16:29
  * @LastEditors: sunji 2025506282@qq.com
- * @LastEditTime: 2022-11-24 17:25:31
+ * @LastEditTime: 2022-11-25 14:21:49
  * @FilePath: \back-end\src\controllers\pdf.controller.ts
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  */
@@ -21,12 +21,12 @@ export class EmailController extends Controller {
   @Post("send")
   public async sendEmail(
     @Body() requestBody: IEmail
-  ): Promise<IGolbalResponse<string>> {
+  ): Promise<IGolbalResponse<any>> {
     try {
-      const result = await this.imageService.sendMail(requestBody);
+      const result = await this.emailService.sendMail(requestBody);
       return succesResponse(result);
     } catch (err) {
-      return failResponse("错误", err);
+      return failResponse("错误22", err);
     }
   }
 }

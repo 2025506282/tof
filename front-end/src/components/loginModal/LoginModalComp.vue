@@ -1,15 +1,3 @@
-<!--
- * @Author: sunji 2025506282@qq.com
- * @Date: 2022-11-24 09:21:19
- * @LastEditors: sunji 2025506282@qq.com
-<<<<<<< Updated upstream
- * @LastEditTime: 2022-11-24 17:18:01
-=======
- * @LastEditTime: 2022-11-24 14:06:51
->>>>>>> Stashed changes
- * @FilePath: \front-end\src\components\loginModal\loginModalComp.vue
- * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
--->
 <template>
   <div>
     <a-modal
@@ -65,6 +53,8 @@
   </div>
 </template>
 <script lang="ts">
+import { sendCodeAPI } from "@/apis"
+import { isEmail } from "@/utils"
 import { message } from "ant-design-vue"
 import { defineComponent, reactive, ref } from "vue"
 export default defineComponent({
@@ -96,13 +86,25 @@ export default defineComponent({
       console.log(e)
       visible.value = false
     }
+    const sendCode = async (email: string) => {
+      try {
+        await sendCodeAPI(email)
+      } catch (err) {
+        console.log("sendCodeAPI err:", err)
+      }
+    }
 
     // 用户点击获取验证码
     const handleClickCode = () => {
+      if (!isEmail(form.value.email)) {
+        message.error("请输入正确的邮箱")
+        return
+      }
+      sendCode(form.value.email)
       timerForm.remainTime = timerForm.time
       timerForm.clickCount = timerForm.clickCount + 1
       if (timerForm.clickCount === 5) {
-        message.info("你已经点击了太多次，请稍后再试一试")
+        message.error("你已经点击了太多次，请稍后再试一试")
         return
       }
       timerForm.timer = setInterval(() => {

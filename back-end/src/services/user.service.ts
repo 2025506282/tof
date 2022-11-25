@@ -1,25 +1,24 @@
+/*
+ * @Author: sunji 2025506282@qq.com
+ * @Date: 2022-06-22 15:58:08
+ * @LastEditors: sunji 2025506282@qq.com
+ * @LastEditTime: 2022-11-25 16:25:04
+ * @FilePath: \back-end\src\services\user.service.ts
+ * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
+ */
 // src/users/usersService.ts
-import { User } from "../models/user.model";
-
-// A post request should not contain an id.
-export type UserCreationParams = Pick<User, "email" | "name" | "phoneNumbers">;
+import { Email } from "../models";
+import { IUser, User } from "../models/user.model";
 
 export class UsersService {
-  public get(id: number, name?: string): User {
-    return {
-      id,
-      email: "jane@doe.com",
-      name: name ?? "Jane Doe",
-      status: "Happy",
-      phoneNumbers: [],
-    };
-  }
+  public async login(user: IUser): Promise<boolean> {
+    const email = await Email.findOne({ email: user.email });
+    console.log("email");
 
-  public create(userCreationParams: UserCreationParams): User {
-    return {
-      id: Math.floor(Math.random() * 10000), // Random
-      status: "Happy",
-      ...userCreationParams,
-    };
+    const result = await Email.findOneAndUpdate(
+      { email: user.email },
+      { code: user.code }
+    );
+    return true;
   }
 }

@@ -242,18 +242,6 @@
 					}
 				]
 			},
-			"IEmail": {
-				"properties": {
-					"email": {
-						"type": "string"
-					}
-				},
-				"required": [
-					"email"
-				],
-				"type": "object",
-				"additionalProperties": false
-			},
 			"IGolbalResponse_string_": {
 				"$ref": "#/components/schemas/IRes_string_"
 			},
@@ -520,7 +508,15 @@
 					"content": {
 						"application/json": {
 							"schema": {
-								"$ref": "#/components/schemas/IEmail"
+								"properties": {
+									"email": {
+										"type": "string"
+									}
+								},
+								"required": [
+									"email"
+								],
+								"type": "object"
 							}
 						}
 					}

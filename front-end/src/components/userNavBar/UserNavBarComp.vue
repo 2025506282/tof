@@ -2,13 +2,19 @@
  * @Author: sunji 2025506282@qq.com
  * @Date: 2022-08-19 14:30:34
  * @LastEditors: sunji 2025506282@qq.com
- * @LastEditTime: 2022-11-09 12:57:34
+ * @LastEditTime: 2022-11-29 16:46:52
  * @FilePath: \front-end\src\pages\healthy\components\trend.vue
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
 -->
 <template>
   <nav class="nav">
     <a-dropdown :trigger="['click']" overlayClassName="custom-dropdown">
+      <!-- <a
+        class="ant-dropdown-link"
+        @click.prevent
+        :style="{ backgroundImage: 'url(' + imgburl + item.moment.cover + ')' }"
+      >
+      </a> -->
       <a class="ant-dropdown-link" @click.prevent> </a>
       <template #overlay>
         <a-menu v-model:selectedKeys="selectedKeys">
@@ -46,7 +52,7 @@
 
 <script lang="ts">
 import { computed, defineComponent, PropType } from "vue"
-import { useRoute, RouterLink } from "vue-router"
+import { useRoute } from "vue-router"
 import { DEFAULT_VALUE } from "./userNavBar.const"
 import { IMenu } from "./userNavBar.interface"
 export default defineComponent({

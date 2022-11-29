@@ -245,66 +245,61 @@
 			"IGolbalResponse_string_": {
 				"$ref": "#/components/schemas/IRes_string_"
 			},
-			"User": {
+			"IUser": {
 				"properties": {
-					"id": {
-						"type": "number",
-						"format": "double"
-					},
 					"email": {
 						"type": "string"
 					},
-					"name": {
+					"code": {
 						"type": "string"
 					},
-					"status": {
-						"type": "string",
-						"enum": [
-							"Happy",
-							"Sad"
-						]
-					},
-					"phoneNumbers": {
-						"items": {
-							"type": "string"
-						},
-						"type": "array"
+					"password": {
+						"type": "string"
 					}
 				},
 				"required": [
-					"id",
-					"email",
-					"name",
-					"phoneNumbers"
+					"email"
 				],
 				"type": "object",
 				"additionalProperties": false
 			},
-			"Pick_User.email-or-name-or-phoneNumbers_": {
+			"IRes_string-or-IUser_": {
 				"properties": {
-					"email": {
+					"code": {
+						"type": "number",
+						"format": "double"
+					},
+					"msg": {
 						"type": "string"
 					},
-					"name": {
-						"type": "string"
-					},
-					"phoneNumbers": {
-						"items": {
-							"type": "string"
-						},
-						"type": "array"
+					"data": {
+						"anyOf": [
+							{
+								"type": "string"
+							},
+							{
+								"$ref": "#/components/schemas/IUser"
+							}
+						]
 					}
 				},
 				"required": [
-					"email",
-					"name",
-					"phoneNumbers"
+					"code",
+					"msg",
+					"data"
 				],
 				"type": "object",
-				"description": "From T, pick a set of properties whose keys are in the union K"
+				"additionalProperties": false
 			},
-			"UserCreationParams": {
-				"$ref": "#/components/schemas/Pick_User.email-or-name-or-phoneNumbers_"
+			"IGolbalResponse_string-or-IUser_": {
+				"anyOf": [
+					{
+						"$ref": "#/components/schemas/IRes_string-or-IUser_"
+					},
+					{
+						"$ref": "#/components/schemas/IRes_string_"
+					}
+				]
 			}
 		},
 		"securitySchemes": {}
@@ -542,49 +537,19 @@
 				"parameters": []
 			}
 		},
-		"/users/{userId}": {
-			"get": {
-				"operationId": "GetUser",
+		"/users/login": {
+			"post": {
+				"operationId": "CreateUser",
 				"responses": {
 					"200": {
 						"description": "Ok",
 						"content": {
 							"application/json": {
 								"schema": {
-									"$ref": "#/components/schemas/User"
+									"$ref": "#/components/schemas/IGolbalResponse_string-or-IUser_"
 								}
 							}
 						}
-					}
-				},
-				"security": [],
-				"parameters": [
-					{
-						"in": "path",
-						"name": "userId",
-						"required": true,
-						"schema": {
-							"format": "double",
-							"type": "number"
-						}
-					},
-					{
-						"in": "query",
-						"name": "name",
-						"required": false,
-						"schema": {
-							"type": "string"
-						}
-					}
-				]
-			}
-		},
-		"/users": {
-			"post": {
-				"operationId": "CreateUser",
-				"responses": {
-					"201": {
-						"description": "Created"
 					}
 				},
 				"security": [],
@@ -594,7 +559,7 @@
 					"content": {
 						"application/json": {
 							"schema": {
-								"$ref": "#/components/schemas/UserCreationParams"
+								"$ref": "#/components/schemas/IUser"
 							}
 						}
 					}

@@ -34,7 +34,7 @@
         </div>
       </div>
       <div class="form-operation">
-        <a-button type="primary">登录</a-button>
+        <a-button type="primary" @click="hadleClickLogin">登录</a-button>
         <!-- <a-button>注册</a-button> -->
       </div>
       <div class="form-forget">
@@ -53,13 +53,13 @@
   </div>
 </template>
 <script lang="ts">
-import { sendCodeAPI } from "@/apis"
+import { loginAPI, sendCodeAPI } from "@/apis"
 import { isEmail } from "@/utils"
 import { message } from "ant-design-vue"
 import { defineComponent, reactive, ref } from "vue"
 export default defineComponent({
   props: ["isShowModal"],
-  setup(props) {
+  setup(props, { emit }) {
     const visible = ref<boolean>(props.isShowModal)
     const form = ref({
       email: "",
@@ -93,7 +93,28 @@ export default defineComponent({
         console.log("sendCodeAPI err:", err)
       }
     }
-
+    const hadleClickLogin = async () => {
+      if (!isEmail(form.value.email)) {
+        message.error("请输入正确的邮箱")
+        return
+      }
+      if (form.value.code.length !== 4) {
+        message.error("请输入正确的验证码")
+        return
+      }
+      try {
+        const { code, data, msg } = await loginAPI(form.value)
+        if (code !== 200) {
+          message.error(msg)
+          return
+        }
+        message.success("登录成功")
+        visible.value = false
+        emit("handleLoginSuccess", data)
+      } catch (err) {
+        console.log("loginAPI err:", err)
+      }
+    }
     // 用户点击获取验证码
     const handleClickCode = () => {
       if (!isEmail(form.value.email)) {
@@ -121,11 +142,13 @@ export default defineComponent({
     const handleChangeLoginWay = () => {
       isCodeWayLogin.value = !isCodeWayLogin.value
     }
+
     return {
       isCodeWayLogin,
       form,
       visible,
       timerForm,
+      hadleClickLogin,
       handleChangeLoginWay,
       showModal,
       handleOk,

@@ -2,23 +2,41 @@
  * @Author: sunji 2025506282@qq.com
  * @Date: 2022-06-22 15:58:08
  * @LastEditors: sunji 2025506282@qq.com
- * @LastEditTime: 2022-11-25 16:25:04
+ * @LastEditTime: 2022-11-29 15:50:44
  * @FilePath: \back-end\src\services\user.service.ts
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  */
 // src/users/usersService.ts
-import { Email } from "../models";
-import { IUser, User } from "../models/user.model";
+import { isConstructorDeclaration } from "typescript";
+import { IUser, User } from "../models";
+import { isExpire } from "../utils";
 
 export class UsersService {
-  public async login(user: IUser): Promise<boolean> {
-    const email = await Email.findOne({ email: user.email });
-    console.log("email");
-
-    const result = await Email.findOneAndUpdate(
-      { email: user.email },
-      { code: user.code }
-    );
-    return true;
+  public async login(user: IUser): Promise<string | IUser> {
+    if (user.code) {
+      const result = await User.findOne({
+        email: user.email,
+        code: user.code,
+      });
+      if (!result) {
+        return "验证码或邮箱错误";
+      }
+      if (isExpire(result.updatedAt, new Date())) {
+        return "验证码已过期";
+      }
+      return result;
+    } else {
+      const result = await User.findOne(
+        { email: user.email },
+        { password: user.password }
+      );
+      if (!result) {
+        return "邮箱或密码错误";
+      }
+      if (isExpire(result.updatedAt, new Date())) {
+        return "验证码已过期";
+      }
+      return result;
+    }
   }
 }

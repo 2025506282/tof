@@ -2,7 +2,7 @@
  * @Author: sunji 2025506282@qq.com
  * @Date: 2022-11-11 13:40:53
  * @LastEditors: sunji 2025506282@qq.com
- * @LastEditTime: 2022-11-22 10:15:13
+ * @LastEditTime: 2022-11-29 15:46:38
  * @FilePath: \back-end\src\utils\gloab.ts
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  */
@@ -19,14 +19,11 @@ export function succesResponse<T>(data: T): IRes<T> {
     data,
   };
 }
-export function failResponse(
-  tips: string = "错误",
-  data: any = {}
-): IRes<string> {
+export function failResponse(tips: string = "错误", data?: any): IRes<any> {
   return {
     code: 500,
     msg: tips,
-    data: data,
+    data: data.toString(),
   };
 }
 export function rebuildParams(obj: any) {

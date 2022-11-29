@@ -4,7 +4,7 @@
   "main": "./build/index.js",
   "license": "MIT",
   "scripts": {
-    "dev": "concurrently \"nodemon\" \"nodemon -x tsoa spec-and-routes\"",
+    "dev": "concurrently \"nodemon\" \"nodemon -x tsoa spec-and-routes && tsc --build \"",
     "dev2": "concurrently \"nodemon\" \"nodemon -x tsoa spec-and-routes\"",
     "routes": "tsoa spec-and-routes",
     "cp": "copy -r ./public ./build",

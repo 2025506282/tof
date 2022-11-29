@@ -2,7 +2,7 @@
  * @Author: sunji 2025506282@qq.com
  * @Date: 2022-06-22 15:58:08
  * @LastEditors: sunji 2025506282@qq.com
- * @LastEditTime: 2022-11-25 15:30:38
+ * @LastEditTime: 2022-11-29 15:46:44
  * @FilePath: \back-end\src\controllers\user.controller.ts
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  */
@@ -26,12 +26,16 @@ export class UsersController extends Controller {
   @Post("login")
   public async createUser(
     @Body() requestBody: IUser
-  ): Promise<IGolbalResponse<boolean>> {
+  ): Promise<IGolbalResponse<string | IUser>> {
     try {
       const result = await new UsersService().login(requestBody);
-      return succesResponse(result);
+      if (typeof result === "string") {
+        return failResponse(result, "");
+      } else {
+        return succesResponse(result);
+      }
     } catch (err) {
-      return failResponse("失败", err);
+      return failResponse("error", err);
     }
   }
 }

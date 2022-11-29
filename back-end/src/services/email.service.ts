@@ -2,13 +2,13 @@
  * @Author: sunji 2025506282@qq.com
  * @Date: 2022-11-24 14:52:41
  * @LastEditors: sunji 2025506282@qq.com
- * @LastEditTime: 2022-11-25 16:31:42
+ * @LastEditTime: 2022-11-29 14:51:59
  * @FilePath: \back-end\src\services\email.service.ts
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  */
 
 // src/users/usersService.ts
-import { Email, IEmail, IFile } from "../models";
+import { User, IUser, IFile } from "../models";
 import path from "path";
 import nodemailer from "nodemailer";
 import fse from "fs-extra";
@@ -38,15 +38,15 @@ export class EmailService {
       text: `您的验证码是${code}`,
     });
     if (res && res.accepted) {
-      const isExist = await Email.exists({ email: info.email });
+      const isExist = await User.exists({ email: info.email });
       if (isExist) {
-        const result = await Email.findOneAndUpdate(
+        const result = await User.findOneAndUpdate(
           { email: info.email },
           { code: code }
         );
         return result;
       } else {
-        return await Email.create({
+        return await User.create({
           email: info.email,
           code: code,
         });

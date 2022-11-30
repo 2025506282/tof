@@ -245,6 +245,68 @@
 			"IGolbalResponse_string_": {
 				"$ref": "#/components/schemas/IRes_string_"
 			},
+			"IMessage": {
+				"properties": {
+					"content": {
+						"type": "string"
+					},
+					"userId": {
+						"type": "string"
+					},
+					"isDelete": {
+						"type": "boolean"
+					},
+					"updatedAt": {
+						"type": "string"
+					},
+					"createAt": {
+						"type": "string"
+					}
+				},
+				"required": [
+					"content",
+					"userId",
+					"isDelete",
+					"updatedAt",
+					"createAt"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"IRes_IMessage-Array_": {
+				"properties": {
+					"code": {
+						"type": "number",
+						"format": "double"
+					},
+					"msg": {
+						"type": "string"
+					},
+					"data": {
+						"items": {
+							"$ref": "#/components/schemas/IMessage"
+						},
+						"type": "array"
+					}
+				},
+				"required": [
+					"code",
+					"msg",
+					"data"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"IGolbalResponse_IMessage-Array_": {
+				"anyOf": [
+					{
+						"$ref": "#/components/schemas/IRes_IMessage-Array_"
+					},
+					{
+						"$ref": "#/components/schemas/IRes_string_"
+					}
+				]
+			},
 			"IUser": {
 				"properties": {
 					"email": {
@@ -535,6 +597,61 @@
 				},
 				"security": [],
 				"parameters": []
+			}
+		},
+		"/message/list": {
+			"get": {
+				"operationId": "SendMessage",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/IGolbalResponse_IMessage-Array_"
+								}
+							}
+						}
+					}
+				},
+				"security": [],
+				"parameters": [
+					{
+						"in": "query",
+						"name": "keyWord",
+						"required": false,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "query",
+						"name": "pageSize",
+						"required": false,
+						"schema": {
+							"format": "double",
+							"type": "number"
+						}
+					},
+					{
+						"in": "query",
+						"name": "pageIndex",
+						"required": false,
+						"schema": {
+							"format": "double",
+							"type": "number"
+						}
+					},
+					{
+						"in": "query",
+						"name": "status",
+						"required": false,
+						"schema": {
+							"format": "double",
+							"type": "number"
+						}
+					}
+				]
 			}
 		},
 		"/users/login": {

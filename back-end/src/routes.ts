@@ -9,6 +9,8 @@ import { EmailController } from './controllers/email.controller';
 // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
 import { ImageController } from './controllers/image.controller';
 // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+import { MessageController } from './controllers/message.controller';
+// WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
 import { UsersController } from './controllers/user.controller';
 import * as express from 'express';
 
@@ -123,6 +125,33 @@ const models: TsoaRoute.Models = {
     "IGolbalResponse_string_": {
         "dataType": "refAlias",
         "type": {"dataType":"union","subSchemas":[{"ref":"IRes_string_"},{"ref":"IRes_string_"}],"validators":{}},
+    },
+    // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+    "IMessage": {
+        "dataType": "refObject",
+        "properties": {
+            "content": {"dataType":"string","required":true},
+            "userId": {"dataType":"string","required":true},
+            "isDelete": {"dataType":"boolean","required":true},
+            "updatedAt": {"dataType":"string","required":true},
+            "createAt": {"dataType":"string","required":true},
+        },
+        "additionalProperties": false,
+    },
+    // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+    "IRes_IMessage-Array_": {
+        "dataType": "refObject",
+        "properties": {
+            "code": {"dataType":"double","required":true},
+            "msg": {"dataType":"string","required":true},
+            "data": {"dataType":"array","array":{"dataType":"refObject","ref":"IMessage"},"required":true},
+        },
+        "additionalProperties": false,
+    },
+    // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+    "IGolbalResponse_IMessage-Array_": {
+        "dataType": "refAlias",
+        "type": {"dataType":"union","subSchemas":[{"ref":"IRes_IMessage-Array_"},{"ref":"IRes_string_"}],"validators":{}},
     },
     // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
     "IUser": {
@@ -318,6 +347,32 @@ export function RegisterRoutes(app: express.Router) {
 
 
               const promise = controller.uploadImage.apply(controller, validatedArgs as any);
+              promiseHandler(controller, promise, response, undefined, next);
+            } catch (err) {
+                return next(err);
+            }
+        });
+        // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+        app.get('/message/list',
+
+            function MessageController_sendMessage(request: any, response: any, next: any) {
+            const args = {
+                    keyWord: {"in":"query","name":"keyWord","dataType":"string"},
+                    pageSize: {"in":"query","name":"pageSize","dataType":"double"},
+                    pageIndex: {"in":"query","name":"pageIndex","dataType":"double"},
+                    status: {"in":"query","name":"status","dataType":"double"},
+            };
+
+            // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+
+            let validatedArgs: any[] = [];
+            try {
+                validatedArgs = getValidatedArgs(args, request, response);
+
+                const controller = new MessageController();
+
+
+              const promise = controller.sendMessage.apply(controller, validatedArgs as any);
               promiseHandler(controller, promise, response, undefined, next);
             } catch (err) {
                 return next(err);

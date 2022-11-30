@@ -2,7 +2,7 @@
  * @Author: sunji 2025506282@qq.com
  * @Date: 2022-08-19 14:30:34
  * @LastEditors: sunji 2025506282@qq.com
- * @LastEditTime: 2022-11-29 16:50:14
+ * @LastEditTime: 2022-11-30 14:25:43
  * @FilePath: \front-end\src\pages\healthy\components\trend.vue
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
 -->
@@ -77,6 +77,8 @@ import { defineComponent, onMounted, PropType, ref } from "vue"
 import { CREATOR_LIST, NAV_LIST } from "./header.const"
 import { IITem } from "./header.interface"
 import { DownOutlined, BellOutlined } from "@ant-design/icons-vue"
+import { getMessageListAPI } from "@/apis"
+import { IMessage } from "@/apis/message/message.model"
 
 export default defineComponent({
   props: {
@@ -92,21 +94,31 @@ export default defineComponent({
   setup() {
     const loginModal = ref()
     const user = ref()
+    const loading = ref<boolean>(false)
+    const messageList = ref<IMessage[]>([])
     const handleClickLogin = () => {
-      console.log("loginModal.value:", loginModal.value)
       if (loginModal.value) {
         loginModal.value.showModal()
       }
     }
     const handleLoginSuccess = (userInfo: any) => {
-      console.log("userInfo:", userInfo)
       localStorage.setItem("user", JSON.stringify(userInfo))
       user.value = userInfo
+    }
+    const getMessageList = async () => {
+      try {
+        loading.value = true
+        messageList.value = await getMessageListAPI()
+        loading.value = false
+      } catch (err) {
+        loading.value = false
+      }
     }
     onMounted(() => {
       if (localStorage.getItem("user")) {
         user.value = JSON.parse(localStorage.getItem("user") as string)
       }
+      getMessageList()
     })
     return {
       keyWord: "",

@@ -253,6 +253,9 @@
 					"userId": {
 						"type": "string"
 					},
+					"type": {
+						"type": "string"
+					},
 					"isDelete": {
 						"type": "boolean"
 					},
@@ -266,6 +269,7 @@
 				"required": [
 					"content",
 					"userId",
+					"type",
 					"isDelete",
 					"updatedAt",
 					"createAt"
@@ -311,6 +315,9 @@
 				"properties": {
 					"email": {
 						"type": "string"
+					},
+					"isDelete": {
+						"type": "boolean"
 					},
 					"code": {
 						"type": "string"

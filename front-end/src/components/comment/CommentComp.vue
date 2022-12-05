@@ -2,7 +2,7 @@
  * @Author: sunji 2025506282@qq.com
  * @Date: 2022-07-18 15:25:16
  * @LastEditors: sunji 2025506282@qq.com
- * @LastEditTime: 2022-12-02 15:53:02
+ * @LastEditTime: 2022-12-05 16:32:11
  * @FilePath: \front-end\src\pages\animate\WordPage.vue
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
 -->
@@ -22,8 +22,8 @@
             /> -->
             <span
               class="input-comment"
-              :ref="inputComment"
-              @blur="handleSelection"
+              ref="inputComment"
+              @blur="handleBlur"
               @input="handleInput"
               :contenteditable="true"
               placeholder="输入评论（Enter换行，Ctrl + Enter发送）"
@@ -36,61 +36,105 @@
               <li><ImageComp @handleClickImage="handleClickImage" /></li>
             </ul>
             <div>
-              <a-button>发表评论</a-button>
+              <a-button type="primary" @click="handleClickPublishComment"
+                >发表评论</a-button
+              >
             </div>
           </div>
         </div>
       </div>
     </div>
+    <TestComment />
     <!-- <div v-for="item in commentList" :key="item.id">
       <comment-item-comp :commnetItem="item"></comment-item-comp>
     </div> -->
   </div>
 </template>
 <script lang="ts">
-import { defineComponent, ref } from "vue"
+import { defineComponent, reactive, ref } from "vue"
 import { COMMENT_LIST } from "./components"
 import EmotionComp from "./components/emotion/EmotionComp.vue"
 import ImageComp from "./components/image/ImageComp.vue"
-// import CommentItemComp from "./components/CommentItemComp.vue"
 export default defineComponent({
   components: {
     ImageComp,
     EmotionComp,
     // "comment-item-comp": CommentItemComp,
   },
-  setup() {
+  setup(props, { emit }) {
     const content = ref(``)
-    const inputComment = ref("")
+    const inputComment = ref()
+    const commentForm: any = reactive({
+      selection: null,
+      rangeAt: null,
+    })
+
+    const handleClickImage = (image: string) => {
+      const dom = `<img src='${image}' class='image' />`
+      addDom(dom)
+    }
+    // 用户点击发表评论
+    const handleClickPublishComment = () => {
+      emit("handleClickPublishComment", inputComment.value.innerHTML)
+      // console.log("inputComment:", inputComment.value.innerHTML)
+    }
+    const addDom = (dom: string) => {
+      if (window.getSelection()) {
+        let winSn = commentForm.selection,
+          range = commentForm.rangeAt
+        //  要判断的光标状态
+        // if (
+        //   winSn.focusNode.className !== "content_edit" &&
+        //   winSn.focusNode.parentElement.className !== "content_edit"
+        //   // &&
+        //   // !this.isAncestorsDom(winSn.baseNode, "content_edit")
+        // ) {
+        //   console.log("inputComment:", inputComment)
+        //   winSn.selectAllChildren(inputComment)
+        //   winSn.collapseToEnd()
+        //   range = winSn.getRangeAt(0)
+        // }
+        range?.collapse(false)
+        let node
+        if (range.createContextualFragment) {
+          // 兼容IE9跟safari
+          node = range.createContextualFragment(dom)
+        } else {
+          let tempDom = document.createElement("div")
+          tempDom.innerHTML = dom
+          node = tempDom
+        }
+        let child = node.firstChild
+        range.insertNode(child)
+        let clRang = range.cloneRange()
+        clRang.setStartAfter(child)
+        winSn.removeAllRanges()
+        winSn.addRange(clRang)
+      }
+    }
     const handleClickEmotion = (url: string) => {
       console.log("content:", content.value)
-      content.value = content.value + `<img src='${url}' class='emotion' />`
+      let img = `<img src='${url}' class='emotion' />`
+      addDom(img)
     }
     const handleInput = (e: any) => {
+      let text = e.srcElement.innerHTML
       console.log("e:", e)
     }
-    const handleClickImage = (image: string) => {
-      content.value = content.value + `<img src='${image}' class='image' />`
-    }
-    const handleSelection = () => {
+    // 失去焦点保存光标位置
+    const handleBlur = () => {
       const selection = getSelection()
-      console.log("selection:", selection?.anchorOffset, selection)
-      // const range = selection?.getRangeAt(0)
-      // const textNode = range?.startContainer
-      // const rangeStartOffset = range?.startOffset
-      //   console.table({
-      //     range,
-      //     textNode,
-      //     rangeStartOffset,
-      //   })
+      commentForm.selection = selection
+      commentForm.rangeAt = selection?.getRangeAt(0)
     }
     return {
       content,
       inputComment,
       handleInput,
-      handleSelection,
+      handleBlur,
       handleClickEmotion,
       handleClickImage,
+      handleClickPublishComment,
       commentList: COMMENT_LIST,
     }
   },

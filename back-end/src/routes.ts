@@ -132,6 +132,7 @@ const models: TsoaRoute.Models = {
         "properties": {
             "content": {"dataType":"string","required":true},
             "userId": {"dataType":"string","required":true},
+            "type": {"dataType":"string","required":true},
             "isDelete": {"dataType":"boolean","required":true},
             "updatedAt": {"dataType":"string","required":true},
             "createAt": {"dataType":"string","required":true},
@@ -158,6 +159,7 @@ const models: TsoaRoute.Models = {
         "dataType": "refObject",
         "properties": {
             "email": {"dataType":"string","required":true},
+            "isDelete": {"dataType":"boolean"},
             "code": {"dataType":"string"},
             "password": {"dataType":"string"},
         },

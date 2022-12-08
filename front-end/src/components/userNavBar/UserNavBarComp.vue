@@ -2,7 +2,7 @@
  * @Author: sunji 2025506282@qq.com
  * @Date: 2022-08-19 14:30:34
  * @LastEditors: sunji 2025506282@qq.com
- * @LastEditTime: 2022-11-29 16:46:52
+ * @LastEditTime: 2022-12-08 13:34:23
  * @FilePath: \front-end\src\pages\healthy\components\trend.vue
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
 -->
@@ -40,7 +40,10 @@
               :key="menu.value"
             >
               <!-- <span>{{ menu.label }}</span> -->
-              <router-link :to="menu.value">{{ menu.label }}</router-link>
+              <router-link :to="menu.value" v-if="menu.value !== 'logout'">{{
+                menu.label
+              }}</router-link>
+              <span v-else @click="handelClickLogout">{{ menu.label }}</span>
             </a-menu-item>
             <a-menu-divider v-if="menu.isSplit" />
           </div>
@@ -67,7 +70,12 @@ export default defineComponent({
       const route = useRoute()
       return [route.path]
     })
+    const handelClickLogout = () => {
+      localStorage.clear()
+      location.reload()
+    }
     return {
+      handelClickLogout,
       selectedKeys,
     }
   },

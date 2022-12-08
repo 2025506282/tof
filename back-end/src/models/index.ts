@@ -2,7 +2,7 @@
  * @Author: sunji 2025506282@qq.com
  * @Date: 2022-06-22 16:40:55
  * @LastEditors: sunji 2025506282@qq.com
- * @LastEditTime: 2022-11-30 11:10:47
+ * @LastEditTime: 2022-12-06 16:28:36
  * @FilePath: \back-end\src\models\index.ts
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  */
@@ -12,4 +12,5 @@ export * from "./user.model";
 export * from "./file.model";
 export * from "./article.model";
 export * from "./message.model";
+export * from "./comment.model";
 // export * from "./email.model";

@@ -2,14 +2,13 @@
  * @Author: sunji 2025506282@qq.com
  * @Date: 2022-08-19 14:10:43
  * @LastEditors: sunji 2025506282@qq.com
- * @LastEditTime: 2022-12-01 10:46:36
+ * @LastEditTime: 2022-12-08 15:15:43
  * @FilePath: \front-end\src\pages\healthy\HealthyPage.vue
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
 -->
 <template>
   <header-comp></header-comp>
   <a-spin tip="Loading..." :spinning="loading">
-    <comment-comp></comment-comp>
     <div class="article-detail-box">
       <div class="operation-box" v-if="!article?.isDraft">
         <ul>
@@ -55,6 +54,9 @@
       </div>
       <img :src="article?.cover" class="cover" v-if="article?.cover" />
       <div class="content" v-html="article?.content"></div>
+      <comment-comp
+        @handleClickPublishComment="handleClickPublishComment"
+      ></comment-comp>
     </div>
   </a-spin>
 </template>
@@ -62,7 +64,13 @@
 <script lang="ts">
 import { LikeFilled, MessageFilled, StarFilled } from "@ant-design/icons-vue"
 
-import { getArticleAPI, IArticle, updateArticleAPI } from "@/apis"
+import {
+  IArticle,
+  getArticleAPI,
+  updateArticleAPI,
+  createCommentAPI,
+  getCommentListByArticleAPI,
+} from "@/apis"
 import { defineComponent, onMounted, onUnmounted, ref } from "vue"
 import { useRoute } from "vue-router"
 export default defineComponent({
@@ -75,11 +83,26 @@ export default defineComponent({
     const refEditComp = ref(null) as any
     const route = useRoute()
     const article = ref<IArticle>()
+    const user = ref()
     const loading = ref(true)
     // 用户点击发布
     const handlePublish = () => {
       if (refEditComp.value) {
         console.log(this, refEditComp.value.content)
+      }
+    }
+    // 用户点击发布评论
+    const handleClickPublishComment = (content: string) => {
+      user.value = JSON.parse(localStorage.getItem("user") as string) || ""
+      try {
+        const result = createCommentAPI({
+          userId: user.value._id,
+          articleId: (article?.value?._id as string) || "",
+          content,
+        })
+        console.log("result:", result)
+      } catch (err) {
+        //
       }
     }
     // 用户点击点赞
@@ -108,6 +131,15 @@ export default defineComponent({
         //
       }
     }
+    const getCommentListByArticle = async (id: string) => {
+      try {
+        loading.value = true
+        await getCommentListByArticleAPI(id)
+        loading.value = false
+      } catch (err) {
+        //
+      }
+    }
     const updateArticle = async () => {
       try {
         const { watchNum = 0 } = article.value as IArticle
@@ -122,6 +154,7 @@ export default defineComponent({
     onMounted(() => {
       const id = route.params.id as string
       getArticle(id)
+      getCommentListByArticle(id)
     })
     onUnmounted(() => {
       updateArticle()
@@ -132,6 +165,7 @@ export default defineComponent({
       handleClickLike,
       handleClickCollect,
       handlePublish,
+      handleClickPublishComment,
       refEditComp,
     }
   },

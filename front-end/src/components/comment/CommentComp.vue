@@ -2,7 +2,7 @@
  * @Author: sunji 2025506282@qq.com
  * @Date: 2022-07-18 15:25:16
  * @LastEditors: sunji 2025506282@qq.com
- * @LastEditTime: 2022-12-05 16:32:11
+ * @LastEditTime: 2022-12-08 13:51:44
  * @FilePath: \front-end\src\pages\animate\WordPage.vue
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
 -->
@@ -44,15 +44,14 @@
         </div>
       </div>
     </div>
-    <TestComment />
-    <!-- <div v-for="item in commentList" :key="item.id">
+    <div v-for="item in commentList" :key="item.id">
       <comment-item-comp :commnetItem="item"></comment-item-comp>
-    </div> -->
+    </div>
   </div>
 </template>
 <script lang="ts">
-import { defineComponent, reactive, ref } from "vue"
-import { COMMENT_LIST } from "./components"
+import { defineComponent, onMounted, PropType, reactive, ref } from "vue"
+import { COMMENT_LIST, IComment } from "./components"
 import EmotionComp from "./components/emotion/EmotionComp.vue"
 import ImageComp from "./components/image/ImageComp.vue"
 export default defineComponent({
@@ -61,12 +60,22 @@ export default defineComponent({
     EmotionComp,
     // "comment-item-comp": CommentItemComp,
   },
+  props: {
+    commentList: {
+      type: Array as PropType<IComment[]>,
+      default: () => [],
+    },
+  },
   setup(props, { emit }) {
     const content = ref(``)
     const inputComment = ref()
+    const user = ref()
     const commentForm: any = reactive({
       selection: null,
       rangeAt: null,
+    })
+    onMounted(() => {
+      user.value = JSON.parse(localStorage.getItem("user") as string)
     })
 
     const handleClickImage = (image: string) => {
@@ -75,8 +84,9 @@ export default defineComponent({
     }
     // 用户点击发表评论
     const handleClickPublishComment = () => {
-      emit("handleClickPublishComment", inputComment.value.innerHTML)
-      // console.log("inputComment:", inputComment.value.innerHTML)
+      if (inputComment.value.innerHTML) {
+        emit("handleClickPublishComment", inputComment.value.innerHTML)
+      }
     }
     const addDom = (dom: string) => {
       if (window.getSelection()) {
@@ -135,19 +145,16 @@ export default defineComponent({
       handleClickEmotion,
       handleClickImage,
       handleClickPublishComment,
-      commentList: COMMENT_LIST,
     }
   },
 })
 </script>
 
 <style lang="scss" scoped>
-.comment-box {
+.my-comment-box {
   background-color: #fff;
-  width: 820px;
   margin: 20px auto;
   padding-bottom: 30px;
-  padding: 20px;
   text-align: left;
   .comment-input-box {
     display: flex;
@@ -163,7 +170,6 @@ export default defineComponent({
       line-height: 22px;
       font-size: 16px;
       color: #252933;
-      cursor: pointer;
       // background: #c2c8d1;
       border-color: #1e80ff;
       background: #fff;

@@ -2,20 +2,27 @@
  * @Author: sunji 2025506282@qq.com
  * @Date: 2022-09-07 15:55:10
  * @LastEditors: sunji 2025506282@qq.com
- * @LastEditTime: 2022-12-01 09:58:22
+ * @LastEditTime: 2022-12-08 09:33:15
  * @FilePath: \back-end\src\models\file.model.ts
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  */
 import { model, Schema } from "mongoose";
+
+export interface ICommentForm {
+  keyWord?: string;
+  pageIndex?: number;
+  pageSize?: number;
+  articleId?: string;
+}
 export interface IComment {
   userId: string;
   articleId: string;
-  children?: IComment[];
-  message: string;
-  parentId: string;
+  content: string;
+  parentId?: string;
   likeUsers?: string[];
   dislikeUsers?: string[];
   collectUsers?: string[];
+  children?: IComment[];
   // commentsUsers: IUser[];
 }
 const emailSchema = new Schema(
@@ -28,13 +35,13 @@ const emailSchema = new Schema(
       type: String,
       required: true,
     },
-    message: {
+    content: {
       type: String,
       required: true,
     },
     parentId: {
       type: String,
-      required: true,
+      required: false,
     },
   },
   {

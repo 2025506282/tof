@@ -213,6 +213,118 @@
 					}
 				]
 			},
+			"IComment": {
+				"properties": {
+					"userId": {
+						"type": "string"
+					},
+					"articleId": {
+						"type": "string"
+					},
+					"content": {
+						"type": "string"
+					},
+					"parentId": {
+						"type": "string"
+					},
+					"likeUsers": {
+						"items": {
+							"type": "string"
+						},
+						"type": "array"
+					},
+					"dislikeUsers": {
+						"items": {
+							"type": "string"
+						},
+						"type": "array"
+					},
+					"collectUsers": {
+						"items": {
+							"type": "string"
+						},
+						"type": "array"
+					},
+					"children": {
+						"items": {
+							"$ref": "#/components/schemas/IComment"
+						},
+						"type": "array"
+					}
+				},
+				"required": [
+					"userId",
+					"articleId",
+					"content"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"IRes_IComment_": {
+				"properties": {
+					"code": {
+						"type": "number",
+						"format": "double"
+					},
+					"msg": {
+						"type": "string"
+					},
+					"data": {
+						"$ref": "#/components/schemas/IComment"
+					}
+				},
+				"required": [
+					"code",
+					"msg",
+					"data"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"IGolbalResponse_IComment_": {
+				"anyOf": [
+					{
+						"$ref": "#/components/schemas/IRes_IComment_"
+					},
+					{
+						"$ref": "#/components/schemas/IRes_string_"
+					}
+				]
+			},
+			"IRes_IComment-Array_": {
+				"properties": {
+					"code": {
+						"type": "number",
+						"format": "double"
+					},
+					"msg": {
+						"type": "string"
+					},
+					"data": {
+						"items": {
+							"$ref": "#/components/schemas/IComment"
+						},
+						"type": "array"
+					}
+				},
+				"required": [
+					"code",
+					"msg",
+					"data"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"IGolbalResponse_IComment-Array_": {
+				"anyOf": [
+					{
+						"$ref": "#/components/schemas/IRes_IComment-Array_"
+					},
+					{
+						"$ref": "#/components/schemas/IRes_string_"
+					}
+				]
+			},
 			"IRes_any_": {
 				"properties": {
 					"code": {
@@ -323,6 +435,9 @@
 						"type": "string"
 					},
 					"password": {
+						"type": "string"
+					},
+					"logo": {
 						"type": "string"
 					}
 				},
@@ -545,6 +660,83 @@
 						"required": true,
 						"schema": {
 							"type": "string"
+						}
+					}
+				]
+			}
+		},
+		"/comment/upload": {
+			"post": {
+				"operationId": "CreatComment",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/IGolbalResponse_IComment_"
+								}
+							}
+						}
+					}
+				},
+				"security": [],
+				"parameters": [],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/IComment"
+							}
+						}
+					}
+				}
+			}
+		},
+		"/comment/{articleId}": {
+			"get": {
+				"operationId": "Get",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/IGolbalResponse_IComment-Array_"
+								}
+							}
+						}
+					}
+				},
+				"security": [],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "articleId",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "query",
+						"name": "pageSize",
+						"required": false,
+						"schema": {
+							"default": 20,
+							"format": "double",
+							"type": "number"
+						}
+					},
+					{
+						"in": "query",
+						"name": "pageIndex",
+						"required": false,
+						"schema": {
+							"default": 1,
+							"format": "double",
+							"type": "number"
 						}
 					}
 				]

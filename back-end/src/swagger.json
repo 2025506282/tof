@@ -425,6 +425,9 @@
 			},
 			"IUser": {
 				"properties": {
+					"_id": {
+						"type": "string"
+					},
 					"email": {
 						"type": "string"
 					},

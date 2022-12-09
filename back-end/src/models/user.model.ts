@@ -11,6 +11,7 @@ import { model, Schema } from "mongoose";
 import { getServerIPAdress } from "../utils";
 
 export interface IUser {
+  _id?: string;
   email: string;
   isDelete?: boolean;
   code?: string;

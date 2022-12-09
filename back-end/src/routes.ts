@@ -205,6 +205,7 @@ const models: TsoaRoute.Models = {
     "IUser": {
         "dataType": "refObject",
         "properties": {
+            "_id": {"dataType":"string"},
             "email": {"dataType":"string","required":true},
             "isDelete": {"dataType":"boolean"},
             "code": {"dataType":"string"},

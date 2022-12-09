@@ -2,7 +2,7 @@
  * @Author: sunji 2025506282@qq.com
  * @Date: 2022-08-19 14:10:43
  * @LastEditors: sunji 2025506282@qq.com
- * @LastEditTime: 2022-12-08 15:15:43
+ * @LastEditTime: 2022-12-09 09:20:40
  * @FilePath: \front-end\src\pages\healthy\HealthyPage.vue
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
 -->
@@ -92,10 +92,10 @@ export default defineComponent({
       }
     }
     // 用户点击发布评论
-    const handleClickPublishComment = (content: string) => {
+    const handleClickPublishComment = async (content: string) => {
       user.value = JSON.parse(localStorage.getItem("user") as string) || ""
       try {
-        const result = createCommentAPI({
+        const result = await createCommentAPI({
           userId: user.value._id,
           articleId: (article?.value?._id as string) || "",
           content,
@@ -131,6 +131,7 @@ export default defineComponent({
         //
       }
     }
+    // 获取文章下的所有评论
     const getCommentListByArticle = async (id: string) => {
       try {
         loading.value = true
@@ -140,6 +141,7 @@ export default defineComponent({
         //
       }
     }
+    // 更新文章
     const updateArticle = async () => {
       try {
         const { watchNum = 0 } = article.value as IArticle

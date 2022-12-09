@@ -481,6 +481,7 @@ export function RegisterRoutes(app: express.Router) {
 
             function UsersController_createUser(request: any, response: any, next: any) {
             const args = {
+                    req: {"in":"request","name":"req","required":true,"dataType":"object"},
                     requestBody: {"in":"body","name":"requestBody","required":true,"ref":"IUser"},
             };
 

@@ -239,6 +239,29 @@ export function RegisterRoutes(app: express.Router) {
     //  NOTE: If you do not see routes for all of your controllers in this file, then you might not have informed tsoa of where to look
     //      Please look into the "controllerPathGlobs" config option described in the readme: https://github.com/lukeautry/tsoa
     // ###########################################################################################################
+        app.get('/articles/test',
+
+            function ArticleController_test(request: any, response: any, next: any) {
+            const args = {
+                    req: {"in":"request","name":"req","required":true,"dataType":"object"},
+            };
+
+            // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+
+            let validatedArgs: any[] = [];
+            try {
+                validatedArgs = getValidatedArgs(args, request, response);
+
+                const controller = new ArticleController();
+
+
+              const promise = controller.test.apply(controller, validatedArgs as any);
+              promiseHandler(controller, promise, response, undefined, next);
+            } catch (err) {
+                return next(err);
+            }
+        });
+        // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
         app.post('/articles/upload',
 
             function ArticleController_creatArticle(request: any, response: any, next: any) {
@@ -289,6 +312,7 @@ export function RegisterRoutes(app: express.Router) {
 
             function ArticleController_getList(request: any, response: any, next: any) {
             const args = {
+                    req: {"in":"request","name":"req","required":true,"dataType":"object"},
                     keyWord: {"in":"query","name":"keyWord","required":true,"dataType":"string"},
                     pageSize: {"in":"query","name":"pageSize","required":true,"dataType":"double"},
                     pageIndex: {"in":"query","name":"pageIndex","required":true,"dataType":"double"},
@@ -315,6 +339,7 @@ export function RegisterRoutes(app: express.Router) {
 
             function ArticleController_getArticle(request: any, response: any, next: any) {
             const args = {
+                    req: {"in":"request","name":"req","required":true,"dataType":"object"},
                     articleId: {"in":"path","name":"articleId","required":true,"dataType":"string"},
             };
 

@@ -498,6 +498,23 @@
 	},
 	"openapi": "3.0.0",
 	"paths": {
+		"/articles/test": {
+			"get": {
+				"operationId": "Test",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {}
+							}
+						}
+					}
+				},
+				"security": [],
+				"parameters": []
+			}
+		},
 		"/articles/upload": {
 			"post": {
 				"operationId": "CreatArticle",

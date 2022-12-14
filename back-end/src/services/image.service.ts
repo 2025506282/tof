@@ -35,7 +35,7 @@ export class ImageService {
       multerSingle(
         req,
         undefined as unknown as express.Response,
-        async (error) => {
+        async (error: any) => {
           if (error) {
             reject(error);
           }

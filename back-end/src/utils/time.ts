@@ -11,7 +11,6 @@ const time = [
   "2022-08-20 13:19:00",
   "2022-08-20 16:19:22",
 ]; //比较两个时间相差的小时
-import { fa } from "element-plus/lib/locale";
 import { config } from "../config/default";
 export function isExpire(
   time1: Date | string,

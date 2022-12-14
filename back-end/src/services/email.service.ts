@@ -27,7 +27,7 @@ export class EmailService {
   constructor() {
     this.transporter = nodemailer.createTransport(config.email.options);
   }
-  public async sendMail(info: { email: string }): Promise<boolean> {
+  public async sendMail(info: { email: string }): Promise<any> {
     let user = config.email.user; // 自己的邮箱
     let to = info.email; // 对方的邮箱
     const code = getRandomCode();

@@ -16,10 +16,10 @@ import { MessageService } from "./message.service";
 export class UsersService {
   public async login(user: IUser): Promise<string | IUser> {
     if (user.code) {
-      const result = await User.findOne({
+      const result: any = await User.findOne({
         email: user.email,
         code: user.code,
-      });
+      }) as unknown as IUser;
       if (!result) {
         return "验证码或邮箱错误";
       }
@@ -31,10 +31,10 @@ export class UsersService {
       }
       return result;
     } else {
-      const result = await User.findOne(
+      const result: any = await User.findOne(
         { email: user.email },
         { password: user.password }
-      );
+      ) as unknown as IUser;
       if (!result) {
         return "邮箱或密码错误";
       }

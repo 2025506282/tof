@@ -35,7 +35,7 @@ export class MessageService {
   }
   public async create(message: IMessage): Promise<IMessage> {
     const result = Message.create(message);
-    return result;
+    return result as unknown as IMessage;
   }
   public async cretatePasswordMessage(userId: string): Promise<IMessage> {
     const findOne = Message.findOne({
@@ -49,8 +49,8 @@ export class MessageService {
         content: `还没有设置密码，是否前往设置<a href="https://www.baidu.com"></a>`,
         isDelete: false,
       });
-      return result;
+      return result as unknown as IMessage;
     }
-    return findOne;
+    return findOne as unknown as IMessage;
   }
 }

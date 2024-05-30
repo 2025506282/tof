@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    @page {
+      margin: 20mm;
+    }
+  </style>
+  
+</head>
+<body>
+  <div class="print-box">
+    <div class="content">
+      <h2>
+        PDF转换成Word (.do PDF转换成Word (.do PDF转换成Word (.do PDF转换成Word
+        (.do PDF转换成Word (.do PDF转换成Word (.do PDF转换成Word (.do
+        PDF转换成Word (.do PDF转换成Word (.docx, .doc)<img
+          src="@/assets/images/logo/word.svg"
+        />
+      </h2>
+      <p>PDF转换成Word (.docx, .doc)</p>
+    </div>
+    <div class="content">
+      <h2>
+        PDF转换成Word (.docx, .doc)<img src="@/assets/images/logo/word.svg" />
+      </h2>
+      <p>PDF转换成Word (.docx, .doc)</p>
+    </div>
+    <div class="page-footer"></div>
+  </div>
+  <script>
+    setTimeout(() => {
+      var curURL = window.location.href;
+      // window.location.href = ''
+      history.replaceState(history.state, '', '/');
+      window.print();
+      history.replaceState(history.state, '', curURL);
+    }, 300);
+  </script>
+</body>
+</html>

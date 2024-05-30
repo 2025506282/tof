@@ -20,13 +20,17 @@
 import { defineComponent, onMounted, ref } from "vue"
 import networkConfig from '@/config/default/net.config'
 import { readExcelFile } from "@/utils"
+import ExcelJS from 'exceljs'
 export default defineComponent({
     setup() {
         onMounted(() => {
+            const workbook = new ExcelJS.Workbook();
+
             const data = readExcelFile('http://localhost:8080/excel/people.xlsx')
             console.log('data:', data)
         })
         return {
+            jsondata: {},
             fileList: ref([]),
             serviceUrl: networkConfig.host + "/pdf/uploadFile"
         }

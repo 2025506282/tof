@@ -10,10 +10,10 @@ import { RootObject } from "@/apis/rootObject"
 import { IUserForm, IUser } from "./user.model"
 
 export const sendCodeAPI = async (email: string): Promise<boolean> => {
-  const { data } = await post<RootObject<boolean>>("email/send", { email })
+  const { data } = await post<RootObject<boolean>>("api/email/send", { email })
   return data
 }
 
 export const loginAPI = async (form: IUserForm): Promise<RootObject<IUser>> => {
-  return await post<RootObject<IUser>>("users/login", form)
+  return await post<RootObject<IUser>>("api/user/login", form)
 }

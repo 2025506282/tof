@@ -10,6 +10,6 @@ import { RootObject } from "@/apis/rootObject"
 import { IMessage } from "./message.model"
 
 export const getMessageListAPI = async (): Promise<IMessage[]> => {
-  const { data } = await get<RootObject<IMessage[]>>("message/list")
+  const { data } = await get<RootObject<IMessage[]>>("api/message/list")
   return data
 }

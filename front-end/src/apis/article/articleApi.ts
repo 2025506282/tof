@@ -20,22 +20,22 @@ import { articleDeserialize } from "./article.deserizlise"
 export const getArticleListAPI = async (
   params: IArticleSearchForm,
 ): Promise<IArticle[]> => {
-  const { data } = await get<RootObject<IArticleDTO[]>>("articles/list", params)
+  const { data } = await get<RootObject<IArticleDTO[]>>("api/articles", params)
   return articleListSerialize(data)
 }
 export const deleteArticleAPI = async (id: string) => {
-  const { data } = await deleteA<RootObject<IArticle>>(`articles/${id}`)
+  const { data } = await deleteA<RootObject<IArticle>>(`api/articles/${id}`)
   return data
 }
 export const createArticleAPI = async (params: IArticle) => {
-  const { data } = await post<RootObject<IArticle>>("articles/upload", params)
+  const { data } = await post<RootObject<IArticle>>("api/articles", params)
   console.log("data:", data)
   return articleSerialize(data)
 }
 export const updateArticleAPI = async (params: IArticle) => {
   if (params._id) {
     const { data } = await post<RootObject<IArticle>>(
-      "articles/update",
+      "api/articles/update",
       articleDeserialize(params),
     )
     return articleSerialize(data)
@@ -43,7 +43,7 @@ export const updateArticleAPI = async (params: IArticle) => {
   return await createArticleAPI(articleDeserialize(params))
 }
 export const getArticleAPI = async (id: string): Promise<IArticle> => {
-  const { data } = await get<RootObject<IArticleDTO>>(`articles/${id}`)
+  const { data } = await get<RootObject<IArticleDTO>>(`api/articles/${id}`)
   return articleSerialize(data)
 }
 
@@ -51,7 +51,7 @@ export const getArticleAPI = async (id: string): Promise<IArticle> => {
 export const createCommentAPI = async (
   form: ICommentForm,
 ): Promise<RootObject<boolean>> => {
-  return await post<RootObject<boolean>>("comment/upload", form)
+  return await post<RootObject<boolean>>("api/comment/upload", form)
 }
 
 // 获取评论列表

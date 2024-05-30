@@ -13,6 +13,7 @@ declare module "*.vue" {
   export default component
 }
 declare module "vue-matrix-digit-rain"
+declare module "html2pdf-2img"
 declare module "vue-ue-sdk"
 declare module "vue3-ue-sdk"
 declare module "vue-cesium"
@@ -22,6 +23,7 @@ declare module "fs-extra"
 declare module "file-saver"
 declare module "tinymce/tinymce"
 declare module "express-session"
+declare module "vue-excel-editor"
 // declare module "three"
 declare const window: any
 

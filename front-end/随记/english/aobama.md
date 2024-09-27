@@ -1,5 +1,4 @@
-Hello, everybody! Thank you. Thank you. Thank you, everybody.
-
+Hello, everybody! Thank you. Thank you. Thank you, everybody.555]]]']]\
 嗨，大家好！谢谢你们，谢谢大家。
 
 All right, everybody go ahead and have a seat.

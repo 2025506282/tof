@@ -139,6 +139,11 @@ const routes: Array<RouteRecordRaw> = [
     component: () => import("../pages/three/TestPage.vue"),
   },
   {
+    path: "/test",
+    name: "test",
+    component: () => import("../pages/test/TestPage.vue"),
+  },
+  {
     path: "/animate-word",
     name: "word",
     component: () => import("../pages/animate/WordPage.vue"),

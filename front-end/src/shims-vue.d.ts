@@ -24,6 +24,7 @@ declare module "file-saver"
 declare module "tinymce/tinymce"
 declare module "express-session"
 declare module "vue-excel-editor"
+declare module "element"
 // declare module "three"
 declare const window: any
 

@@ -52,7 +52,7 @@ export default defineComponent({
   mounted() {
     this.typing()
   },
-  destory() {
+  unmounted() {
     clearTimeout(this.timer)
   },
 })

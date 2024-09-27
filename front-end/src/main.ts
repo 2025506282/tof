@@ -16,15 +16,16 @@ import "@/styles/index.scss"
 import VueCesium from "vue-cesium"
 import components from "./components" // 引入公共组件
 import "@/utils/rem"
-// import Vue from 'vue'
 import VueExcelEditor from 'vue-excel-editor'
-
-// Vue.use(VueExcelEditor)
+import ElementPlus from 'element-plus'
+import 'element-plus/dist/index.css'
 createApp(App)
+
   .use(components)
   .use(VueCesium)
   .use(vueUeSdk)
   .use(Antd)
+  .use(ElementPlus)
   .use(router)
   .use(VueExcelEditor)
   .mount("#app")
